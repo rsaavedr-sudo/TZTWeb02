@@ -2,6 +2,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import RiskInversion from './components/RiskInversion';
 import DataProblem from './components/DataProblem';
 import Innovation from './components/Innovation';
 import TargetAudience from './components/TargetAudience';
@@ -17,10 +18,11 @@ const App: React.FC = () => {
       <Navbar />
       <main className="flex-grow">
         <Hero />
-        <DataProblem />
+        <RiskInversion />
         <Innovation />
         <Solutions />
         <EfficiencyCalculator />
+        <DataProblem />
         <TargetAudience />
         <Consulting />
         <ContactForm />

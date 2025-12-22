@@ -1,26 +1,26 @@
 
 import React from 'react';
-import { ArrowRight, BarChart, ShieldAlert, LineChart, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, BarChart, ShieldAlert, LineChart } from 'lucide-react';
 
 const consultingData = [
   {
     title: "Inteligencia de Negocio",
-    desc: "Resolvemos la baja previsibilidad financiera y la ineficiencia comercial con consultoría en KPIs y ROI real.",
-    image: "https://images.unsplash.com/photo-1551288049-bbda4833effb?q=80&w=1470&auto=format&fit=crop",
+    desc: "Análisis profundo de KPIs para maximizar la rentabilidad de su operación masiva con dashboards en tiempo real.",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e5381bb03?q=80&w=1470&auto=format&fit=crop",
     icon: <BarChart className="text-white" size={22} />,
     color: "bg-tzero-blue"
   },
   {
     title: "Riesgo & Regulación",
-    desc: "Cumplimiento total con ANATEL y LGPD. Eliminamos el riesgo técnico y jurídico de su operación masiva.",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1470&auto=format&fit=crop",
+    desc: "Consultoría experta para garantizar que su escala masiva cumpla con todas las normativas internacionales de privacidad.",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1374&auto=format&fit=crop",
     icon: <ShieldAlert className="text-white" size={22} />,
     color: "bg-tzero-navy"
   },
   {
     title: "Auditoría Operacional",
-    desc: "Tratamiento y clasificación de leads (MQL/SQL) para que su equipo humano solo hable con quien importa.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1426&auto=format&fit=crop",
+    desc: "Equipos de alto rendimiento revisando procesos para garantizar que cada contacto transferido sea una oportunidad real.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop",
     icon: <LineChart className="text-white" size={22} />,
     color: "bg-slate-600"
   }
@@ -34,11 +34,11 @@ const Consulting: React.FC = () => {
           <div className="max-w-2xl">
             <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Propósito Estratégico</span>
             <h2 className="text-4xl lg:text-6xl font-black text-tzero-navy tracking-tight leading-[0.95]">
-              Resolvemos los <br /> <span className="text-tzero-blue">Gargalos</span> Operativos.
+              Eficiencia que genera <br /> <span className="text-tzero-blue">Optimismo.</span>
             </h2>
           </div>
           <p className="text-slate-500 text-lg font-medium max-w-sm leading-relaxed border-l-4 border-tzero-blue pl-8">
-            Alineamos tecnología, negocio y cumplimiento normativo en un sistema inteligente y transparente.
+            Nuestra consultoría une tecnología y capital humano para crear operaciones de contacto masivo sin precedentes.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ const Consulting: React.FC = () => {
                 <img 
                   src={item.image} 
                   alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0"
                 />
                 <div className={`absolute top-8 left-8 ${item.color} p-5 rounded-2xl shadow-2xl`}>
                   {item.icon}
