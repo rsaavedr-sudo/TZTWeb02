@@ -1,0 +1,62 @@
+
+import React from 'react';
+import { Zap, Linkedin, Instagram, Globe, Mail } from 'lucide-react';
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-tzero-soft pt-24 pb-12 border-t border-slate-100">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-20">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="bg-tzero-navy p-2 rounded-xl shadow-lg">
+                <Zap className="text-white w-6 h-6" fill="currentColor" />
+              </div>
+              <span className="text-2xl font-black text-tzero-navy tracking-tighter">T-ZERO<span className="text-tzero-blue">TECH</span></span>
+            </div>
+            <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-10 text-sm">
+              Especialistas en contacto masivo eficiente. Tecnología proprietaria para transformar la comunicación a gran escala en rentabilidad real.
+            </p>
+            <div className="flex gap-4">
+              {[Linkedin, Instagram, Globe, Mail].map((Icon, i) => (
+                <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-tzero-blue hover:border-tzero-blue transition-all shadow-sm hover:shadow-xl">
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {[
+            { title: "Soluciones", links: ["ZeroLoss CPC", "Smart Route", "Leads360", "Analytics"] },
+            { title: "Empresa", links: ["Propósito", "Tecnología", "ROI", "Consultoría"] },
+            { title: "Global", links: ["São Paulo", "Madrid", "Austin", "Lisboa"] }
+          ].map((col, i) => (
+            <div key={i}>
+              <h4 className="font-black text-tzero-navy mb-8 uppercase tracking-[0.2em] text-[10px] opacity-80">{col.title}</h4>
+              <ul className="space-y-4">
+                {col.links.map(link => (
+                  <li key={link}>
+                    <a href="#" className="text-slate-500 font-bold hover:text-tzero-blue transition-colors text-xs tracking-tight">{link}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="pt-10 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-slate-400 font-black text-[10px] uppercase tracking-[0.2em]">
+            &copy; {new Date().getFullYear()} T-ZERO TECH. TODOS LOS DERECHOS RESERVADOS.
+          </p>
+          <div className="flex items-center gap-8 text-slate-400 font-bold text-[10px] uppercase tracking-[0.1em]">
+            <a href="#" className="hover:text-tzero-blue transition-colors">Privacidad</a>
+            <a href="#" className="hover:text-tzero-blue transition-colors">Términos</a>
+            <a href="#" className="hover:text-tzero-blue transition-colors">Compliance</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
