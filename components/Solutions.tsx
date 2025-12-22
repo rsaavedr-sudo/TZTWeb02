@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, Zap, Users, ArrowRight, Activity, Database, Sparkles } from 'lucide-react';
+import { ShieldCheck, Zap, Users, ArrowRight, Activity, Database, Sparkles, MessageSquareText } from 'lucide-react';
 
 const products = [
   {
@@ -26,10 +26,10 @@ const products = [
     id: "leads360",
     title: "Leads360",
     tag: "Inteligência de Leads",
-    desc: "Tratamento e classificação inteligente (MQL/SQL). Não entregamos listas; entregamos leads tratados e prontos para a venda.",
-    benefits: ["Captação híbrida", "Integração com CRMs/Chats", "Classificação automática"],
-    icon: <Database className="text-white" size={32} />,
-    color: "bg-slate-700"
+    desc: "Modelo de captación híbrida y tratamiento inteligente. Opera campañas multifuente, reduce la dependencia del tráfico pago y clasifica leads antes de llegar al humano.",
+    benefits: ["Preclasificación MQL/SQL", "Integración Chat (ManyChat/Umber)", "Tratamiento Multifuente"],
+    icon: <MessageSquareText className="text-white" size={32} />,
+    color: "bg-[#1E293B]"
   }
 ];
 
