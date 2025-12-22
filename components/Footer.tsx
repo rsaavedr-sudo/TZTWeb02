@@ -8,9 +8,15 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-24">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-8">
-               <span className="text-2xl font-extrabold text-[#022c5e] tracking-tight">
-                  T-ZERO<span className="text-tzero-blue font-light">TECH</span>
+            <div className="flex items-center gap-3 mb-8">
+               <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                 <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28" stroke="#022c5e" strokeWidth="4" strokeLinecap="round"/>
+                    <path d="M16 4C22.6274 4 28 9.37258 28 16" stroke="#10b981" strokeWidth="4" strokeLinecap="round"/>
+                 </svg>
+               </div>
+               <span className="text-2xl font-extrabold text-[#022c5e] tracking-tighter">
+                  T-ZERO<span className="text-tzero-blue font-light ml-1">TECH</span>
                </span>
             </div>
             <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-10 text-sm">
