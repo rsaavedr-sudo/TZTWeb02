@@ -36,7 +36,8 @@ const RiskInversion: React.FC = () => {
           ].map((item, i) => (
             <div key={i} className="bg-white border border-slate-100 p-12 rounded-[2.5rem] hover:shadow-2xl hover:shadow-blue-900/5 transition-all group">
               <div className="mb-8 w-16 h-16 rounded-2xl bg-tzero-soft flex items-center justify-center group-hover:bg-tzero-blue group-hover:text-white transition-colors">
-                {React.cloneElement(item.icon as React.ReactElement, { className: 'transition-colors' })}
+                {/* Fixed type error by casting to React.ReactElement<any> to allow additional props */}
+                {React.cloneElement(item.icon as React.ReactElement<any>, { className: 'transition-colors' })}
               </div>
               <h3 className="text-2xl font-black text-[#022c5e] mb-4 tracking-tight">{item.title}</h3>
               <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>

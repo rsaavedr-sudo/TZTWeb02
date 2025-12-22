@@ -33,7 +33,8 @@ const TargetAudience: React.FC = () => {
             {targets.map((t, idx) => (
               <div key={idx} className="flex gap-6 group">
                 <div className="flex-shrink-0 bg-tzero-soft w-14 h-14 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-tzero-blue group-hover:text-white transition-all shadow-sm">
-                  {React.cloneElement(t.icon as React.ReactElement, { size: 28, className: 'group-hover:text-white transition-colors' })}
+                  {/* Fixed type error by casting to React.ReactElement<any> to allow additional props */}
+                  {React.cloneElement(t.icon as React.ReactElement<any>, { size: 28, className: 'group-hover:text-white transition-colors' })}
                 </div>
                 <div>
                   <h4 className="text-xl font-black text-tzero-navy mb-1 tracking-tight">{t.title}</h4>

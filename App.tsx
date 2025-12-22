@@ -19,10 +19,14 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero />
         <RiskInversion />
-        <Innovation />
-        <Solutions />
-        <EfficiencyCalculator />
+        {/* Seção Problema (#problema) */}
         <DataProblem />
+        {/* Seção Inovação (#tecnologia) */}
+        <Innovation />
+        {/* Seção Soluções (#soluções) */}
+        <Solutions />
+        {/* Seção Calculadora (#roi) */}
+        <EfficiencyCalculator />
         <TargetAudience />
         <Consulting />
         <ContactForm />
