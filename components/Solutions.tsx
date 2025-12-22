@@ -8,26 +8,26 @@ const products = [
     title: "ZeroLoss",
     highlight: true,
     tag: "Foco Principal",
-    desc: "Reemplaza el cobro por minutos. Usted paga exclusivamente cuando un contacto humano efectivo es transferido a su operación.",
-    benefits: ["Custo por Contato (CPC)", "Previsibilidad Financiera", "Eliminación de desperdicio"],
+    desc: "Substitui a cobrança por minutos. Você paga exclusivamente quando um contato humano efetivo é transferido para sua operação.",
+    benefits: ["Custo por Contato (CPC)", "Previsibilidade Financeira", "Eliminação de desperdício"],
     icon: <Users className="text-white" size={32} />,
     color: "bg-tzero-blue"
   },
   {
     id: "smartroute",
     title: "Smart Route",
-    tag: "Infraestructura",
-    desc: "Ruta inteligente diseñada para alto flujo. Clasificación avanzada y decisiones técnicas en tiempo real para máxima estabilidad.",
-    benefits: ["Optimización de grandes volúmenes", "Estabilidad operativa", "Decisiones en real-time"],
+    tag: "Infraestrutura",
+    desc: "Rota inteligente desenhada para alto fluxo. Classificação avançada e decisões técnicas em tempo real para máxima estabilidade.",
+    benefits: ["Otimização de grandes volumes", "Estabilidade operacional", "Decisões em real-time"],
     icon: <Zap className="text-white" size={32} />,
     color: "bg-tzero-navy"
   },
   {
     id: "leads360",
     title: "Leads360",
-    tag: "Inteligencia de Leads",
-    desc: "Tratamiento y clasificación inteligente (MQL/SQL). No entregamos listas; entregamos leads tratados y listos para la venta.",
-    benefits: ["Captación híbrida", "Integración con CRMs/Chats", "Clasificación automática"],
+    tag: "Inteligência de Leads",
+    desc: "Tratamento e classificação inteligente (MQL/SQL). Não entregamos listas; entregamos leads tratados e prontos para a venda.",
+    benefits: ["Captação híbrida", "Integração com CRMs/Chats", "Classificação automática"],
     icon: <Database className="text-white" size={32} />,
     color: "bg-slate-700"
   }
@@ -38,12 +38,12 @@ const Solutions: React.FC = () => {
     <div className="py-24 bg-tzero-soft" id="soluções">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.3em] mb-4 block">Nuestro Portafolio</span>
+          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.3em] mb-4 block">Nosso Portfólio</span>
           <h2 className="text-4xl lg:text-5xl font-black text-tzero-navy mb-6 tracking-tight leading-none">
-            El Ecosistema <span className="text-tzero-blue">T-Zero</span>
+            O Ecossistema <span className="text-tzero-blue">T-Zero</span>
           </h2>
           <p className="text-slate-500 text-lg font-medium leading-relaxed">
-            Tres soluciones integradas para transformar su comunicación masiva en un sistema inteligente, transparente y escalable.
+            Três soluções integradas para transformar sua comunicação massiva em um sistema inteligente, transparente e escalável.
           </p>
         </div>
 

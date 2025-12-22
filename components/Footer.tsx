@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
               <span className="text-2xl font-black text-tzero-navy tracking-tighter">T-ZERO<span className="text-tzero-blue">TECH</span></span>
             </div>
             <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-10 text-sm">
-              Especialistas en contacto masivo eficiente. Tecnología proprietaria para transformar la comunicación a gran escala en rentabilidad real.
+              Especialistas em contato massivo eficiente. Tecnologia proprietária para transformar a comunicação em larga escala em rentabilidade real.
             </p>
             <div className="flex gap-4">
               {[Linkedin, Instagram, Globe, Mail].map((Icon, i) => (
@@ -35,9 +35,9 @@ const Footer: React.FC = () => {
           </div>
 
           {[
-            { title: "Soluciones", links: ["ZeroLoss CPC", "Smart Route", "Leads360", "Analytics"] },
-            { title: "Empresa", links: ["Propósito", "Tecnología", "ROI", "Consultoría"] },
-            { title: "Global", links: ["São Paulo", "Madrid", "Austin", "Lisboa"] }
+            { title: "Soluções", links: ["ZeroLoss CPC", "Smart Route", "Leads360", "Analytics"] },
+            { title: "Empresa", links: ["Propósito", "Tecnologia", "ROI", "Consultoria"] },
+            { title: "Global", links: ["São Paulo", "Madri", "Austin", "Lisboa"] }
           ].map((col, i) => (
             <div key={i}>
               <h4 className="font-black text-tzero-navy mb-8 uppercase tracking-[0.2em] text-[10px] opacity-60">{col.title}</h4>
@@ -54,11 +54,11 @@ const Footer: React.FC = () => {
 
         <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-slate-400 font-black text-[10px] uppercase tracking-[0.25em]">
-            &copy; {new Date().getFullYear()} T-ZERO TECH. TODOS LOS DERECHOS RESERVADOS.
+            &copy; {new Date().getFullYear()} T-ZERO TECH. TODOS OS DIREITOS RESERVADOS.
           </p>
           <div className="flex items-center gap-8 text-slate-400 font-bold text-[10px] uppercase tracking-[0.1em]">
-            <a href="#" className="hover:text-tzero-blue transition-colors">Privacidad</a>
-            <a href="#" className="hover:text-tzero-blue transition-colors">Términos</a>
+            <a href="#" className="hover:text-tzero-blue transition-colors">Privacidade</a>
+            <a href="#" className="hover:text-tzero-blue transition-colors">Termos</a>
             <a href="#" className="hover:text-tzero-blue transition-colors">Compliance</a>
           </div>
         </div>

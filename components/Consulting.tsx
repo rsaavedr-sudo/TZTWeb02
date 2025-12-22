@@ -4,23 +4,23 @@ import { ArrowRight, BarChart, ShieldAlert, LineChart } from 'lucide-react';
 
 const consultingData = [
   {
-    title: "Inteligencia de Negocio",
-    desc: "Análisis profundo de KPIs para maximizar la rentabilidad de su operación masiva con dashboards en tiempo real.",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e5381bb03?q=80&w=1470&auto=format&fit=crop",
+    title: "Inteligência de Negócio",
+    desc: "Análise profunda de KPIs para maximizar a rentabilidade da sua operação massiva com dashboards em tempo real.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
     icon: <BarChart className="text-white" size={22} />,
     color: "bg-tzero-blue"
   },
   {
-    title: "Riesgo & Regulación",
-    desc: "Consultoría experta para garantizar que su escala masiva cumpla con todas las normativas internacionales de privacidad.",
-    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1374&auto=format&fit=crop",
+    title: "Risco & Regulação",
+    desc: "Consultoria especializada para garantir que sua escala massiva cumpra todas as normas internacionais de privacidade.",
+    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1471&auto=format&fit=crop",
     icon: <ShieldAlert className="text-white" size={22} />,
     color: "bg-tzero-navy"
   },
   {
-    title: "Auditoría Operacional",
-    desc: "Equipos de alto rendimiento revisando procesos para garantizar que cada contacto transferido sea una oportunidad real.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop",
+    title: "Auditoria Operacional",
+    desc: "Equipes de alto desempenho revisando processos para garantir que cada contato transferido seja uma oportunidade real.",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1470&auto=format&fit=crop",
     icon: <LineChart className="text-white" size={22} />,
     color: "bg-slate-600"
   }
@@ -32,28 +32,31 @@ const Consulting: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-20">
           <div className="max-w-2xl">
-            <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Propósito Estratégico</span>
+            <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Consultoria Estratégica</span>
             <h2 className="text-4xl lg:text-6xl font-black text-tzero-navy tracking-tight leading-[0.95]">
-              Eficiencia que genera <br /> <span className="text-tzero-blue">Optimismo.</span>
+              Eficiência que gera <br /> <span className="text-tzero-blue">Otimismo.</span>
             </h2>
           </div>
           <p className="text-slate-500 text-lg font-medium max-w-sm leading-relaxed border-l-4 border-tzero-blue pl-8">
-            Nuestra consultoría une tecnología y capital humano para crear operaciones de contacto masivo sin precedentes.
+            Nossa consultoria une tecnologia e capital humano para criar operações de contato massivo sem precedentes.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-10">
           {consultingData.map((item, idx) => (
             <div key={idx} className="bg-tzero-soft rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-slate-100 group flex flex-col">
-              <div className="relative h-72 overflow-hidden">
+              <div className="relative h-72 overflow-hidden bg-slate-200">
                 <img 
                   src={item.image} 
                   alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 group-hover:brightness-110"
+                  loading="lazy"
                 />
-                <div className={`absolute top-8 left-8 ${item.color} p-5 rounded-2xl shadow-2xl`}>
+                <div className={`absolute top-8 left-8 ${item.color} p-5 rounded-2xl shadow-2xl z-10`}>
                   {item.icon}
                 </div>
+                {/* Overlay sutil para melhorar contraste do ícone se necessário */}
+                <div className="absolute inset-0 bg-gradient-to-t from-tzero-navy/20 to-transparent opacity-40 group-hover:opacity-20 transition-opacity"></div>
               </div>
               <div className="p-12 flex flex-col flex-grow">
                 <h3 className="text-2xl font-black text-tzero-navy mb-5 tracking-tight leading-tight">{item.title}</h3>
@@ -62,7 +65,7 @@ const Consulting: React.FC = () => {
                 </p>
                 <div className="mt-auto">
                   <button className="flex items-center gap-3 text-tzero-blue font-black text-[11px] uppercase tracking-widest hover:text-tzero-navy transition-colors">
-                    Ver Detalles <ArrowRight size={16} />
+                    Ver Detalhes <ArrowRight size={16} />
                   </button>
                 </div>
               </div>

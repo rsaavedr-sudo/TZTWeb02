@@ -20,13 +20,13 @@ const EfficiencyCalculator: React.FC = () => {
             <div className="inline-flex items-center gap-2 bg-white text-tzero-blue px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.25em] mb-8 border border-slate-200 shadow-sm">
               <Calculator size={14} /> Simulador ZeroLoss
             </div>
-            <h2 className="text-4xl lg:text-7xl font-black text-[#022c5e] mb-8 tracking-tighter leading-[0.95]">Previsibilidad <br /> financiera <span className="text-tzero-blue">total.</span></h2>
+            <h2 className="text-4xl lg:text-7xl font-black text-[#022c5e] mb-8 tracking-tighter leading-[0.95]">Previsibilidade <br /> financeira <span className="text-tzero-blue">total.</span></h2>
             <p className="text-slate-500 text-lg mb-12 font-medium leading-relaxed max-w-lg">
-              Deje de pagar por intentos fallidos. El modelo <span className="text-[#022c5e] font-bold">ZeroLoss (CPC)</span> garantiza que su presupuesto se convierta en contactos efectivos.
+              Pare de pagar por tentativas falhas. O modelo <span className="text-[#022c5e] font-bold">ZeroLoss (CPC)</span> garante que seu orçamento se converta em contatos efetivos.
             </p>
             <div className="space-y-12">
-              <Slider label="Volumen Mensual (CPM)" val={vol.toLocaleString()} min={100000} max={10000000} step={100000} current={vol} set={setVol} />
-              <Slider label="Ineficiencia Actual (Ruido %)" val={`${waste}%`} min={10} max={90} step={5} current={waste} set={setWaste} />
+              <Slider label="Volume Mensal (CPM)" val={vol.toLocaleString()} min={100000} max={10000000} step={100000} current={vol} set={setVol} />
+              <Slider label="Ineficiência Atual (Ruído %)" val={`${waste}%`} min={10} max={90} step={5} current={waste} set={setWaste} />
             </div>
           </div>
           
@@ -40,10 +40,10 @@ const EfficiencyCalculator: React.FC = () => {
               {annualSave.toLocaleString(undefined, { maximumFractionDigits: 0 })}
             </div>
             <button className="bg-tzero-blue text-white w-full py-8 rounded-[2rem] text-xl font-black uppercase tracking-[0.2em] shadow-2xl shadow-blue-500/20 hover:bg-[#022c5e] transition-all transform hover:-translate-y-1">
-              Activar ZeroLoss Ahora
+              Ativar ZeroLoss Agora
             </button>
             <p className="mt-10 text-slate-400 text-[11px] font-bold uppercase tracking-[0.15em] border-t border-slate-50 pt-8">
-              *Basado en la sustitución del modelo de minutos por CPC.
+              *Baseado na substituição do modelo de minutos por CPC.
             </p>
           </div>
         </div>
