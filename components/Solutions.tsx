@@ -1,84 +1,78 @@
 
 import React from 'react';
-import { ShieldCheck, Zap, Users, ArrowRight, Activity, Database, Sparkles, MessageSquareText } from 'lucide-react';
+import { ArrowRight, Activity, Zap, MessageSquareText, Check } from 'lucide-react';
 
 const products = [
   {
     id: "zeroloss",
     title: "ZeroLoss",
     highlight: true,
-    tag: "Foco Principal",
-    desc: "Substitui a cobrança por minutos. Você paga exclusivamente quando um contato humano efetivo é transferido para sua operação.",
-    benefits: ["Custo por Contato (CPC)", "Previsibilidade Financeira", "Eliminação de desperdício"],
-    icon: <Users className="text-white" size={32} />,
+    tag: "Core Model",
+    desc: "A revolução na tarifação. Pague apenas quando um contato humano efetivo é transferido para o seu agente.",
+    features: ["Custo por Contato (CPC)", "Auditoria Real-Time", "Eliminação de Bipes"],
+    icon: <Zap className="text-white" size={24} />,
     color: "bg-tzero-blue"
   },
   {
     id: "smartroute",
     title: "Smart Route",
-    tag: "Infraestrutura",
-    desc: "Rota inteligente desenhada para alto fluxo. Classificação avançada e decisões técnicas em tempo real para máxima estabilidade.",
-    benefits: ["Otimização de grandes volumes", "Estabilidade operacional", "Decisões em real-time"],
-    icon: <Zap className="text-white" size={32} />,
-    color: "bg-tzero-navy"
+    tag: "Connectivity",
+    desc: "Infraestrutura de alta disponibilidade desenhada para operadoras e grandes BPOs com classificação neural de tráfego.",
+    features: ["Fidelidade de Áudio HD", "Estabilidade de Rede", "Uptime de 99.9%"],
+    icon: <Activity className="text-white" size={24} />,
+    color: "bg-[#022c5e]"
   },
   {
     id: "leads360",
     title: "Leads360",
-    tag: "Inteligência de Leads",
-    desc: "Modelo de captación híbrida y tratamiento inteligente. Opera campañas multifuente, reduce la dependencia del tráfico pago y clasifica leads antes de llegar al humano.",
-    benefits: ["Preclasificación MQL/SQL", "Integración Chat (ManyChat/Umber)", "Tratamiento Multifuente"],
-    icon: <MessageSquareText className="text-white" size={32} />,
-    color: "bg-[#1E293B]"
+    tag: "Lead Intelligence",
+    desc: "Captação híbrida e tratamento inteligente. Classifica leads MQL/SQL antes de entregá-los à força de vendas.",
+    features: ["Híbrido Multifonte", "Integração ManyChat/Umber", "Leads Classificados"],
+    icon: <MessageSquareText className="text-white" size={24} />,
+    color: "bg-slate-800"
   }
 ];
 
 const Solutions: React.FC = () => {
   return (
-    <div className="py-24 bg-tzero-soft" id="soluções">
+    <div className="py-24 bg-white" id="soluções">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.3em] mb-4 block">Nosso Portfólio</span>
-          <h2 className="text-4xl lg:text-5xl font-black text-tzero-navy mb-6 tracking-tight leading-none">
-            O Ecossistema <span className="text-tzero-blue">T-Zero</span>
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <span className="text-tzero-blue font-bold text-xs uppercase tracking-widest mb-4 block">Portfólio de Produtos</span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-[#022c5e] mb-6 tracking-tight">
+            Soluções de <span className="text-tzero-blue font-light">Classe Mundial</span>
           </h2>
-          <p className="text-slate-500 text-lg font-medium leading-relaxed">
-            Três soluções integradas para transformar sua comunicação massiva em um sistema inteligente, transparente e escalável.
+          <p className="text-slate-500 font-medium text-lg leading-relaxed">
+            Tecnologia integrada para escalar operações de contato massivo com transparência absoluta.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid lg:grid-cols-3 gap-8">
           {products.map((p) => (
-            <div key={p.id} className={`relative flex flex-col bg-white rounded-[2rem] p-10 border transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${p.highlight ? 'border-tzero-blue shadow-xl ring-4 ring-tzero-blue/5 z-10' : 'border-slate-100'}`}>
-              {p.highlight && (
-                <div className="absolute -top-4 left-10 bg-tzero-blue text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-2">
-                  <Sparkles size={12} fill="white" /> Recomendado
-                </div>
-              )}
-              
-              <div className={`${p.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-inner`}>
+            <div key={p.id} className={`flex flex-col p-10 rounded-3xl border transition-all duration-300 group ${p.highlight ? 'border-tzero-blue/20 bg-tzero-soft/50 shadow-2xl' : 'border-slate-100 hover:border-slate-200'}`}>
+              <div className={`${p.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-10 shadow-lg group-hover:scale-110 transition-transform`}>
                 {p.icon}
               </div>
               
-              <div className="mb-2">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{p.tag}</span>
-                <h3 className="text-3xl font-black text-tzero-navy mt-1 mb-6">{p.title}</h3>
+              <div className="mb-6">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">{p.tag}</span>
+                <h3 className="text-2xl font-extrabold text-[#022c5e]">{p.title}</h3>
               </div>
 
-              <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium">
                 {p.desc}
               </p>
 
-              <div className="space-y-4 mb-10 flex-grow">
-                {p.benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs font-bold text-tzero-navy uppercase tracking-tight">
-                    <Activity size={14} className="text-tzero-blue" /> {benefit}
+              <div className="space-y-4 mb-12 flex-grow">
+                {p.features.map((f, i) => (
+                  <div key={i} className="flex items-center gap-3 text-xs font-bold text-slate-600">
+                    <Check size={14} className="text-tzero-blue" /> {f}
                   </div>
                 ))}
               </div>
 
-              <button className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${p.highlight ? 'bg-tzero-blue text-white hover:bg-tzero-navy' : 'bg-slate-100 text-tzero-navy hover:bg-slate-200'}`}>
-                Saiba Mais <ArrowRight size={16} />
+              <button className={`w-full py-4 rounded-xl font-bold text-[12px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${p.highlight ? 'bg-tzero-blue text-white hover:bg-[#022c5e]' : 'bg-slate-50 text-[#022c5e] hover:bg-slate-100'}`}>
+                Explorar Solução <ArrowRight size={14} />
               </button>
             </div>
           ))}

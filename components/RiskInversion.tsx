@@ -12,7 +12,7 @@ const RiskInversion: React.FC = () => {
             Inversão de Risco Operacional
           </h2>
           <p className="text-slate-500 text-xl font-medium max-w-3xl mx-auto leading-relaxed">
-            Transferimos o risco técnico do seu BPO para a nossa tecnologia. <span className="text-[#022c5e] font-bold">Se não houver voz humana, não há faturamento.</span>
+            Transferimos o risco técnico do seu BPO para a nossa tecnologia. <span className="text-[#022c5e] font-bold">Se não houver Alô Humano Efetivo, não há faturamento.</span>
           </p>
         </div>
 
