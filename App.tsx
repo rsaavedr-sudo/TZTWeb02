@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import RiskInversion from './components/RiskInversion';
@@ -8,30 +8,43 @@ import Innovation from './components/Innovation';
 import TargetAudience from './components/TargetAudience';
 import Solutions from './components/Solutions';
 import EfficiencyCalculator from './components/EfficiencyCalculator';
+import BlogPage from './components/BlogPage';
 import Consulting from './components/Consulting';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
+  const [view, setView] = useState<'landing' | 'blog'>('landing');
+
+  // Rolar para o topo ao trocar de view
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Navbar />
+      <Navbar setView={setView} currentView={view} />
+      
       <main className="flex-grow">
-        <Hero />
-        <RiskInversion />
-        {/* Seção Problema (#problema) */}
-        <DataProblem />
-        {/* Seção Inovação (#tecnologia) */}
-        <Innovation />
-        {/* Seção Soluções (#soluções) */}
-        <Solutions />
-        {/* Seção Calculadora (#roi) */}
-        <EfficiencyCalculator />
-        <TargetAudience />
-        <Consulting />
-        <ContactForm />
+        {view === 'landing' ? (
+          <>
+            <Hero />
+            <RiskInversion />
+            <DataProblem />
+            <Innovation />
+            <Solutions />
+            <EfficiencyCalculator />
+            <TargetAudience />
+            {/* A seção Blog (preview) foi removida daqui conforme solicitado */}
+            <Consulting />
+            <ContactForm />
+          </>
+        ) : (
+          <BlogPage />
+        )}
       </main>
-      <Footer />
+      
+      <Footer setView={setView} />
     </div>
   );
 };

@@ -10,7 +10,12 @@ const LogoIcon = () => (
   </svg>
 );
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  setView: (view: 'landing' | 'blog') => void;
+  currentView: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -20,18 +25,26 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (view: 'landing' | 'blog', e: React.MouseEvent) => {
+    if (view === 'landing' && currentView === 'landing') return; // Stay for anchor links
+    setView(view);
+    if (view === 'blog') e.preventDefault();
+    setIsOpen(false);
+  };
+
   const navLinks = [
-    { name: 'Problema', href: '#problema' },
-    { name: 'Tecnologia', href: '#tecnologia' },
-    { name: 'Soluções', href: '#soluções' },
-    { name: 'ROI', href: '#roi' },
+    { name: 'Problema', href: '#problema', view: 'landing' },
+    { name: 'Tecnologia', href: '#tecnologia', view: 'landing' },
+    { name: 'Soluções', href: '#soluções', view: 'landing' },
+    { name: 'ROI', href: '#roi', view: 'landing' },
+    { name: 'Blog', href: '#blog', view: 'blog' },
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 shadow-md py-3 backdrop-blur-md' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled || currentView === 'blog' ? 'bg-white shadow-md py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setView('landing')}>
             <div className="bg-slate-50 p-1.5 rounded-xl border border-slate-100 group-hover:border-tzero-blue/20 transition-all">
               <LogoIcon />
             </div>
@@ -45,7 +58,12 @@ const Navbar: React.FC = () => {
               <a 
                 key={link.name}
                 href={link.href} 
-                className="font-bold text-[12px] text-slate-500 hover:text-tzero-blue transition-colors tracking-widest uppercase"
+                onClick={(e) => handleNavClick(link.view as any, e)}
+                className={`font-bold text-[12px] tracking-widest uppercase transition-colors ${
+                  (currentView === 'blog' && link.view === 'blog') 
+                  ? 'text-tzero-blue' 
+                  : 'text-slate-500 hover:text-tzero-blue'
+                }`}
               >
                 {link.name}
               </a>
@@ -67,7 +85,12 @@ const Navbar: React.FC = () => {
         <div className="md:hidden bg-white border-t p-6 shadow-2xl animate-in fade-in slide-in-from-top duration-300">
           <div className="flex flex-col space-y-5">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="text-sm font-bold text-slate-700" onClick={() => setIsOpen(false)}>
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="text-sm font-bold text-slate-700" 
+                onClick={(e) => handleNavClick(link.view as any, e)}
+              >
                 {link.name}
               </a>
             ))}

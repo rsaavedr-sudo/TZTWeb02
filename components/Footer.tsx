@@ -2,13 +2,17 @@
 import React from 'react';
 import { Linkedin, Twitter, Globe, Mail, MapPin } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  setView: (view: 'landing' | 'blog') => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ setView }) => {
   return (
     <footer className="bg-white pt-24 pb-12 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-24">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center gap-3 mb-8 cursor-pointer" onClick={() => setView('landing')}>
                <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-100">
                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28" stroke="#022c5e" strokeWidth="4" strokeLinecap="round"/>
@@ -34,14 +38,19 @@ const Footer: React.FC = () => {
           {[
             { title: "Plataforma", links: ["ZeroLoss CPC", "Smart Route", "Leads360", "Global Voice"] },
             { title: "Recursos", links: ["Documentação", "Segurança", "Casos de Sucesso", "Compliance"] },
-            { title: "Global Presence", links: ["Austin, TX", "Madrid, ES", "São Paulo, BR", "Lisboa, PT"] }
+            { title: "Mais", links: ["Blog", "Carreiras", "Contato"] }
           ].map((col, i) => (
             <div key={i}>
               <h4 className="font-extrabold text-[#022c5e] mb-8 text-[12px] uppercase tracking-widest">{col.title}</h4>
               <ul className="space-y-4">
                 {col.links.map(link => (
                   <li key={link}>
-                    <a href="#" className="text-slate-400 font-semibold hover:text-tzero-blue transition-colors text-sm">{link}</a>
+                    <button 
+                      onClick={() => link === "Blog" ? setView('blog') : setView('landing')}
+                      className="text-slate-400 font-semibold hover:text-tzero-blue transition-colors text-sm text-left"
+                    >
+                      {link}
+                    </button>
                   </li>
                 ))}
               </ul>
