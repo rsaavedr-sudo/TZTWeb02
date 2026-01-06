@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { AlertCircle, BarChart3, PhoneOff, UserCheck } from 'lucide-react';
+import { AlertCircle, BarChart3, PhoneOff, UserCheck, ArrowRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { AppView } from '../App';
 
 const data = [
   { name: 'Contestadoras', Legado: 45, TZero: 0 },
@@ -9,7 +10,11 @@ const data = [
   { name: 'Tempo de Agente', Legado: 20, TZero: 100 },
 ];
 
-const DataProblem: React.FC = () => {
+interface DataProblemProps {
+  setView?: (view: AppView) => void;
+}
+
+const DataProblem: React.FC<DataProblemProps> = ({ setView }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const DataProblem: React.FC = () => {
               No modelo tradicional por minutos, você paga por cada segundo de silêncio, erro de sinalização e máquinas de responder. Isso representa até <span className="text-tzero-navy font-black underline decoration-tzero-blue">80% de desperdício</span>.
             </p>
             
-            <div className="space-y-6">
+            <div className="space-y-6 mb-12">
               <div className="flex gap-5 items-start p-6 bg-slate-50 rounded-2xl border border-slate-100">
                 <div className="bg-white p-3 rounded-xl shadow-sm text-slate-400"><PhoneOff size={24} /></div>
                 <div>
@@ -48,6 +53,15 @@ const DataProblem: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {setView && (
+              <button 
+                onClick={() => setView('problem')}
+                className="flex items-center gap-3 text-tzero-blue font-black text-xs uppercase tracking-widest hover:gap-5 transition-all group"
+              >
+                Análise de Perda Técnica <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
           </div>
 
           <div className="bg-white rounded-[3rem] p-8 lg:p-12 border border-slate-100 shadow-[0_32px_64px_-16px_rgba(11,28,63,0.08)]">

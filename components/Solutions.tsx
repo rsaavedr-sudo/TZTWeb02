@@ -1,6 +1,11 @@
 
 import React from 'react';
 import { ArrowRight, Activity, Zap, MessageSquareText, Check, Layers } from 'lucide-react';
+import { AppView } from '../App';
+
+interface SolutionsProps {
+  setView: (view: AppView) => void;
+}
 
 const products = [
   {
@@ -8,7 +13,7 @@ const products = [
     title: "ZeroLoss",
     highlight: true,
     tag: "Modelo de Tarifação",
-    desc: "Introduz um novo modelo de campanhas massivas baseado em CPC – Custo por Contato Humano Efetivo. Substitui a lógica tradicional de cobrança por minutos, alinhando custo, eficiência e resultado.",
+    desc: "Introduz um novo modelo de campanhas massivas baseado em CPC – Custo por Contato Humano Efetivo. Substitui a lógica tradicional de cobrança por minutos.",
     features: ["Substituição de Minutos por CPC", "Foco em Alô Humano Efetivo", "Alinhamento Custo-Resultado"],
     icon: <Zap className="text-white" size={24} />,
     color: "bg-tzero-blue"
@@ -17,7 +22,7 @@ const products = [
     id: "smartroute",
     title: "Smart Route",
     tag: "Infraestrutura Inteligente",
-    desc: "Oferece uma infraestrutura de telefonia inteligente para alto volume, com decisões técnicas em tempo real, maior estabilidade e redução de tráfego improdutivo na sua rede.",
+    desc: "Oferece uma infraestrutura de telefonia inteligente para alto volume, com decisões técnicas em tempo real e maior estabilidade.",
     features: ["Decisões em Tempo Real", "Estabilidade Operacional", "Redução de Tráfego Improdutivo"],
     icon: <Activity className="text-white" size={24} />,
     color: "bg-[#022c5e]"
@@ -26,14 +31,14 @@ const products = [
     id: "leads360",
     title: "Leads360",
     tag: "Tratamento de Leads",
-    desc: "Permite a captação, tratamento e classificação inteligente de leads antes do contato humano, integrando múltiplos canais e sistemas existentes de forma fluida.",
+    desc: "Permite a captação, tratamento e classificação inteligente de leads antes do contato humano, integrando múltiplos canais.",
     features: ["Classificação Inteligente", "Integração Multicanal", "Tratamento Pré-Contato"],
     icon: <MessageSquareText className="text-white" size={24} />,
     color: "bg-slate-800"
   }
 ];
 
-const Solutions: React.FC = () => {
+const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   return (
     <div className="py-24 bg-white" id="soluções">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -46,13 +51,7 @@ const Solutions: React.FC = () => {
               Nossas <span className="text-tzero-blue font-light">Soluções</span>
             </h2>
             <p className="text-slate-500 font-medium text-lg leading-relaxed">
-              As soluções da T-Zero Tech são desenvolvidas a partir das necessidades reais de operações de campanhas massivas e call centers ativos. 
-              Nosso foco é oferecer simplicidade operacional, eficiência técnica e rapidez de implementação.
-            </p>
-          </div>
-          <div className="lg:pt-16">
-            <p className="text-slate-500 font-medium text-lg leading-relaxed border-l-4 border-tzero-blue pl-8 italic">
-              "Trabalhamos de forma próxima aos nossos clientes para desenhar a melhor arquitetura técnica. Nossa plataforma combina ferramentas modulares que podem ser utilizadas de forma independente ou integradas."
+              As soluções da T-Zero Tech são desenvolvidas a partir das necessidades reais de operações de campanhas massivas.
             </p>
           </div>
         </div>
@@ -81,8 +80,11 @@ const Solutions: React.FC = () => {
                 ))}
               </div>
 
-              <button className={`w-full py-4 rounded-xl font-bold text-[12px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${p.highlight ? 'bg-tzero-blue text-white hover:bg-[#022c5e]' : 'bg-slate-50 text-[#022c5e] hover:bg-slate-100'}`}>
-                Saiba Mais <ArrowRight size={14} />
+              <button 
+                onClick={() => setView(p.id as AppView)}
+                className={`w-full py-4 rounded-xl font-bold text-[12px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${p.highlight ? 'bg-tzero-blue text-white hover:bg-[#022c5e]' : 'bg-slate-50 text-[#022c5e] hover:bg-slate-100'}`}
+              >
+                Ver Detalhes Técnicos <ArrowRight size={14} />
               </button>
             </div>
           ))}

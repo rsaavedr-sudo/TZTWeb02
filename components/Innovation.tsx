@@ -1,25 +1,30 @@
 
 import React from 'react';
-import { Cpu, Zap, Mic2, ShieldCheck, CheckCircle } from 'lucide-react';
+import { Cpu, Zap, Mic2, ShieldCheck, CheckCircle, ArrowRight } from 'lucide-react';
+import { AppView } from '../App';
 
-const Innovation: React.FC = () => {
+interface InnovationProps {
+  setView?: (view: AppView) => void;
+}
+
+const Innovation: React.FC<InnovationProps> = ({ setView }) => {
   return (
     <div className="py-32 bg-white overflow-hidden relative" id="tecnologia">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div>
             <div className="inline-block bg-tzero-soft text-tzero-blue border border-tzero-blue/20 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
-              Core Tech Infrastructure
+              Proprietary Tech Infrastructure
             </div>
             <h2 className="text-4xl lg:text-6xl font-black mb-8 leading-tight tracking-tighter text-tzero-navy">
-              Elimine o Desperdício <br />
-              <span className="text-tzero-blue">Opere em Escala.</span>
+              Tecnologias <br />
+              <span className="text-tzero-blue">Propietárias.</span>
             </h2>
             <p className="text-slate-500 text-lg mb-12 leading-relaxed max-w-xl font-medium">
-              Utilizamos IA Neural e processamento em tempo real para filtrar ruídos de rede e máquinas de responder em menos de 100ms.
+              Utilizamos IA Neural e processamento em tempo real para filtrar ruídos de rede e máquinas de responder em menos de 100ms. Desenvolvimento 100% in-house.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-8 mb-12">
               <div className="flex flex-col gap-5 p-8 rounded-[2rem] bg-tzero-soft border border-tzero-blue/5 hover:border-tzero-blue/20 transition-all group">
                 <div className="w-12 h-12 bg-tzero-blue rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                   <Cpu size={24} />
@@ -39,6 +44,15 @@ const Innovation: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {setView && (
+              <button 
+                onClick={() => setView('tech')}
+                className="flex items-center gap-3 text-tzero-blue font-black text-xs uppercase tracking-widest hover:gap-5 transition-all group"
+              >
+                Explorar Stack Tecnológico <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
           </div>
 
           <div className="relative">

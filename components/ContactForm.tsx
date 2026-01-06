@@ -4,7 +4,7 @@ import { Send, Mail, Building, Users, CheckCircle2 } from 'lucide-react';
 
 const ContactForm: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 bg-white" id="empresa">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 bg-white" id="contato">
       <div className="bg-white rounded-[4rem] shadow-[0_60px_120px_-30px_rgba(11,28,63,0.15)] overflow-hidden border border-slate-100 grid lg:grid-cols-12">
         <div className="lg:col-span-5 p-12 lg:p-20 bg-[#022c5e] text-white relative">
           <div className="relative z-10">
