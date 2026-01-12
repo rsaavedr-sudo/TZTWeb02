@@ -25,12 +25,12 @@ const RiskInversion: React.FC = () => {
             },
             {
               title: "Foco no Core Business",
-              desc: "Seus gestores param de analisar falhas de rede e começam a analisar performance de conversão dos agentes.",
+              desc: "Seus gestores param auditar contas e começam a analisar performance de conversão dos agentes.",
               icon: <Users className="text-tzero-blue" size={32} />
             },
             {
-              title: "Zero Losses de Telecom",
-              desc: "A T-Zero absorve o custo de bipes, erros 503, e chamadas curtas. Você paga apenas pelo ouro: o contato real.",
+              title: "Zero custo para chamadas improdutivas",
+              desc: "ZeroLoss absorve os custos invisíveis das campanhas. Você paga apenas pelo que realmente importa: o contato humano real.",
               icon: <ShieldCheck className="text-tzero-blue" size={32} />
             }
           ].map((item, i) => (
