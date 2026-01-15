@@ -15,13 +15,13 @@ const LogoIcon = () => (
     
     {/* Abstract Precision Path */}
     <g transform="translate(50, 50) rotate(-45)">
-      {/* Sleek path line coming from outside and entering the center */}
+      {/* Sleek path line entering exactly into the center */}
       <rect x="-1.5" y="-48" width="3" height="48" rx="1.5" fill="#0B2455" opacity="0.6" />
       
-      {/* Secondary data pulse on the path */}
+      {/* Secondary data pulse */}
       <circle cx="0" cy="-25" r="2.5" fill="#0B2455" />
       
-      {/* THE HIT POINT: Exactly at the center (0,0 of the translated group) */}
+      {/* THE HIT POINT: Exactly at the center */}
       <circle cx="0" cy="0" r="5" fill="#3B82F6" />
     </g>
   </svg>
@@ -59,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
   const navLinks = [
     { name: 'Início', href: '#', view: 'landing' },
     { name: 'Problema', href: '#problema', view: 'problem' },
-    { name: 'Soluções', href: '#soluções', view: 'landing', hasDropdown: true },
+    { name: 'Soluções', href: '#soluções', view: 'solutions_parent', hasDropdown: true },
     { name: 'Blog', href: '#blog', view: 'blog' },
     { name: 'Contato', href: '#contato', view: 'contact' },
   ];
@@ -83,55 +83,69 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
           </div>
           
           <div className="hidden md:flex items-center space-x-10">
-            {navLinks.map((link) => (
-              <div 
-                key={link.name} 
-                className="relative group py-2"
-                onMouseEnter={() => link.hasDropdown && setIsDropdownOpen(true)}
-                onMouseLeave={() => link.hasDropdown && setIsDropdownOpen(false)}
-              >
-                <a 
-                  href={link.href} 
-                  onClick={(e) => handleNavClick(link.view as AppView, e)}
-                  className={`flex items-center gap-1 font-bold text-[12px] tracking-widest uppercase transition-colors ${
-                    (currentView === link.view) 
-                    ? 'text-tzero-blue' 
-                    : 'text-slate-500 hover:text-tzero-blue'
-                  }`}
-                >
-                  {link.name}
-                  {link.hasDropdown && <ChevronDown size={14} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />}
-                </a>
+            {navLinks.map((link) => {
+              // Logic to determine if the link is active
+              const isLandingActive = link.view === 'landing' && currentView === 'landing';
+              const isViewActive = link.view !== 'solutions_parent' && currentView === link.view;
+              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360'].includes(currentView);
+              
+              const isActive = isLandingActive || isViewActive || isSolutionActive;
 
-                {link.hasDropdown && (
-                  <div className={`absolute left-1/2 -translate-x-1/2 top-full pt-4 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                    <div className="bg-white border border-slate-100 rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(2,44,94,0.15)] p-6 min-w-[280px]">
-                      <div className="space-y-2">
-                        {productLinks.map((prod) => (
-                          <button
-                            key={prod.id}
-                            onClick={(e) => handleNavClick(prod.id as AppView, e)}
-                            className="w-full flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all group/item text-left"
-                          >
-                            <div className="bg-tzero-soft p-2.5 rounded-xl text-tzero-blue group-hover/item:bg-tzero-blue group-hover/item:text-white transition-colors">
-                              {prod.icon}
-                            </div>
-                            <div>
-                              <p className="text-sm font-black text-tzero-navy group-hover/item:text-tzero-blue transition-colors leading-none mb-1">
-                                {prod.name}
-                              </p>
-                              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
-                                {prod.desc}
-                              </p>
-                            </div>
-                          </button>
-                        ))}
+              return (
+                <div 
+                  key={link.name} 
+                  className="relative group py-2"
+                  onMouseEnter={() => link.hasDropdown && setIsDropdownOpen(true)}
+                  onMouseLeave={() => link.hasDropdown && setIsDropdownOpen(false)}
+                >
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => handleNavClick((link.view === 'solutions_parent' ? 'landing' : link.view) as AppView, e)}
+                    className={`flex items-center gap-1 font-bold text-[12px] tracking-widest uppercase transition-colors duration-300 ${
+                      isActive 
+                      ? 'text-tzero-blue' 
+                      : 'text-slate-500 hover:text-tzero-blue'
+                    }`}
+                  >
+                    {link.name}
+                    {link.hasDropdown && (
+                      <ChevronDown 
+                        size={14} 
+                        className={`transition-all duration-300 ${isDropdownOpen ? 'rotate-180 text-tzero-blue' : 'text-current'}`} 
+                      />
+                    )}
+                  </a>
+
+                  {link.hasDropdown && (
+                    <div className={`absolute left-1/2 -translate-x-1/2 top-full pt-4 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                      <div className="bg-white border border-slate-100 rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(2,44,94,0.15)] p-6 min-w-[280px]">
+                        <div className="space-y-2">
+                          {productLinks.map((prod) => (
+                            <button
+                              key={prod.id}
+                              onClick={(e) => handleNavClick(prod.id as AppView, e)}
+                              className="w-full flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all group/item text-left"
+                            >
+                              <div className="bg-tzero-soft p-2.5 rounded-xl text-tzero-blue group-hover/item:bg-tzero-blue group-hover/item:text-white transition-colors">
+                                {prod.icon}
+                              </div>
+                              <div>
+                                <p className="text-sm font-black text-tzero-navy group-hover/item:text-tzero-blue transition-colors leading-none mb-1">
+                                  {prod.name}
+                                </p>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+                                  {prod.desc}
+                                </p>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
             <button 
               onClick={() => setView('contact')}
               className="bg-tzero-blue text-white px-7 py-3 rounded-xl text-[12px] font-bold shadow-lg shadow-blue-500/20 hover:bg-[#0B2455] transition-all transform hover:-translate-y-0.5"
@@ -151,17 +165,24 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
       {isOpen && (
         <div className="md:hidden bg-white border-t p-6 shadow-2xl animate-in fade-in slide-in-from-top duration-300 overflow-y-auto max-h-[90vh]">
           <div className="flex flex-col space-y-6">
-            {navLinks.map((link) => (
-              <div key={link.name} className="space-y-4">
-                <a 
-                  href={link.href} 
-                  className={`text-sm font-black uppercase tracking-widest ${currentView === link.view ? 'text-tzero-blue' : 'text-slate-700'}`} 
-                  onClick={(e) => handleNavClick(link.view as AppView, e)}
-                >
-                  {link.name}
-                </a>
-              </div>
-            ))}
+            {navLinks.map((link) => {
+              const isLandingActive = link.view === 'landing' && currentView === 'landing';
+              const isViewActive = link.view !== 'solutions_parent' && currentView === link.view;
+              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360'].includes(currentView);
+              const isActive = isLandingActive || isViewActive || isSolutionActive;
+
+              return (
+                <div key={link.name} className="space-y-4">
+                  <a 
+                    href={link.href} 
+                    className={`text-sm font-black uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-tzero-blue' : 'text-slate-500 hover:text-tzero-blue'}`} 
+                    onClick={(e) => handleNavClick((link.view === 'solutions_parent' ? 'landing' : link.view) as AppView, e)}
+                  >
+                    {link.name}
+                  </a>
+                </div>
+              );
+            })}
             <button onClick={() => { setView('contact'); setIsOpen(false); }} className="bg-tzero-blue text-white w-full py-4 rounded-xl text-sm font-bold shadow-lg">
               Agendar uma Demonstração
             </button>
