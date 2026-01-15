@@ -8,6 +8,8 @@ interface ProductPageProps {
 }
 
 const Leads360Page: React.FC<ProductPageProps> = ({ setView }) => {
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração do Leads360 Intelligence.";
+
   return (
     <div className="pt-32 pb-24 bg-white animate-in fade-in duration-500">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -56,9 +58,14 @@ const Leads360Page: React.FC<ProductPageProps> = ({ setView }) => {
                  <p className="text-blue-100/60 text-lg font-medium leading-relaxed mb-10">
                     Ao enviar apenas leads com alta probabilidade de contato humano efetivo para a operação, você aumenta a produtividade da sua equipe em até 45%.
                  </p>
-                 <button className="bg-white text-tzero-navy px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-tzero-blue hover:text-white transition-all shadow-xl">
-                   Agendar Diagnóstico de Base
-                 </button>
+                 <a 
+                   href={whatsappUrl}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="bg-white text-tzero-navy px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-tzero-blue hover:text-white transition-all shadow-xl inline-block"
+                 >
+                   Agendar uma Demonstração
+                 </a>
               </div>
               <div className="hidden lg:block">
                  <img 

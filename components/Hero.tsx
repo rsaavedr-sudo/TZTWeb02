@@ -52,6 +52,8 @@ const BillingCard = () => (
 );
 
 const Hero: React.FC = () => {
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração das soluções da ZERO2ONE.";
+
   return (
     <div className="relative blue-gradient-soft pt-32 pb-20 lg:pt-52 lg:pb-32 overflow-hidden" id="hero">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -76,9 +78,14 @@ const Hero: React.FC = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-tzero-blue text-white px-10 py-4.5 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-600 transition-all flex items-center justify-center gap-2">
-                Começar Agora
-              </button>
+              <a 
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-tzero-blue text-white px-10 py-4.5 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-600 transition-all flex items-center justify-center gap-2"
+              >
+                Agendar uma Demonstração
+              </a>
               <button className="bg-white border border-slate-200 text-[#022c5e] px-10 py-4.5 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                 <Play size={16} fill="currentColor" /> Ver Demonstração
               </button>

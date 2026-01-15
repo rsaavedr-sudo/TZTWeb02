@@ -8,6 +8,7 @@ const EfficiencyCalculator: React.FC = () => {
   const [cost, setCost] = useState(0.08);
 
   const annualSave = (vol * (waste / 100) * cost) * 12;
+  const whatsappUrl = `https://wa.me/5521984520042?text=Olá! Fiz uma simulação na calculadora e gostaria de agendar uma demonstração. Minha economia estimada é de R$ ${annualSave.toLocaleString()}.`;
 
   return (
     <div className="py-24 bg-[#022c5e] relative overflow-hidden" id="roi">
@@ -50,9 +51,14 @@ const EfficiencyCalculator: React.FC = () => {
               </span>
             </div>
             
-            <button className="bg-tzero-blue text-white w-full py-5 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-[#022c5e] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
-              Solicitar Auditoria Técnica <ArrowRight size={18} />
-            </button>
+            <a 
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-tzero-blue text-white w-full py-5 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-[#022c5e] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3"
+            >
+              Agendar uma Demonstração <ArrowRight size={18} />
+            </a>
             
             <div className="mt-10 flex items-center justify-center gap-4 text-slate-300">
                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase">

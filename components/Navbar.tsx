@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Zap, Activity, MessageSquareText } from 'lucide-react';
+import { Menu, X, ChevronDown, Zap, Activity, MessageSquareText, User } from 'lucide-react';
 import { AppView } from '../App';
 
 const LogoIcon = () => (
@@ -144,10 +144,10 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
               );
             })}
             <button 
-              onClick={() => setView('contact')}
-              className="bg-tzero-blue text-white px-7 py-3 rounded-xl text-[12px] font-bold shadow-lg shadow-blue-500/20 hover:bg-[#0B2455] transition-all transform hover:-translate-y-0.5"
+              className="flex items-center gap-2.5 text-[#0B2455] px-6 py-3 rounded-xl text-[13px] font-extrabold hover:text-tzero-blue hover:bg-slate-50 transition-all group/client"
             >
-              Agendar uma Demonstração
+              <User size={18} className="text-tzero-blue group-hover/client:scale-110 transition-transform" />
+              Área do cliente
             </button>
           </div>
 
@@ -180,8 +180,9 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
                 </div>
               );
             })}
-            <button onClick={() => { setView('contact'); setIsOpen(false); }} className="bg-tzero-blue text-white w-full py-4 rounded-xl text-sm font-bold shadow-lg">
-              Agendar uma Demonstração
+            <button className="flex items-center justify-center gap-2.5 text-[#0B2455] w-full py-4 rounded-xl text-sm font-extrabold border border-slate-100 hover:bg-slate-50">
+              <User size={20} className="text-tzero-blue" />
+              Área do cliente
             </button>
           </div>
         </div>

@@ -8,6 +8,8 @@ interface ProductPageProps {
 }
 
 const ZeroLossPage: React.FC<ProductPageProps> = ({ setView }) => {
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração do ZeroLoss CPC.";
+
   return (
     <div className="pt-32 pb-24 bg-white animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -30,9 +32,14 @@ const ZeroLossPage: React.FC<ProductPageProps> = ({ setView }) => {
               A revolução na forma como BPOs e Call Centers faturam campanhas. O ZeroLoss elimina o risco financeiro de chamadas improdutivas através do modelo Custo por Contato Humano.
             </p>
             <div className="flex gap-4">
-              <button className="bg-tzero-blue text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:bg-tzero-navy transition-all">
-                Implementar Agora
-              </button>
+              <a 
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-tzero-blue text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:bg-tzero-navy transition-all"
+              >
+                Agendar uma Demonstração
+              </a>
             </div>
           </div>
           <div className="bg-slate-50 rounded-[3rem] p-12 border border-slate-100 shadow-sm relative overflow-hidden">

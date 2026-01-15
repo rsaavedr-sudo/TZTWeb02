@@ -3,6 +3,8 @@ import React from 'react';
 import { ShieldCheck, TrendingDown, Users, CheckCircle2 } from 'lucide-react';
 
 const RiskInversion: React.FC = () => {
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de solicitar um diagnóstico de risco e agendar uma demonstração.";
+
   const riskCards = [
     {
       title: "Previsibilidade Comercial",
@@ -71,9 +73,14 @@ const RiskInversion: React.FC = () => {
                 <p className="text-slate-500 font-medium">Nossa arquitetura foi desenhada para BPOs que buscam rentabilidade absoluta através da inteligência técnica.</p>
              </div>
              <div className="flex justify-end">
-                <button className="bg-[#022c5e] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-tzero-blue transition-all shadow-xl shadow-blue-900/20">
-                  Solicitar Diagnóstico de Risco
-                </button>
+                <a 
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#022c5e] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-tzero-blue transition-all shadow-xl shadow-blue-900/20 flex items-center justify-center"
+                >
+                  Agendar uma Demonstração
+                </a>
              </div>
           </div>
         </div>

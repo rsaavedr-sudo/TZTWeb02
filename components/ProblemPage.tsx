@@ -8,6 +8,8 @@ interface ProblemPageProps {
 }
 
 const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração para entender como eliminar o desperdício do modelo legado.";
+
   const leaks = [
     {
       title: "O Fantasma do Voicemail",
@@ -115,9 +117,14 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
             Entender o problema é o primeiro passo. O segundo é adotar o modelo CPC ZeroLoss e parar de pagar pela ineficiência dos outros.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             <button className="bg-tzero-blue text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-tzero-navy transition-all shadow-xl shadow-blue-500/20">
-               Solicitar Diagnóstico de Perda
-             </button>
+             <a 
+               href={whatsappUrl}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="bg-tzero-blue text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-tzero-navy transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center"
+             >
+               Agendar uma Demonstração
+             </a>
              <button 
               onClick={() => setView('zeroloss')}
               className="bg-white border border-slate-200 text-tzero-navy px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all"
