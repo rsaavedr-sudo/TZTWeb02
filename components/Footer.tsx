@@ -60,7 +60,7 @@ const Footer: React.FC<FooterProps> = ({ setView }) => {
           </div>
 
           {[
-            { title: "Plataforma", links: ["ZeroLoss CPC", "Smart Route", "Leads360", "Global Voice"] },
+            { title: "Plataforma", links: ["ZeroLoss CPC", "Smart Route", "Leads360"] },
             { title: "Recursos", links: ["Documentação", "Segurança", "Casos de Sucesso", "Compliance"] },
             { title: "Mais", links: ["Blog", "Carreiras", "Contato"] }
           ].map((col, i) => (

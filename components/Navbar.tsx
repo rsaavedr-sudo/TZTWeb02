@@ -60,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled || currentView !== 'landing' ? 'bg-white shadow-md py-3' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-[90] top-0 transition-all duration-500 ${scrolled || currentView !== 'landing' ? 'bg-white shadow-md py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 group cursor-pointer" onClick={() => setView('landing')}>

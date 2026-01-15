@@ -62,9 +62,11 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar setView={setView} currentView={view} />
-      <main className="flex-grow">
-        {renderContent()}
-      </main>
+      <div className="flex flex-col">
+        <main className="flex-grow">
+          {renderContent()}
+        </main>
+      </div>
       <WhatsAppButton />
       <Footer setView={setView} />
     </div>
