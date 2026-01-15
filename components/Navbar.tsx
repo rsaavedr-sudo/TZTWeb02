@@ -15,13 +15,8 @@ const LogoIcon = () => (
     
     {/* Abstract Precision Path */}
     <g transform="translate(50, 50) rotate(-45)">
-      {/* Sleek path line entering exactly into the center */}
       <rect x="-1.5" y="-48" width="3" height="48" rx="1.5" fill="#0B2455" opacity="0.6" />
-      
-      {/* Secondary data pulse */}
       <circle cx="0" cy="-25" r="2.5" fill="#0B2455" />
-      
-      {/* THE HIT POINT: Exactly at the center */}
       <circle cx="0" cy="0" r="5" fill="#3B82F6" />
     </g>
   </svg>
@@ -84,11 +79,9 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
           
           <div className="hidden md:flex items-center space-x-10">
             {navLinks.map((link) => {
-              // Logic to determine if the link is active
               const isLandingActive = link.view === 'landing' && currentView === 'landing';
               const isViewActive = link.view !== 'solutions_parent' && currentView === link.view;
               const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360'].includes(currentView);
-              
               const isActive = isLandingActive || isViewActive || isSolutionActive;
 
               return (
@@ -101,17 +94,21 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
                   <a 
                     href={link.href} 
                     onClick={(e) => handleNavClick((link.view === 'solutions_parent' ? 'landing' : link.view) as AppView, e)}
-                    className={`flex items-center gap-1 font-bold text-[12px] tracking-widest uppercase transition-colors duration-300 ${
+                    className={`relative flex items-center gap-1 font-bold text-[12px] tracking-widest uppercase pb-2 transition-all duration-300 ${
                       isActive 
                       ? 'text-tzero-blue' 
-                      : 'text-slate-500 hover:text-tzero-blue'
+                      : 'text-slate-500 group-hover:text-tzero-blue'
                     }`}
                   >
                     {link.name}
+                    
+                    {/* Underline Animation */}
+                    <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-tzero-blue transition-transform duration-300 origin-center ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                    
                     {link.hasDropdown && (
                       <ChevronDown 
                         size={14} 
-                        className={`transition-all duration-300 ${isDropdownOpen ? 'rotate-180 text-tzero-blue' : 'text-current'}`} 
+                        className={`transition-all duration-300 ${isDropdownOpen || isSolutionActive ? 'rotate-180 text-tzero-blue' : 'text-current group-hover:text-tzero-blue'}`} 
                       />
                     )}
                   </a>
@@ -175,7 +172,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
                 <div key={link.name} className="space-y-4">
                   <a 
                     href={link.href} 
-                    className={`text-sm font-black uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-tzero-blue' : 'text-slate-500 hover:text-tzero-blue'}`} 
+                    className={`text-sm font-black uppercase tracking-widest transition-all duration-300 ${isActive ? 'text-tzero-blue' : 'text-slate-500 hover:text-tzero-blue'}`} 
                     onClick={(e) => handleNavClick((link.view === 'solutions_parent' ? 'landing' : link.view) as AppView, e)}
                   >
                     {link.name}
