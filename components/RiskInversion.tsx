@@ -7,7 +7,7 @@ const RiskInversion: React.FC = () => {
     <div className="bg-white py-32 border-t border-slate-100" id="processo">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-24">
-          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Segurança Operacional</span>
+          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Zero custo em ligações improdutivas</span>
           <h2 className="text-5xl lg:text-7xl font-black text-[#022c5e] italic tracking-tighter mb-8">
             Inversão de Risco Operacional
           </h2>

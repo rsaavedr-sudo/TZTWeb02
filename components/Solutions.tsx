@@ -51,14 +51,21 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
               Nossas <span className="text-tzero-blue font-light">Soluções</span>
             </h2>
             <p className="text-slate-500 font-medium text-lg leading-relaxed">
-              As soluções da T-Zero Tech são desenvolvidas a partir das necessidades reais de operações de campanhas massivas.
+              As soluções da ZERO2ONE são desenvolvidas a partir das necessidades reais de operações de campanhas massivas.
             </p>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {products.map((p) => (
-            <div key={p.id} className={`flex flex-col p-10 rounded-3xl border transition-all duration-500 group ${p.highlight ? 'border-tzero-blue/20 bg-tzero-soft/50 shadow-2xl relative' : 'border-slate-100 hover:border-slate-200'}`}>
+            <div 
+              key={p.id} 
+              className={`flex flex-col p-10 rounded-3xl border transition-all duration-500 group cursor-default hover:scale-[1.03] ${
+                p.highlight 
+                ? 'border-tzero-blue/20 bg-tzero-soft/50 shadow-2xl relative' 
+                : 'border-slate-100 hover:border-slate-200 bg-white hover:shadow-xl'
+              }`}
+            >
               <div className={`${p.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-10 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {p.icon}
               </div>

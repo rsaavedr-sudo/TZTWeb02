@@ -85,7 +85,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
                    ))}
                 </div>
                 <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                   <p className="text-blue-100/40 text-[10px] font-black uppercase tracking-[0.2em]">Fonte: Auditoria Anual T-Zero 2023</p>
+                   <p className="text-blue-100/40 text-[10px] font-black uppercase tracking-[0.2em]">Fonte: Auditoria Anual ZERO2ONE 2023</p>
                 </div>
              </div>
           </div>

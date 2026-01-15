@@ -75,22 +75,13 @@ const Hero: React.FC = () => {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-14">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-tzero-blue text-white px-10 py-4.5 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-600 transition-all flex items-center justify-center gap-2">
                 Começar Agora
               </button>
               <button className="bg-white border border-slate-200 text-[#022c5e] px-10 py-4.5 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                 <Play size={16} fill="currentColor" /> Ver Demonstração
               </button>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <div className="flex -space-x-2">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[8px] font-bold text-slate-400">BPO</div>
-                ))}
-              </div>
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">+500M Minutos/Ano</p>
             </div>
           </div>
           

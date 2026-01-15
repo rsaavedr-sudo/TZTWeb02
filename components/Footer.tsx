@@ -6,22 +6,38 @@ interface FooterProps {
   setView: (view: 'landing' | 'blog') => void;
 }
 
+const FooterIcon = () => (
+  <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="38" stroke="#DBEAFE" strokeWidth="6" />
+    <circle cx="50" cy="50" r="28" stroke="#93C5FD" strokeWidth="6" />
+    <circle cx="50" cy="50" r="18" stroke="#3B82F6" strokeWidth="6" />
+    <circle cx="50" cy="50" r="8" fill="#0B2455" />
+    <g transform="translate(50, 50) rotate(-45)">
+      <rect x="-2.5" y="-55" width="5" height="55" rx="1" fill="#0B2455" />
+      <path d="M-12 -62 L0 -42 L12 -62" fill="#0B2455" />
+      <path d="M-10 -52 L0 -35 L10 -52" fill="#0B2455" />
+    </g>
+  </svg>
+);
+
 const Footer: React.FC<FooterProps> = ({ setView }) => {
   return (
     <footer className="bg-white pt-24 pb-12 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-24">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-8 cursor-pointer" onClick={() => setView('landing')}>
-               <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                 <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28" stroke="#022c5e" strokeWidth="4" strokeLinecap="round"/>
-                    <path d="M16 4C22.6274 4 28 9.37258 28 16" stroke="#10b981" strokeWidth="4" strokeLinecap="round"/>
-                 </svg>
-               </div>
-               <span className="text-2xl font-extrabold text-[#022c5e] tracking-tighter">
-                  T-ZERO<span className="text-tzero-blue font-light ml-1">TECH</span>
-               </span>
+            <div className="flex items-center gap-3 mb-8 cursor-pointer group" onClick={() => setView('landing')}>
+              <div className="flex-shrink-0">
+                <FooterIcon />
+              </div>
+              <div className="flex flex-col justify-center -mt-1">
+                <span className="text-2xl font-black tracking-tight leading-none text-[#0B2455]">
+                  ZERO2<span className="text-[#3B82F6]">ONE</span>
+                </span>
+                <span className="text-[8px] font-medium text-slate-400 uppercase tracking-[0.1em] mt-1">
+                  powered by <span className="font-bold">T-ZERO TECH</span>
+                </span>
+              </div>
             </div>
             <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-10 text-sm">
               Líderes globais em tecnologia de tarifação inteligente e eficiência de telecomunicações para operações de alta escala.
@@ -63,7 +79,7 @@ const Footer: React.FC<FooterProps> = ({ setView }) => {
             <MapPin size={14} className="text-tzero-blue" /> Trusted by 500+ Enterprises Globally
           </div>
           <p className="text-slate-300 font-bold text-[10px] uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} T-ZERO TECH. ALL RIGHTS RESERVED.
+            &copy; {new Date().getFullYear()} ZERO2ONE. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>

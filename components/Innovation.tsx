@@ -62,7 +62,7 @@ const Innovation: React.FC<InnovationProps> = ({ setView }) => {
               <div className="space-y-8">
                 <div className="bg-white/5 p-8 rounded-2xl border-l-4 border-tzero-blue backdrop-blur-md">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-black uppercase text-tzero-blue tracking-widest">ECOSSISTEMA T-ZERO</span>
+                    <span className="text-xs font-black uppercase text-tzero-blue tracking-widest">ECOSSISTEMA ZERO2ONE</span>
                     <CheckCircle className="text-tzero-blue" size={20} />
                   </div>
                   <h5 className="text-xl font-bold mb-3">Tarifação CPC Real</h5>
