@@ -17,7 +17,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
     },
     {
       title: "Erros de Rede (Sinalização)",
-      icon: <AlertTriangle className="text-amber-500" size={24} />,
+      icon: <AlertTriangle className="text-tzero-risk" size={24} />,
       desc: "Falhas 503, congestionamentos de rota e erros ISUP que duram menos de 3 segundos mas são tarifados como o primeiro minuto completo.",
       impact: "Perda direta em infraestrutura improdutiva."
     },
@@ -41,7 +41,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
 
         <div className="grid lg:grid-cols-2 gap-20 items-center mb-32">
           <div>
-            <div className="flex items-center gap-2 text-red-500 font-black text-[10px] uppercase tracking-[0.3em] mb-6">
+            <div className="flex items-center gap-2 text-tzero-risk font-black text-[10px] uppercase tracking-[0.3em] mb-6">
               <ShieldAlert size={14} /> Revenue Leak Analysis
             </div>
             <h1 className="text-5xl lg:text-7xl font-black text-tzero-navy mb-8 tracking-tighter leading-[0.9]">
@@ -53,7 +53,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
             </p>
             <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
                <div className="flex items-center gap-4 mb-4">
-                 <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                 <div className="w-3 h-3 rounded-full bg-tzero-risk animate-pulse"></div>
                  <span className="text-xs font-black uppercase tracking-widest text-slate-400">Status do Mercado: Crítico</span>
                </div>
                <p className="text-tzero-navy font-bold text-xl leading-snug">
@@ -68,9 +68,9 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
                 <h3 className="text-2xl font-black mb-10 tracking-tight">Anatomia de 1 Milhão de Chamadas</h3>
                 <div className="space-y-6">
                    {[
-                     { label: "Caixas Postais", val: "58%", color: "bg-blue-400" },
-                     { label: "Erros de Rede / Ocupado", val: "15%", color: "bg-blue-600" },
-                     { label: "URA de Operadora", val: "12%", color: "bg-blue-800" },
+                     { label: "Caixas Postais", val: "58%", color: "bg-red-900" },
+                     { label: "Erros de Rede / Ocupado", val: "15%", color: "bg-[#E11D48]" },
+                     { label: "URA de Operadora", val: "12%", color: "bg-slate-700" },
                      { label: "Contatos Humanos (ROI)", val: "15%", color: "bg-tzero-blue" },
                    ].map((item, i) => (
                      <div key={i}>
@@ -101,9 +101,9 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ setView }) => {
                <p className="text-slate-500 text-sm font-medium leading-relaxed mb-10">
                  {leak.desc}
                </p>
-               <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
-                  <span className="text-[10px] font-black text-red-400 uppercase tracking-widest mb-2 block">Impacto Financeiro</span>
-                  <p className="text-red-900 font-bold text-xs">{leak.impact}</p>
+               <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                  <span className="text-[10px] font-black text-tzero-risk uppercase tracking-widest mb-2 block opacity-60">Impacto Financeiro</span>
+                  <p className="text-tzero-risk font-bold text-xs">{leak.impact}</p>
                </div>
             </div>
           ))}

@@ -2,23 +2,31 @@
 import React from 'react';
 import { Linkedin, Twitter, Globe, Mail, MapPin } from 'lucide-react';
 
-interface FooterProps {
-  setView: (view: 'landing' | 'blog') => void;
-}
-
 const FooterIcon = () => (
   <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Target Rings */}
     <circle cx="50" cy="50" r="38" stroke="#DBEAFE" strokeWidth="6" />
     <circle cx="50" cy="50" r="28" stroke="#93C5FD" strokeWidth="6" />
     <circle cx="50" cy="50" r="18" stroke="#3B82F6" strokeWidth="6" />
+    
+    {/* Bullseye Background */}
     <circle cx="50" cy="50" r="8" fill="#0B2455" />
+    
+    {/* Abstract Path */}
     <g transform="translate(50, 50) rotate(-45)">
-      <rect x="-2.5" y="-55" width="5" height="55" rx="1" fill="#0B2455" />
-      <path d="M-12 -62 L0 -42 L12 -62" fill="#0B2455" />
-      <path d="M-10 -52 L0 -35 L10 -52" fill="#0B2455" />
+      {/* Line reaching the center point */}
+      <rect x="-1.5" y="-48" width="3" height="48" rx="1.5" fill="#0B2455" opacity="0.6" />
+      <circle cx="0" cy="-25" r="2.5" fill="#0B2455" />
+      
+      {/* CENTRAL POINT */}
+      <circle cx="0" cy="0" r="5" fill="#3B82F6" />
     </g>
   </svg>
 );
+
+interface FooterProps {
+  setView: (view: 'landing' | 'blog') => void;
+}
 
 const Footer: React.FC<FooterProps> = ({ setView }) => {
   return (
@@ -40,7 +48,7 @@ const Footer: React.FC<FooterProps> = ({ setView }) => {
               </div>
             </div>
             <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-10 text-sm">
-              Líderes globais em tecnologia de tarifação inteligente e eficiência de telecomunicações para operações de alta escala.
+              Líderes em tecnologia de tarifação inteligente e eficiência em telecomunicações para operações de alta escala.
             </p>
             <div className="flex gap-4">
               {[Linkedin, Twitter, Globe, Mail].map((Icon, i) => (

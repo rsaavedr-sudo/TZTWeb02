@@ -4,22 +4,22 @@ import { ArrowRight, BarChart, ShieldAlert, LineChart } from 'lucide-react';
 
 const consultingData = [
   {
-    title: "Inteligência de Negócio",
-    desc: "Análise profunda de KPIs para maximizar a rentabilidade da sua operação massiva com dashboards em tempo real.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    title: "IA Integrada a Processos de Call Center",
+    desc: "Aplicamos modelos de inteligência artificial diretamente nos fluxos operacionais de call centers e operations de vendas ativas, atuando em classificação de chamadas, roteamento inteligente, análise de voz e otimização de resultados em tempo real.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1632&auto=format&fit=crop",
     icon: <BarChart className="text-white" size={22} />,
     color: "bg-tzero-blue"
   },
   {
     title: "Risco & Regulação",
-    desc: "Consultoria especializada para garantir que sua escala massiva cumpra todas as normas internacionais de privacidade.",
+    desc: "Orientamos campanhas ativas de telefonia para que operem dentro das exigências regulatórias brasileiras, reduzindo risco jurídico e garantindo a continuidade da operação em escala.",
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1471&auto=format&fit=crop",
     icon: <ShieldAlert className="text-white" size={22} />,
     color: "bg-tzero-navy"
   },
   {
     title: "Auditoria Operacional",
-    desc: "Equipes de alto desempenho revisando processos para garantir que cada contato transferido seja uma oportunidade real.",
+    desc: "Nossa tecnologia realiza auditorias ativas e em tempo real sobre as operações de call center, tornando visíveis ligações improdutivas e eventos operacionais que normalmente passam despercebidos. Esse modelo avançado de auditoria permite identificar desperdícios, corrigir rotas e garantir que cada contato transferido represente uma oportunidade real.",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1470&auto=format&fit=crop",
     icon: <LineChart className="text-white" size={22} />,
     color: "bg-slate-600"
@@ -34,11 +34,11 @@ const Consulting: React.FC = () => {
           <div className="max-w-2xl">
             <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Consultoria Estratégica</span>
             <h2 className="text-4xl lg:text-6xl font-black text-tzero-navy tracking-tight leading-[0.95]">
-              Eficiência que gera <br /> <span className="text-tzero-blue">Otimismo.</span>
+              Eficiência que gera <br /> <span className="text-tzero-blue">Resultado.</span>
             </h2>
           </div>
           <p className="text-slate-500 text-lg font-medium max-w-sm leading-relaxed border-l-4 border-tzero-blue pl-8">
-            Nossa consultoria une tecnologia e capital humano para criar operações de contato massivo sem precedentes.
+            Nossa consultoria integra tecnologia e capital humano para estruturar operações de call center de alta performance, orientadas a eficiência, escala e resultado.
           </p>
         </div>
 

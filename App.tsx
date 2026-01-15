@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import RiskInversion from './components/RiskInversion';
 import DataProblem from './components/DataProblem';
-import Innovation from './components/Innovation';
 import TargetAudience from './components/TargetAudience';
 import Solutions from './components/Solutions';
 import EfficiencyCalculator from './components/EfficiencyCalculator';
@@ -17,8 +16,9 @@ import Leads360Page from './components/products/Leads360Page';
 import Consulting from './components/Consulting';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 
-export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'tech' | 'problem';
+export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'tech' | 'problem' | 'contact';
 
 const App: React.FC = () => {
   const [view, setView] = useState<AppView>('landing');
@@ -41,13 +41,14 @@ const App: React.FC = () => {
         return <SmartRoutePage setView={setView} />;
       case 'leads360':
         return <Leads360Page setView={setView} />;
+      case 'contact':
+        return <div className="pt-20"><ContactForm isPage={true} /></div>;
       default:
         return (
           <>
             <Hero />
             <RiskInversion />
             <DataProblem setView={setView} />
-            <Innovation setView={setView} />
             <Solutions setView={setView} />
             <EfficiencyCalculator />
             <TargetAudience />
@@ -64,6 +65,7 @@ const App: React.FC = () => {
       <main className="flex-grow">
         {renderContent()}
       </main>
+      <WhatsAppButton />
       <Footer setView={setView} />
     </div>
   );

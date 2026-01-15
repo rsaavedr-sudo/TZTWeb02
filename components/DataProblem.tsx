@@ -41,12 +41,12 @@ const DataProblem: React.FC<DataProblemProps> = ({ setView }) => {
               <span className="text-tzero-blue">custo da sua operação?</span>
             </h2>
             <p className="text-slate-500 text-lg font-medium leading-relaxed mb-10">
-              No modelo tradicional por minutos, você paga por cada segundo de silêncio, erro de sinalização e máquinas de responder. Isso representa até <span className="text-tzero-navy font-black underline decoration-tzero-blue">90% de desperdício</span>.
+              No modelo tradicional por minutos, você paga por cada segundo de silêncio, erro de sinalização e máquinas de responder. Isso representa até <span className="text-tzero-risk font-black underline decoration-tzero-blue">90% de desperdício</span>.
             </p>
             
             <div className="space-y-6 mb-12">
               <div className="flex gap-5 items-start p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                <div className="bg-white p-3 rounded-xl shadow-sm text-slate-400"><PhoneOff size={24} /></div>
+                <div className="bg-white p-3 rounded-xl shadow-sm text-tzero-risk"><PhoneOff size={24} /></div>
                 <div>
                   <h4 className="font-bold text-tzero-navy text-lg mb-1 tracking-tight">Modelo Legado (Minutos)</h4>
                   <p className="text-slate-500 text-sm font-medium">Faturamento indiscriminado de tentativas falhas e ruído.</p>
@@ -105,7 +105,7 @@ const DataProblem: React.FC<DataProblemProps> = ({ setView }) => {
                       wrapperStyle={{ paddingTop: '40px', fontWeight: '700', fontSize: '11px' }} 
                     />
                     <Bar dataKey="produtivo" stackId="a" fill="#0061FF" radius={[0, 0, 0, 0]} name="Custo produtivo (Contato humano efetivo)" />
-                    <Bar dataKey="improdutivo" stackId="a" fill="#F97316" radius={[6, 6, 0, 0]} name="Custo improdutivo (Desperdício operacional)" />
+                    <Bar dataKey="improdutivo" stackId="a" fill="#E11D48" radius={[6, 6, 0, 0]} name="Custo improdutivo (Desperdício operacional)" />
                   </BarChart>
                 </ResponsiveContainer>
               )}
@@ -114,7 +114,7 @@ const DataProblem: React.FC<DataProblemProps> = ({ setView }) => {
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="text-center p-4 bg-slate-50 rounded-2xl">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Aproveitamento Médio</p>
-                <p className="text-2xl font-black text-slate-400">~10%</p>
+                <p className="text-2xl font-black text-tzero-risk opacity-60">~10%</p>
               </div>
               <div className="text-center p-4 bg-tzero-navy rounded-2xl">
                 <p className="text-[10px] font-black text-blue-200/40 uppercase tracking-widest mb-1">Aproveitamento ZERO2ONE</p>

@@ -5,19 +5,24 @@ import { AppView } from '../App';
 
 const LogoIcon = () => (
   <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Bullseye Rings */}
+    {/* Target Rings */}
     <circle cx="50" cy="50" r="38" stroke="#DBEAFE" strokeWidth="6" />
     <circle cx="50" cy="50" r="28" stroke="#93C5FD" strokeWidth="6" />
     <circle cx="50" cy="50" r="18" stroke="#3B82F6" strokeWidth="6" />
+    
+    {/* Background Bullseye Dot */}
     <circle cx="50" cy="50" r="8" fill="#0B2455" />
     
-    {/* Dart hitting the center */}
+    {/* Abstract Precision Path */}
     <g transform="translate(50, 50) rotate(-45)">
-      {/* Shaft */}
-      <rect x="-2.5" y="-55" width="5" height="55" rx="1" fill="#0B2455" />
-      {/* Fletching / Feathers at the top of the shaft */}
-      <path d="M-12 -62 L0 -42 L12 -62" fill="#0B2455" />
-      <path d="M-10 -52 L0 -35 L10 -52" fill="#0B2455" />
+      {/* Sleek path line coming from outside and entering the center */}
+      <rect x="-1.5" y="-48" width="3" height="48" rx="1.5" fill="#0B2455" opacity="0.6" />
+      
+      {/* Secondary data pulse on the path */}
+      <circle cx="0" cy="-25" r="2.5" fill="#0B2455" />
+      
+      {/* THE HIT POINT: Exactly at the center (0,0 of the translated group) */}
+      <circle cx="0" cy="0" r="5" fill="#3B82F6" />
     </g>
   </svg>
 );
@@ -39,14 +44,8 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
   }, []);
 
   const handleNavClick = (view: AppView, e: React.MouseEvent) => {
-    if (view === 'landing') {
-      if (currentView !== 'landing') {
-        setView('landing');
-      }
-    } else {
-      e.preventDefault();
-      setView(view);
-    }
+    e.preventDefault();
+    setView(view);
     setIsOpen(false);
     setIsDropdownOpen(false);
   };
@@ -58,10 +57,11 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
   ];
 
   const navLinks = [
+    { name: 'Início', href: '#', view: 'landing' },
     { name: 'Problema', href: '#problema', view: 'problem' },
     { name: 'Soluções', href: '#soluções', view: 'landing', hasDropdown: true },
     { name: 'Blog', href: '#blog', view: 'blog' },
-    { name: 'Contato', href: '#contato', view: 'landing' },
+    { name: 'Contato', href: '#contato', view: 'contact' },
   ];
 
   return (
@@ -94,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
                   href={link.href} 
                   onClick={(e) => handleNavClick(link.view as AppView, e)}
                   className={`flex items-center gap-1 font-bold text-[12px] tracking-widest uppercase transition-colors ${
-                    (currentView === link.view && link.view !== 'landing') 
+                    (currentView === link.view) 
                     ? 'text-tzero-blue' 
                     : 'text-slate-500 hover:text-tzero-blue'
                   }`}
@@ -132,7 +132,10 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
                 )}
               </div>
             ))}
-            <button className="bg-tzero-blue text-white px-7 py-3 rounded-xl text-[12px] font-bold shadow-lg shadow-blue-500/20 hover:bg-[#0B2455] transition-all transform hover:-translate-y-0.5">
+            <button 
+              onClick={() => setView('contact')}
+              className="bg-tzero-blue text-white px-7 py-3 rounded-xl text-[12px] font-bold shadow-lg shadow-blue-500/20 hover:bg-[#0B2455] transition-all transform hover:-translate-y-0.5"
+            >
               Agendar uma Demonstração
             </button>
           </div>
@@ -152,31 +155,14 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
               <div key={link.name} className="space-y-4">
                 <a 
                   href={link.href} 
-                  className={`text-sm font-black uppercase tracking-widest ${link.hasDropdown ? 'text-tzero-blue' : 'text-slate-700'}`} 
-                  onClick={(e) => !link.hasDropdown && handleNavClick(link.view as AppView, e)}
+                  className={`text-sm font-black uppercase tracking-widest ${currentView === link.view ? 'text-tzero-blue' : 'text-slate-700'}`} 
+                  onClick={(e) => handleNavClick(link.view as AppView, e)}
                 >
                   {link.name}
                 </a>
-                {link.hasDropdown && (
-                  <div className="pl-4 space-y-4 border-l-2 border-slate-50">
-                    {productLinks.map((prod) => (
-                      <button
-                        key={prod.id}
-                        onClick={(e) => handleNavClick(prod.id as AppView, e)}
-                        className="flex items-center gap-3 w-full text-left"
-                      >
-                        <span className="text-tzero-blue">{prod.icon}</span>
-                        <div>
-                          <p className="text-xs font-bold text-slate-800">{prod.name}</p>
-                          <p className="text-[10px] text-slate-400 font-medium">{prod.desc}</p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
             ))}
-            <button className="bg-tzero-blue text-white w-full py-4 rounded-xl text-sm font-bold shadow-lg">
+            <button onClick={() => { setView('contact'); setIsOpen(false); }} className="bg-tzero-blue text-white w-full py-4 rounded-xl text-sm font-bold shadow-lg">
               Agendar uma Demonstração
             </button>
           </div>
