@@ -3,6 +3,24 @@ import React from 'react';
 import { ShieldCheck, TrendingDown, Users, CheckCircle2 } from 'lucide-react';
 
 const RiskInversion: React.FC = () => {
+  const riskCards = [
+    {
+      title: "Previsibilidade Comercial",
+      desc: "Saiba exatamente quanto custará cada contato antes mesmo de iniciar a campanha. Sem surpresas com operadoras.",
+      icon: <TrendingDown size={28} />
+    },
+    {
+      title: "Foco no Core Business",
+      desc: "Seus gestores param auditar contas e começam a analisar performance de conversão dos agentes.",
+      icon: <Users size={28} />
+    },
+    {
+      title: "Zero custo para chamadas improdutivas",
+      desc: "ZeroLoss absorve os custos invisíveis das campanhas. Você paga apenas pelo que realmente importa: o contato humano real.",
+      icon: <ShieldCheck size={28} />
+    }
+  ];
+
   return (
     <div className="bg-white py-32 border-t border-slate-100" id="processo">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -17,32 +35,27 @@ const RiskInversion: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-10">
-          {[
-            {
-              title: "Previsibilidade Comercial",
-              desc: "Saiba exatamente quanto custará cada contato antes mesmo de iniciar a campanha. Sem surpresas com operadoras.",
-              icon: <TrendingDown className="text-tzero-blue" size={32} />
-            },
-            {
-              title: "Foco no Core Business",
-              desc: "Seus gestores param auditar contas e começam a analisar performance de conversão dos agentes.",
-              icon: <Users className="text-tzero-blue" size={32} />
-            },
-            {
-              title: "Zero custo para chamadas improdutivas",
-              desc: "ZeroLoss absorve os custos invisíveis das campanhas. Você paga apenas pelo que realmente importa: o contato humano real.",
-              icon: <ShieldCheck className="text-tzero-blue" size={32} />
-            }
-          ].map((item, i) => (
-            <div key={i} className="bg-white border border-slate-100 p-12 rounded-[2.5rem] hover:shadow-2xl hover:shadow-blue-900/5 transition-all group">
-              <div className="mb-8 w-16 h-16 rounded-2xl bg-tzero-soft flex items-center justify-center group-hover:bg-tzero-blue group-hover:text-white transition-colors">
-                {/* Fixed type error by casting to React.ReactElement<any> to allow additional props */}
-                {React.cloneElement(item.icon as React.ReactElement<any>, { className: 'transition-colors' })}
+          {riskCards.map((item, i) => (
+            <div 
+              key={i} 
+              className="bg-white border border-slate-100 p-12 rounded-[2.5rem] transition-all duration-500 group cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(2,44,94,0.12)]"
+            >
+              {/* Icon Container - Starts Grey, turns Blue on Hover */}
+              <div className="mb-10 w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center shadow-sm group-hover:bg-[#0061FF] group-hover:text-white group-hover:shadow-blue-500/20 group-hover:scale-110 transition-all duration-300">
+                {item.icon}
               </div>
-              <h3 className="text-2xl font-black text-[#022c5e] mb-4 tracking-tight">{item.title}</h3>
-              <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
-              <div className="mt-8 pt-8 border-t border-slate-50">
-                <div className="flex items-center gap-2 text-[10px] font-black text-tzero-blue uppercase tracking-widest">
+              
+              {/* Title changes color on hover */}
+              <h3 className="text-2xl font-black text-[#022c5e] mb-4 tracking-tight group-hover:text-tzero-blue transition-colors">
+                {item.title}
+              </h3>
+              
+              <p className="text-slate-500 font-medium leading-relaxed mb-8">
+                {item.desc}
+              </p>
+              
+              <div className="mt-auto pt-8 border-t border-slate-50">
+                <div className="flex items-center gap-2 text-[10px] font-black text-tzero-blue uppercase tracking-widest transition-all group-hover:gap-3">
                   <CheckCircle2 size={14} /> Garantia ZeroLoss
                 </div>
               </div>
