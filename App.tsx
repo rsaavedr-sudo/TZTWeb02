@@ -8,6 +8,7 @@ import Leads360Highlight from './components/Leads360Highlight';
 import Leads360Efficiency from './components/Leads360Efficiency';
 import DataProblem from './components/DataProblem';
 import Solutions from './components/Solutions';
+import SocialProof from './components/SocialProof';
 import EfficiencyCalculator from './components/EfficiencyCalculator';
 import BlogPage from './components/BlogPage';
 import TechPage from './components/TechPage';
@@ -68,6 +69,10 @@ const App: React.FC = () => {
             <Leads360Efficiency setView={setView} />
             
             <Solutions setView={setView} />
+
+            {/* Nova Seção de Prova Social e Casos de Uso */}
+            <SocialProof />
+            
             <EfficiencyCalculator />
             <ContactForm />
           </>

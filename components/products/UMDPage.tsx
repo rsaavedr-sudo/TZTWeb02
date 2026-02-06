@@ -20,8 +20,9 @@ import {
   ArrowRight,
   Database,
   ShieldAlert,
-  // Added TrendingUp to imports to fix missing name error
-  TrendingUp
+  TrendingUp,
+  Quote,
+  Briefcase
 } from 'lucide-react';
 import { AppView } from '../../App';
 
@@ -31,6 +32,30 @@ interface ProductPageProps {
 
 const UMDPage: React.FC<ProductPageProps> = ({ setView }) => {
   const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração do UMD - Classificador SaaS Avançado e conversar sobre uma PoC.";
+
+  const testimonials = [
+    {
+      name: "Ricardo Almeida",
+      role: "Diretor de Operações na Global BPO",
+      text: "O modelo ZeroLoss mudou completamente nossa previsibilidade financeira. Paramos de pagar por silêncio e agora focamos 100% no resultado real de conversão.",
+      product: "ZeroLoss CPC",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&h=256&auto=format&fit=crop"
+    },
+    {
+      name: "Mariana Costa",
+      role: "Head de Growth na FinTech X",
+      text: "A escala que atingimos com o Leads360 foi absurda. Temos leads qualificados chegando 24/7 e nosso time de vendas só atende quem realmente tem intenção de compra.",
+      product: "Leads360 Platform",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&h=256&auto=format&fit=crop"
+    },
+    {
+      name: "Marcos Vinícius",
+      role: "CTO da Connect Telecom",
+      text: "A filtragem técnica do UMD limpou nosso tráfego de forma impressionante. Nosso ASR útil subiu 40% na primeira semana de PoC, eliminando custos invisíveis.",
+      product: "UMD Classifier",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=256&h=256&auto=format&fit=crop"
+    }
+  ];
 
   return (
     <div className="pt-32 pb-24 bg-white animate-in fade-in duration-700">
@@ -176,6 +201,57 @@ const UMDPage: React.FC<ProductPageProps> = ({ setView }) => {
                 </div>
                 <h4 className="text-xl font-black text-tzero-navy mb-3">{benefit.title}</h4>
                 <p className="text-slate-500 text-sm font-medium leading-relaxed">{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Use Cases Section - Empty for now */}
+        <div className="mb-32 py-24 bg-slate-900 rounded-[4rem] px-12 lg:px-24 text-white">
+           <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-20">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 bg-white/10 text-tzero-blue px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-white/5">
+                  <Briefcase size={14} /> Aplicações Práticas
+                </div>
+                <h2 className="text-4xl lg:text-6xl font-black tracking-tight leading-tight">Casos de Uso</h2>
+              </div>
+              <p className="text-blue-100/40 text-sm font-bold uppercase tracking-[0.2em] mb-4">Vazio por enquanto</p>
+           </div>
+           
+           <div className="grid md:grid-cols-2 gap-8 opacity-20 grayscale pointer-events-none">
+              <div className="h-64 bg-white/5 border border-white/10 rounded-[2.5rem] flex items-center justify-center italic text-xs font-bold tracking-widest uppercase">
+                Case em breve...
+              </div>
+              <div className="h-64 bg-white/5 border border-white/10 rounded-[2.5rem] flex items-center justify-center italic text-xs font-bold tracking-widest uppercase">
+                Case em breve...
+              </div>
+           </div>
+        </div>
+
+        {/* Testimonials Section */}
+        <div className="mb-32">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl font-black text-tzero-navy tracking-tight mb-4">Depoimentos de Impacto</h2>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">O que nossos parceiros dizem sobre o ecossistema</p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white border border-slate-100 p-10 rounded-[3rem] shadow-sm flex flex-col hover:shadow-xl transition-all group">
+                <div className="text-tzero-blue/20 mb-6 group-hover:text-tzero-blue transition-colors">
+                  <Quote size={40} fill="currentColor" />
+                </div>
+                <p className="text-slate-600 font-medium leading-relaxed mb-10 flex-grow italic">
+                  "{t.text}"
+                </p>
+                <div className="flex items-center gap-4 border-t border-slate-50 pt-8">
+                  <img src={t.image} alt={t.name} className="w-14 h-14 rounded-2xl object-cover grayscale group-hover:grayscale-0 transition-all shadow-md" />
+                  <div>
+                    <h5 className="text-sm font-black text-tzero-navy">{t.name}</h5>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{t.role}</p>
+                    <span className="inline-block mt-1 text-[9px] font-black text-tzero-blue bg-tzero-blue/5 px-2 py-0.5 rounded uppercase">{t.product}</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
