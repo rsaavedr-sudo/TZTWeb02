@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, TrendingDown, Users, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, TrendingDown, Users } from 'lucide-react';
 
 const RiskInversion: React.FC = () => {
   const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de solicitar um diagnóstico de risco e agendar uma demonstração.";
@@ -40,7 +40,7 @@ const RiskInversion: React.FC = () => {
           {riskCards.map((item, i) => (
             <div 
               key={i} 
-              className="bg-white border border-slate-100 p-12 rounded-[2.5rem] transition-all duration-500 group cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(2,44,94,0.12)]"
+              className="bg-white border border-slate-100 p-12 rounded-[2.5rem] transition-all duration-500 group cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(2,44,94,0.12)] flex flex-col h-full"
             >
               {/* Icon Container - Starts Grey, turns Blue on Hover */}
               <div className="mb-10 w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center shadow-sm group-hover:bg-[#0061FF] group-hover:text-white group-hover:shadow-blue-500/20 group-hover:scale-110 transition-all duration-300">
@@ -52,15 +52,9 @@ const RiskInversion: React.FC = () => {
                 {item.title}
               </h3>
               
-              <p className="text-slate-500 font-medium leading-relaxed mb-8">
+              <p className="text-slate-500 font-medium leading-relaxed">
                 {item.desc}
               </p>
-              
-              <div className="mt-auto pt-8 border-t border-slate-50">
-                <div className="flex items-center gap-2 text-[10px] font-black text-tzero-blue uppercase tracking-widest transition-all group-hover:gap-3">
-                  <CheckCircle2 size={14} /> Garantia ZeroLoss
-                </div>
-              </div>
             </div>
           ))}
         </div>

@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import RiskInversion from './components/RiskInversion';
+import Leads360Highlight from './components/Leads360Highlight';
+import Leads360Efficiency from './components/Leads360Efficiency';
 import DataProblem from './components/DataProblem';
-import TargetAudience from './components/TargetAudience';
 import Solutions from './components/Solutions';
 import EfficiencyCalculator from './components/EfficiencyCalculator';
 import BlogPage from './components/BlogPage';
@@ -13,7 +14,6 @@ import ProblemPage from './components/ProblemPage';
 import ZeroLossPage from './components/products/ZeroLossPage';
 import SmartRoutePage from './components/products/SmartRoutePage';
 import Leads360Page from './components/products/Leads360Page';
-import Consulting from './components/Consulting';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -49,10 +49,11 @@ const App: React.FC = () => {
             <Hero />
             <RiskInversion />
             <DataProblem setView={setView} />
+            <div className="h-1 bg-slate-50"></div>
+            <Leads360Highlight setView={setView} />
+            <Leads360Efficiency setView={setView} />
             <Solutions setView={setView} />
             <EfficiencyCalculator />
-            <TargetAudience />
-            <Consulting />
             <ContactForm />
           </>
         );
