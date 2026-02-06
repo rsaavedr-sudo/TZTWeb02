@@ -142,7 +142,7 @@ const Hero: React.FC = () => {
   const slides = [
     {
       badge: "Inversão de Risco Operacional",
-      title: <>Pague apenas por <br /><span className="text-tzero-blue underline decoration-slate-100">Alô Humano Efetivo.</span></>,
+      title: <>Zero Loss: Pague apenas por <br /><span className="text-tzero-blue underline decoration-slate-100">Alô Humano Efetivo.</span></>,
       desc: "O modelo ZeroLoss transfere o risco técnico da operadora para nós. Se não houver contato humano validado pela nossa IA, o custo é zero para sua empresa.",
       cta: "Entenda o Modelo CPC",
       visual: <BillingCard />,
@@ -150,7 +150,7 @@ const Hero: React.FC = () => {
     },
     {
       badge: "3 Motores de Aquisição",
-      title: <>Captação Massiva e <br /><span className="text-tzero-blue italic">Atenção Qualificada.</span></>,
+      title: <>Leads360: Captação Massiva e <br /><span className="text-tzero-blue italic">Atenção Qualificada.</span></>,
       desc: "Tráfego Pago, URA Reversa e Viralização Horizontal. Três motores independentes integrados a um SDR automatizado por IA para volume real e intenção clara.",
       cta: "Conhecer os 3 Motores",
       visual: <ThreeMotorsCard />,
