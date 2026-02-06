@@ -71,6 +71,21 @@
             box-shadow: 0 4px 10px rgba(0, 97, 255, 0.3);
             border: 2px solid white;
         }
+
+        /* Time Square Ticker Animation */
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          display: flex;
+          white-space: nowrap;
+          animation: marquee 60s linear infinite;
+          width: max-content;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="bg-white">

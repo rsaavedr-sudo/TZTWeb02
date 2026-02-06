@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Ticker from './components/Ticker';
 import RiskInversion from './components/RiskInversion';
 import Leads360Highlight from './components/Leads360Highlight';
 import Leads360Efficiency from './components/Leads360Efficiency';
@@ -46,12 +47,23 @@ const App: React.FC = () => {
       default:
         return (
           <>
+            {/* Container do Ticker com fundo branco para integrar com a Navbar */}
+            <div className="pt-[88px] bg-white">
+              <Ticker />
+            </div>
+            
             <Hero />
+            
+            {/* Leads 360 como extensão natural do Hero */}
+            <Leads360Highlight setView={setView} />
+            
+            {/* ZeroLoss e Inversão de Risco Operacional */}
             <RiskInversion />
             <DataProblem setView={setView} />
-            <div className="h-1 bg-slate-50"></div>
-            <Leads360Highlight setView={setView} />
+            
+            {/* Eficiência de Captação Leads 360 (Réplica de Layout) */}
             <Leads360Efficiency setView={setView} />
+            
             <Solutions setView={setView} />
             <EfficiencyCalculator />
             <ContactForm />

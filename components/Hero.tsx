@@ -159,7 +159,7 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <div className="relative blue-gradient-soft pt-32 pb-20 lg:pt-52 lg:pb-32 overflow-hidden min-h-[920px] flex items-center" id="hero">
+    <div className="relative blue-gradient-soft pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden min-h-[820px] flex items-center" id="hero">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[550px]">
           

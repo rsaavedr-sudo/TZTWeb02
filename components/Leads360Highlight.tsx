@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Target, Bot, Share2, Zap, ArrowRight } from 'lucide-react';
+import { Target, Bot, Share2, Zap, ArrowRight, CheckCircle2, Repeat, MousePointer2, UserCheck, Layers } from 'lucide-react';
 import { AppView } from '../App';
 
 interface Leads360HighlightProps {
@@ -8,84 +8,111 @@ interface Leads360HighlightProps {
 }
 
 const Leads360Highlight: React.FC<Leads360HighlightProps> = ({ setView }) => {
-  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de uma demonstração da máquina de aquisição Leads360.";
+  const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de uma demonstração do funil inteligente Leads 360.";
 
-  const features = [
-    {
-      title: "Captação Multicanal",
-      desc: "Integramos Tráfego Pago, URA Reversa e Viralização para inundar sua operação com volume real de interessados.",
-      icon: <Target size={28} />
-    },
-    {
-      title: "Qualificação SDR-AI",
-      desc: "Nossa IA atua 24/7 filtrando a intenção de cada lead antes mesmo do primeiro contato humano da sua equipe.",
-      icon: <Bot size={28} />
-    },
-    {
-      title: "Viralização Horizontal",
-      desc: "Transformamos usuários em multiplicadores da sua mensagem, gerando alcance orgânico e prova social massiva.",
-      icon: <Share2 size={28} />
-    }
-  ];
+  const FunnelFlowCard = () => (
+    <div className="bg-white border border-slate-100 rounded-[3rem] p-10 shadow-[0_20px_50px_rgba(2,44,94,0.06)] relative overflow-hidden h-full">
+      <div className="absolute top-0 right-0 w-40 h-40 bg-tzero-blue/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+      
+      <div className="flex justify-between items-center mb-10">
+        <div>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Leads360 Pipeline v4.2</p>
+          <h4 className="text-xl font-black text-[#022c5e]">Funil Inteligente</h4>
+        </div>
+        <div className="bg-blue-50 text-tzero-blue p-3 rounded-2xl border border-blue-100/50">
+          <Layers size={20} />
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        {[
+          { label: "Lead bruto", status: "Input Massivo", opacity: "opacity-40" },
+          { label: "Lead validado", status: "Auditado Técnico", opacity: "opacity-60" },
+          { label: "Lead qualificado (SDR IA)", status: "Intenção Detectada", opacity: "opacity-80" },
+          { label: "Transferência humana", status: "Hot Lead Transfer", opacity: "opacity-100" },
+        ].map((step, idx) => (
+          <div key={idx} className={`p-4 bg-slate-50/80 rounded-2xl border border-slate-100 flex justify-between items-center transition-all ${step.opacity}`}>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-tzero-blue"></div>
+              <span className="text-tzero-navy text-[12px] font-bold tracking-tight">{step.label}</span>
+            </div>
+            <span className="text-slate-400 font-black text-[9px] uppercase tracking-tighter bg-white px-2 py-1 rounded border border-slate-100">
+              {step.status}
+            </span>
+          </div>
+        ))}
+        
+        {/* Conversão em Destaque */}
+        <div className="p-5 bg-tzero-navy rounded-2xl flex justify-between items-center shadow-lg shadow-blue-900/10 mt-6 border border-white/5">
+          <div className="flex items-center gap-3">
+            <UserCheck className="text-tzero-blue" size={20} />
+            <span className="text-white text-sm font-black italic">Conversão automática ou assistida</span>
+          </div>
+          <span className="text-tzero-blue font-black text-[9px] uppercase tracking-tighter bg-white/5 px-2 py-1 rounded">End of Funnel</span>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="bg-slate-50/50 py-32 border-t border-slate-100" id="leads360-highlight">
+    <div className="bg-white py-24 border-t border-slate-50 overflow-hidden" id="leads360-extension">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-24">
-          <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Máquina de Atenção Qualificada</span>
-          <h2 className="text-5xl lg:text-7xl font-black text-[#022c5e] italic tracking-tighter mb-8">
-            Aquisição Inteligente Leads360
-          </h2>
-          <p className="text-slate-500 text-xl font-medium max-w-3xl mx-auto leading-relaxed">
-            Não entregamos apenas dados, entregamos <span className="text-tzero-blue font-bold">intenção qualificada</span>. Transforme volume bruto em oportunidades reais de fechamento.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-10">
-          {features.map((item, i) => (
-            <div 
-              key={i} 
-              className="bg-white border border-slate-100 p-12 rounded-[2.5rem] transition-all duration-500 group cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(2,44,94,0.12)] flex flex-col h-full"
-              onClick={() => setView('leads360')}
-            >
-              <div className="mb-10 w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center shadow-sm group-hover:bg-[#0061FF] group-hover:text-white group-hover:shadow-blue-500/20 group-hover:scale-110 transition-all duration-300">
-                {item.icon}
-              </div>
-              
-              <h3 className="text-2xl font-black text-[#022c5e] mb-4 tracking-tight group-hover:text-tzero-blue transition-colors">
-                {item.title}
-              </h3>
-              
-              <p className="text-slate-500 font-medium leading-relaxed">
-                {item.desc}
-              </p>
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-tzero-blue/5 text-tzero-blue px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-tzero-blue/10">
+              <Zap size={14} className="fill-tzero-blue" /> Camada de Aquisição & Qualificação
             </div>
-          ))}
-        </div>
-        
-        <div className="mt-24 bg-[#022c5e] p-12 rounded-[3.5rem] border border-white/5 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-tzero-blue/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-          <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10 text-white">
-             <div>
-                <h4 className="text-3xl font-black mb-4">Escala máxima com inteligência?</h4>
-                <p className="text-blue-100/60 font-medium">O Leads360 é o motor de crescimento para BPOs que não aceitam depender apenas de bases de dados frias.</p>
-             </div>
-             <div className="flex justify-end gap-4">
-                <button 
-                  onClick={() => setView('leads360')}
-                  className="bg-white/10 text-white px-8 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white/20 transition-all border border-white/10"
-                >
-                  Ver Detalhes
-                </button>
-                <a 
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-tzero-blue text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white hover:text-[#022c5e] transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center gap-2"
-                >
-                  Demonstração <Zap size={16} fill="currentColor" />
-                </a>
-             </div>
+            
+            <h2 className="text-4xl lg:text-6xl font-black text-[#022c5e] tracking-tighter leading-[0.95] mb-8">
+              Captação inteligente de leads. <br />
+              <span className="text-tzero-blue">Escala, qualidade e automação.</span>
+            </h2>
+            
+            <p className="text-slate-500 text-lg font-medium leading-relaxed mb-10 max-w-xl">
+              Leads 360 combina três motores de aquisição para alimentar seu funil com leads qualificados, depurados automaticamente por agentes de IA.
+            </p>
+
+            <div className="grid sm:grid-cols-1 gap-y-4 mb-12">
+              {[
+                "IVR Reverso para ativação massiva e imediata",
+                "Tráfego pago integrado ao funil inteligente",
+                "Viralização horizontal com afiliados e comunidades",
+                "SDR automatizado com classificação em tempo real",
+                "Encaminhamento ao vendedor só quando o lead está pronto",
+                "Venda 100% automatizada quando aplicável"
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 group">
+                  <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-tzero-blue transition-colors">
+                    <CheckCircle2 size={14} className="text-tzero-blue group-hover:text-white transition-colors" />
+                  </div>
+                  <span className="text-sm font-bold text-slate-600 tracking-tight">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button 
+                onClick={() => setView('leads360')}
+                className="bg-[#022c5e] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-tzero-blue transition-all shadow-xl shadow-blue-900/10 flex items-center justify-center gap-2"
+              >
+                Entenda o Leads 360
+              </button>
+              <a 
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white border border-slate-200 text-[#022c5e] px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+              >
+                Ver como funciona o funil inteligente <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-10 bg-tzero-blue/5 blur-[100px] rounded-full"></div>
+            <div className="relative transform rotate-1">
+              <FunnelFlowCard />
+            </div>
           </div>
         </div>
       </div>
