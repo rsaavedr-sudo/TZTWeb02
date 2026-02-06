@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Zap, Activity, MessageSquareText, User } from 'lucide-react';
+import { Menu, X, ChevronDown, Zap, Activity, MessageSquareText, User, Search } from 'lucide-react';
 import { AppView } from '../App';
 
 const LogoIcon = () => (
@@ -49,6 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
     { id: 'zeroloss', name: 'ZeroLoss CPC', desc: 'Tarifação por contato humano', icon: <Zap size={16} /> },
     { id: 'smartroute', name: 'Smart Route', desc: 'Infraestrutura de alta escala', icon: <Activity size={16} /> },
     { id: 'leads360', name: 'Leads360', desc: 'Inteligência de base de dados', icon: <MessageSquareText size={16} /> },
+    { id: 'umd', name: 'UMD', desc: 'Classificador SaaS Avançado', icon: <Search size={16} /> },
   ];
 
   const navLinks = [
@@ -81,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
             {navLinks.map((link) => {
               const isLandingActive = link.view === 'landing' && currentView === 'landing';
               const isViewActive = link.view !== 'solutions_parent' && currentView === link.view;
-              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360'].includes(currentView);
+              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360', 'umd'].includes(currentView);
               const isActive = isLandingActive || isViewActive || isSolutionActive;
 
               return (
@@ -165,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
             {navLinks.map((link) => {
               const isLandingActive = link.view === 'landing' && currentView === 'landing';
               const isViewActive = link.view !== 'solutions_parent' && currentView === link.view;
-              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360'].includes(currentView);
+              const isSolutionActive = link.view === 'solutions_parent' && ['zeroloss', 'smartroute', 'leads360', 'umd'].includes(currentView);
               const isActive = isLandingActive || isViewActive || isSolutionActive;
 
               return (

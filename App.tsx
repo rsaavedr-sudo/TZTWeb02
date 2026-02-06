@@ -15,11 +15,12 @@ import ProblemPage from './components/ProblemPage';
 import ZeroLossPage from './components/products/ZeroLossPage';
 import SmartRoutePage from './components/products/SmartRoutePage';
 import Leads360Page from './components/products/Leads360Page';
+import UMDPage from './components/products/UMDPage';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 
-export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'tech' | 'problem' | 'contact';
+export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'umd' | 'tech' | 'problem' | 'contact';
 
 const App: React.FC = () => {
   const [view, setView] = useState<AppView>('landing');
@@ -42,6 +43,8 @@ const App: React.FC = () => {
         return <SmartRoutePage setView={setView} />;
       case 'leads360':
         return <Leads360Page setView={setView} />;
+      case 'umd':
+        return <UMDPage setView={setView} />;
       case 'contact':
         return <div className="pt-20"><ContactForm isPage={true} /></div>;
       default:

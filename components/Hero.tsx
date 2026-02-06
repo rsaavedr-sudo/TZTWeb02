@@ -16,7 +16,10 @@ import {
   ArrowRight,
   Cpu,
   Layers,
-  ChevronRight
+  ChevronRight,
+  Search,
+  ShieldCheck,
+  Ghost
 } from 'lucide-react';
 
 const BillingCard = () => (
@@ -128,13 +131,59 @@ const ThreeMotorsCard = () => (
   </div>
 );
 
+const UMDClassificationCard = () => (
+  <div className="bg-[#022c5e] border border-white/10 rounded-[3rem] p-8 shadow-2xl relative overflow-hidden h-full text-white flex flex-col">
+    <div className="absolute top-0 right-0 w-64 h-64 bg-tzero-blue/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+    <div className="mb-8 flex justify-between items-center relative z-10">
+      <div>
+        <p className="text-[10px] font-bold text-blue-200/40 uppercase tracking-widest">UMD Engine v2.5</p>
+        <h4 className="text-xl font-black">Detecção Universal</h4>
+      </div>
+      <div className="bg-tzero-blue/20 text-tzero-blue p-2.5 rounded-2xl border border-white/5">
+        <Search size={22} />
+      </div>
+    </div>
+
+    <div className="space-y-3 relative z-10">
+      {[
+        { label: "Caixa Postal", action: "BLOQUEADO", icon: <Ghost size={16} />, color: "text-red-400" },
+        { label: "Agentes de IA", action: "BLOQUEADO", icon: <Bot size={16} />, color: "text-red-400" },
+        { label: "Voice Mail iPhone", action: "BLOQUEADO", icon: <Smartphone size={16} />, color: "text-red-400" },
+        { label: "False Termination", action: "FILTRADO", icon: <XCircle size={16} />, color: "text-amber-400" }
+      ].map((item, idx) => (
+        <div key={idx} className="bg-white/5 border border-white/5 p-4 rounded-xl flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <div className="text-tzero-blue">{item.icon}</div>
+            <span className="text-xs font-bold tracking-tight">{item.label}</span>
+          </div>
+          <span className={`text-[8px] font-black px-2 py-0.5 rounded border border-white/5 ${item.color} bg-white/5`}>
+            {item.action}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <div className="mt-8 pt-6 border-t border-white/5 relative z-10 flex-grow flex flex-col justify-end">
+      <div className="bg-tzero-blue rounded-2xl p-5 shadow-xl shadow-blue-500/20 transform hover:scale-[1.02] transition-transform">
+        <div className="flex items-center gap-3 mb-1">
+          <ShieldCheck className="text-white" size={20} />
+          <span className="text-white text-sm font-black">Auditado em Tempo Real</span>
+        </div>
+        <div className="flex flex-col">
+          <p className="text-[9px] font-bold text-blue-100/60 uppercase tracking-widest">Custo zero para chamadas inválidas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const Hero: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const whatsappUrl = "https://wa.me/5521984520042?text=Olá! Gostaria de agendar uma demonstração das soluções da ZERO2ONE.";
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev === 0 ? 1 : 0));
+      setActiveSlide((prev) => (prev + 1) % slides.length);
     }, 10000);
     return () => clearInterval(timer);
   }, []);
@@ -146,7 +195,8 @@ const Hero: React.FC = () => {
       desc: "O modelo ZeroLoss transfere o risco técnico da operadora para nós. Se não houver contato humano validado pela nossa IA, o custo é zero para sua empresa.",
       cta: "Entenda o Modelo CPC",
       visual: <BillingCard />,
-      id: "zeroloss"
+      id: "zeroloss",
+      label: "ZeroLoss CPC"
     },
     {
       badge: "3 Motores de Aquisição",
@@ -154,7 +204,17 @@ const Hero: React.FC = () => {
       desc: "Tráfego Pago, URA Reversa e Viralização Horizontal. Três motores independentes integrados a um SDR automatizado por IA para volume real e intenção clara.",
       cta: "Conhecer os 3 Motores",
       visual: <ThreeMotorsCard />,
-      id: "leads360"
+      id: "leads360",
+      label: "Leads360 Platform"
+    },
+    {
+      badge: "Classificador SaaS Avançado",
+      title: <>UMD Classificação Inteligente <br /><span className="text-tzero-blue italic">Antes da Cobrança</span></>,
+      desc: "Identifica e elimina automaticamente caixa postal, agentes de IA e números inválidos antes do atendimento humano e da cobrança. Economia imediata.",
+      cta: "Entenda o UMD",
+      visual: <UMDClassificationCard />,
+      id: "umd",
+      label: "UMD Classifier"
     }
   ];
 
@@ -217,7 +277,7 @@ const Hero: React.FC = () => {
 
         {/* Dynamic Pagination Indicators */}
         <div className="mt-24 flex gap-6">
-          {slides.map((_, index) => (
+          {slides.map((slide, index) => (
             <button
               key={index}
               onClick={() => setActiveSlide(index)}
@@ -230,7 +290,7 @@ const Hero: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span className={`text-[10px] font-black uppercase tracking-widest transition-colors ${activeSlide === index ? 'text-tzero-navy' : 'text-slate-300'}`}>
-                  {index === 0 ? 'ZeroLoss CPC' : 'Leads360 Platform'}
+                  {slide.label}
                 </span>
                 {activeSlide === index && <ChevronRight size={14} className="text-tzero-blue animate-pulse" />}
               </div>
