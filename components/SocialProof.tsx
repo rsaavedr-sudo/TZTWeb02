@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Quote, Briefcase, Lock, CheckCircle2 } from 'lucide-react';
+import { Quote, Briefcase, CheckCircle2, TrendingUp, BarChart3, ShieldCheck, Target, Layers } from 'lucide-react';
 
 const SocialProof: React.FC = () => {
   const testimonials = [
@@ -27,11 +27,50 @@ const SocialProof: React.FC = () => {
     }
   ];
 
+  const caseStudies = [
+    {
+      title: "Empresa de Cobrança",
+      icon: <Target className="text-tzero-blue" size={24} />,
+      challenge: "Alto volume de chamadas improdutivas gerando desperdício de orçamento.",
+      solution: "Implementação do modelo ZeroLoss (pagamento apenas por chamadas efetivamente transferidas).",
+      results: [
+        "Redução de **38%** nos custos operacionais",
+        "Aumento de **22%** nos contatos válidos",
+        "Maior previsibilidade financeira"
+      ],
+      impact: "“Paramos de pagar por tentativas. Agora investimos apenas em contatos reais.”"
+    },
+    {
+      title: "Call Center de Vendas",
+      icon: <TrendingUp className="text-tzero-blue" size={24} />,
+      challenge: "Escalar campanhas sem inflar custos com tráfego telefônico inútil.",
+      solution: "Migração para cobrança baseada exclusivamente em chamadas efetivas transferidas ao atendente.",
+      results: [
+        "Crescimento de **45%** nas abordagens humanas",
+        "Eliminação de custos com chamadas não conectadas",
+        "ROI mais estável"
+      ],
+      impact: "“Conseguimos crescer mantendo controle total sobre os custos.”"
+    },
+    {
+      title: "Operação Multicliente",
+      icon: <ShieldCheck className="text-tzero-blue" size={24} />,
+      challenge: "Questionamentos frequentes sobre cobranças por minutos e tentativas.",
+      solution: "Adoção do modelo ZeroLoss com métrica objetiva: pagamento por transferência efetiva.",
+      results: [
+        "Redução de conflitos comerciais",
+        "Relatórios mais transparentes",
+        "Maior confiança dos clientes"
+      ],
+      impact: "“Agora a cobrança é simples, clara e auditável.”"
+    }
+  ];
+
   return (
     <section className="bg-white py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        {/* Seção de Casos de Uso (Placeholder) */}
+        {/* Seção de Casos de Uso */}
         <div className="mb-40">
           <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-20">
             <div className="max-w-2xl">
@@ -43,24 +82,48 @@ const SocialProof: React.FC = () => {
               </h2>
             </div>
             <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-4">
-              Conteúdo em processo de auditoria
+              Performance validada em operações reais
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="group relative h-80 bg-slate-50 border border-slate-100 rounded-[3rem] overflow-hidden flex flex-col items-center justify-center p-12 text-center transition-all">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-slate-200 mb-6 shadow-sm">
-                  <Lock size={24} />
+            {caseStudies.map((study, idx) => (
+              <div key={idx} className="group relative bg-slate-50/50 border border-slate-100 rounded-[3rem] p-10 transition-all duration-500 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(2,44,94,0.1)] hover:-translate-y-2 flex flex-col">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    {study.icon}
+                  </div>
+                  <h4 className="text-tzero-navy font-black text-lg tracking-tight">{study.title}</h4>
                 </div>
-                <h4 className="text-slate-300 font-black text-xs uppercase tracking-[0.2em] mb-2">Caso de Sucesso {i}</h4>
-                <p className="text-slate-300 text-[10px] font-bold uppercase tracking-widest">Aguardando aprovação de compliance</p>
-                
-                {/* Skeleton decorativo */}
-                <div className="mt-8 w-full space-y-2 opacity-10">
-                  <div className="h-2 bg-slate-400 rounded-full w-3/4 mx-auto"></div>
-                  <div className="h-2 bg-slate-400 rounded-full w-1/2 mx-auto"></div>
+
+                <div className="space-y-6 flex-grow">
+                  <div>
+                    <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Desafio</h5>
+                    <p className="text-slate-600 text-sm font-medium leading-relaxed">{study.challenge}</p>
+                  </div>
+                  
+                  <div>
+                    <h5 className="text-[10px] font-black text-tzero-blue uppercase tracking-widest mb-2">Solução</h5>
+                    <p className="text-tzero-navy text-sm font-bold leading-relaxed">{study.solution}</p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Resultados</h5>
+                    <ul className="space-y-2">
+                      {study.results.map((res, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-slate-600 font-medium">
+                          <CheckCircle2 size={14} className="text-tzero-blue mt-0.5 shrink-0" />
+                          <span dangerouslySetInnerHTML={{ __html: res.replace(/\*\*(.*?)\*\*/g, '<span class="text-tzero-navy font-black">$1</span>') }} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-8 border-t border-slate-100 italic">
+                  <p className="text-tzero-navy font-bold text-sm leading-snug">
+                    {study.impact}
+                  </p>
                 </div>
               </div>
             ))}
