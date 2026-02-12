@@ -5,18 +5,18 @@ import { Quote, Briefcase, Lock, CheckCircle2 } from 'lucide-react';
 const SocialProof: React.FC = () => {
   const testimonials = [
     {
-      name: "Ricardo Almeida",
-      role: "Diretor de Operações na Global BPO",
-      text: "O modelo ZeroLoss mudou completamente nossa previsibilidade financeira. Paramos de pagar por silêncio e agora focamos 100% no resultado real de conversão. Essencial para escala.",
+      name: "Paloma Branquinho",
+      role: "Head de Operações na Facilitta Saúde",
+      text: "Antes do ZeroLoss, uma parte enorme do nosso orçamento era consumida por chamadas improdutivas. Pagávamos por tentativas, não por resultados. Com o ZeroLoss, passamos a pagar apenas pelas chamadas efetivamente transferidas para nossos atendentes. O impacto foi imediato: redução de custos, mais previsibilidade financeira e uma operação muito mais eficiente. O modelo simplesmente funciona.",
       product: "ZeroLoss CPC",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&h=256&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=256&h=256&auto=format&fit=crop"
     },
     {
-      name: "Mariana Costa",
-      role: "Head de Growth na FinTech X",
-      text: "A escala que atingimos com o Leads360 foi absurda. Temos leads qualificados chegando 24/7 e nosso time de vendas só atende quem realmente tem intenção de compra validada pela IA.",
+      name: "Rodrigo Miliante",
+      role: "Gerente de Operações Rede Saúde Total",
+      text: "Utilizei a tecnologia Leads 360 em três projetos profissionais desde 2020. Em uma empresa da área de saúde, a solução de captação direta e pré-qualificação contribuiu para a geração de mais de 60 mil novos clientes em quatro anos, mesmo com uma equipe comercial reduzida. Trata-se de uma ferramenta estratégica, com impacto real em performance, escala e eficiência operacional.",
       product: "Leads360 Platform",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&h=256&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&h=256&auto=format&fit=crop"
     },
     {
       name: "Marcos Vinícius",
