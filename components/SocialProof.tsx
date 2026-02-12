@@ -70,7 +70,6 @@ const SocialProof: React.FC = () => {
         {/* Seção de Depoimentos Reais */}
         <div>
           <div className="text-center mb-24">
-            <span className="text-tzero-blue font-black text-xs uppercase tracking-[0.4em] mb-4 block">Prova Social & Credibilidade</span>
             <h2 className="text-4xl lg:text-6xl font-black text-[#022c5e] tracking-tighter mb-8">
               O que nossos clientes dizem
             </h2>

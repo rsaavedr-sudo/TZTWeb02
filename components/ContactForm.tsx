@@ -35,7 +35,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ isPage = false }) => {
             
             <div className="space-y-8">
               <ContactItem icon={<Mail />} title="E-mail Corporativo" val="contato@tzerotech.com" />
-              <ContactItem icon={<Building />} title="Sede Central" val="São Paulo, SP - Brasil" />
               <a href="https://wa.me/5521984520042" target="_blank" rel="noopener noreferrer" className="block hover:translate-x-2 transition-transform">
                 <ContactItem 
                   icon={

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Linkedin, Twitter, Globe, Mail, MapPin } from 'lucide-react';
+import { AppView } from '../App';
 
 const FooterIcon = () => (
   <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,15 +26,48 @@ const FooterIcon = () => (
 );
 
 interface FooterProps {
-  setView: (view: 'landing' | 'blog') => void;
+  setView: (view: AppView) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ setView }) => {
+  // Fix: Explicitly type footerSections to include optional properties (highlight, disabled) used in the render logic
+  const footerSections: {
+    title: string;
+    links: {
+      label: string;
+      view: AppView;
+      highlight?: boolean;
+      disabled?: boolean;
+    }[];
+  }[] = [
+    {
+      title: "Links Úteis",
+      links: [
+        { label: "Home", view: 'landing' as AppView },
+        { label: "Sobre Nós", view: 'tech' as AppView },
+        { label: "Diferencial", view: 'problem' as AppView },
+        { label: "Nossos Números", view: 'landing' as AppView },
+        { label: "Notícias", view: 'blog' as AppView },
+        { label: "Contate-nos", view: 'contact' as AppView }
+      ]
+    },
+    {
+      title: "Serviços",
+      links: [
+        { label: "ZeroLoss CPC", view: 'zeroloss' as AppView },
+        { label: "Smart Route", view: 'smartroute' as AppView },
+        { label: "Leads360", view: 'leads360' as AppView },
+        { label: "UMD", view: 'umd' as AppView },
+        { label: "AGENDE UMA DEMONSTRAÇÃO", view: 'contact' as AppView, highlight: true }
+      ]
+    }
+  ];
+
   return (
     <footer className="bg-white pt-24 pb-12 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-24">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-24">
+          <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-8 cursor-pointer group" onClick={() => setView('landing')}>
               <div className="flex-shrink-0">
                 <FooterIcon />
@@ -59,21 +93,23 @@ const Footer: React.FC<FooterProps> = ({ setView }) => {
             </div>
           </div>
 
-          {[
-            { title: "Plataforma", links: ["ZeroLoss CPC", "Smart Route", "Leads360"] },
-            { title: "Recursos", links: ["Documentação", "Segurança", "Casos de Sucesso", "Compliance"] },
-            { title: "Mais", links: ["Blog", "Carreiras", "Contato"] }
-          ].map((col, i) => (
+          {footerSections.map((col, i) => (
             <div key={i}>
               <h4 className="font-extrabold text-[#022c5e] mb-8 text-[12px] uppercase tracking-widest">{col.title}</h4>
               <ul className="space-y-4">
                 {col.links.map(link => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <button 
-                      onClick={() => link === "Blog" ? setView('blog') : setView('landing')}
-                      className="text-slate-400 font-semibold hover:text-tzero-blue transition-colors text-sm text-left"
+                      onClick={() => !link.disabled && setView(link.view)}
+                      className={`font-semibold transition-colors text-sm text-left ${
+                        link.disabled 
+                        ? 'text-slate-300 cursor-default' 
+                        : link.highlight 
+                        ? 'text-tzero-blue font-black mt-4' 
+                        : 'text-slate-400 hover:text-tzero-blue'
+                      }`}
                     >
-                      {link}
+                      {link.label}
                     </button>
                   </li>
                 ))}
