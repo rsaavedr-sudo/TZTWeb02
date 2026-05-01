@@ -20,8 +20,9 @@ import UMDPage from './components/products/UMDPage';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import HubDashboard from './components/hub/HubDashboard';
 
-export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'umd' | 'tech' | 'problem' | 'contact';
+export type AppView = 'landing' | 'blog' | 'zeroloss' | 'smartroute' | 'leads360' | 'umd' | 'tech' | 'problem' | 'contact' | 'hub';
 
 const App: React.FC = () => {
   const [view, setView] = useState<AppView>('landing');
@@ -32,6 +33,8 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (view) {
+      case 'hub':
+        return <HubDashboard />;
       case 'blog':
         return <BlogPage />;
       case 'tech':
@@ -82,14 +85,18 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Navbar setView={setView} currentView={view} />
+      {view !== 'hub' && <Navbar setView={setView} currentView={view} />}
       <div className="flex flex-col">
         <main className="flex-grow">
           {renderContent()}
         </main>
       </div>
-      <WhatsAppButton />
-      <Footer setView={setView} />
+      {view !== 'hub' && (
+        <>
+          <WhatsAppButton />
+          <Footer setView={setView} />
+        </>
+      )}
     </div>
   );
 };

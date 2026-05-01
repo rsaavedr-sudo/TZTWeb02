@@ -57,6 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ setView, currentView }) => {
     { name: 'Problema', href: '#problema', view: 'problem' },
     { name: 'Soluções', href: '#soluções', view: 'solutions_parent', hasDropdown: true },
     { name: 'Blog', href: '#blog', view: 'blog' },
+    { name: 'Hub', href: '#hub', view: 'hub' },
     { name: 'Contato', href: '#contato', view: 'contact' },
   ];
 
