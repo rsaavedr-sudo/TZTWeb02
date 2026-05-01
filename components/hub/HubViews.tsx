@@ -55,13 +55,13 @@ export const HubHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNa
         </div>
 
         <div 
-          onClick={() => onNavigate('indika')}
+          onClick={() => onNavigate('INDIKA')}
           className="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
         >
           <div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <Trophy size={24} />
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Indika</h2>
+          <h2 className="text-xl font-bold text-slate-900">INDIKA</h2>
           <p className="text-sm text-slate-500 mt-2 line-clamp-2">
             Gamification & Incentives logic. Driving engagement through behavioral intelligence.
           </p>
@@ -189,7 +189,7 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
 
   const productMeta = productId === 'flow360' 
     ? { title: 'Flow360', desc: 'Communication, AI orchestration & Operational workflow engine.', icon: MessageSquare, color: 'text-blue-600', bg: 'bg-blue-100' }
-    : { title: 'Indika', desc: 'Behavioral incentivization, gamification and user engagement logic.', icon: Trophy, color: 'text-amber-600', bg: 'bg-amber-100' };
+    : { title: 'INDIKA', desc: 'Behavioral incentivization, gamification and user engagement logic.', icon: Trophy, color: 'text-amber-600', bg: 'bg-amber-100' };
 
   return (
     <div className="space-y-6">
@@ -375,7 +375,7 @@ export const ChangelogView: React.FC = () => {
                   <div key={itemIdx} className="flex flex-col">
                     <span className={`text-[10px] font-bold uppercase mb-1 ${
                       item.product === 'flow360' ? 'text-blue-600' : 
-                      item.product === 'indika' ? 'text-amber-600' : 'text-slate-500'
+                      item.product === 'INDIKA' ? 'text-amber-600' : 'text-slate-500'
                     }`}>
                       {item.product}
                     </span>

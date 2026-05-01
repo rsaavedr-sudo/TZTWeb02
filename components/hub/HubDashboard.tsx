@@ -61,8 +61,8 @@ const HubDashboard: React.FC = () => {
         return <HubHome onNavigate={setActiveView} />;
       case 'flow360':
         return <ProductView productId="flow360" />;
-      case 'indika':
-        return <ProductView productId="indika" />;
+      case 'INDIKA':
+        return <ProductView productId="INDIKA" />;
       case 'roadmap':
         return <RoadmapView />;
       case 'shared':

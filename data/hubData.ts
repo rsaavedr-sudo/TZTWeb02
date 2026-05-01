@@ -1,7 +1,7 @@
 
 export type Status = 'planned' | 'in-progress' | 'done';
 export type Priority = 'low' | 'medium' | 'high';
-export type ProductID = 'flow360' | 'indika';
+export type ProductID = 'flow360' | 'INDIKA';
 export type UserRole = 'admin' | 'user';
 
 export interface User {
@@ -106,14 +106,14 @@ export const features: Feature[] = [
     product: 'flow360',
   },
   
-  // Indika Features
+  // INDIKA Features
   {
     id: 'i1',
     title: 'Points System',
     description: 'Core logic for earning and spending points across activities.',
     status: 'done',
     priority: 'high',
-    product: 'indika',
+    product: 'INDIKA',
   },
   {
     id: 'i2',
@@ -121,7 +121,7 @@ export const features: Feature[] = [
     description: 'Create time-limited challenges for agent engagement.',
     status: 'in-progress',
     priority: 'high',
-    product: 'indika',
+    product: 'INDIKA',
   },
   {
     id: 'i3',
@@ -129,7 +129,7 @@ export const features: Feature[] = [
     description: 'Real-time ranking of performance with visual badges.',
     status: 'planned',
     priority: 'medium',
-    product: 'indika',
+    product: 'INDIKA',
   },
   {
     id: 'i4',
@@ -137,7 +137,7 @@ export const features: Feature[] = [
     description: 'Integrated system for agents to redeem points for prizes.',
     status: 'planned',
     priority: 'medium',
-    product: 'indika',
+    product: 'INDIKA',
   },
 ];
 
@@ -145,8 +145,8 @@ export const sharedModules: SharedModule[] = [
   {
     id: 'sm1',
     name: 'AI Engine',
-    description: 'Centralized LLM gateway and embedding service for Flow360 and Indika analytics.',
-    products: ['flow360', 'indika'],
+    description: 'Centralized LLM gateway and embedding service for Flow360 and INDIKA analytics.',
+    products: ['flow360', 'INDIKA'],
     status: 'in-progress',
   },
   {
@@ -160,14 +160,14 @@ export const sharedModules: SharedModule[] = [
     id: 'sm3',
     name: 'User & Auth System',
     description: 'Shared identity provider with RBAC for all products.',
-    products: ['flow360', 'indika'],
+    products: ['flow360', 'INDIKA'],
     status: 'done',
   },
   {
     id: 'sm4',
     name: 'Campaign Engine',
     description: 'Orchestrator for automated workflows and mass actions.',
-    products: ['flow360', 'indika'],
+    products: ['flow360', 'INDIKA'],
     status: 'planned',
   },
 ];
@@ -178,7 +178,7 @@ export const changelog: ChangelogEntry[] = [
     items: [
       { product: 'flow360', text: 'Tags system fully implemented and tested.' },
       { product: 'flow360', text: 'AI Copilot development phase started.' },
-      { product: 'indika', text: 'Points system core logic improved for faster calculation.' },
+      { product: 'INDIKA', text: 'Points system core logic improved for faster calculation.' },
     ],
   },
   {
@@ -191,7 +191,7 @@ export const changelog: ChangelogEntry[] = [
   {
     date: '2026-04-10',
     items: [
-      { product: 'indika', text: 'Initial rewards logic prototype approved.' },
+      { product: 'INDIKA', text: 'Initial rewards logic prototype approved.' },
     ],
   },
 ];

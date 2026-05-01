@@ -29,7 +29,7 @@ const Sidebar: React.FC<HubSidebarProps> = ({ activeView, setActiveView, onLogou
   const menuItems = [
     { id: 'home', label: 'Overview', icon: LayoutDashboard },
     { id: 'flow360', label: 'Flow360', icon: MessageSquare },
-    { id: 'indika', label: 'Indika', icon: Trophy },
+    { id: 'INDIKA', label: 'INDIKA', icon: Trophy },
     { id: 'roadmap', label: 'Roadmap', icon: Map },
     { id: 'shared', label: 'Shared Modules', icon: Layers },
     { id: 'changelog', label: 'Changelog', icon: History },
