@@ -10,8 +10,8 @@ export interface User {
 }
 
 export const USERS = [
-  { username: "rodrigo", password: import.meta.env.VITE_PASS_RODRIGO || 'rodrigo2026', role: "admin" as UserRole },
-  { username: "danilo", password: import.meta.env.VITE_PASS_DANILO || 'danilo2026', role: "user" as UserRole }
+  { username: "rodrigo", password: import.meta.env.VITE_PASS_RODRIGO || '1234', role: "admin" as UserRole },
+  { username: "danilo", password: import.meta.env.VITE_PASS_DANILO || '5678', role: "user" as UserRole }
 ];
 
 export interface Feature {

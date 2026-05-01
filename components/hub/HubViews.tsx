@@ -10,7 +10,8 @@ import {
   Filter,
   CheckCircle2,
   Calendar,
-  Layers
+  Layers,
+  Clock
 } from 'lucide-react';
 import { 
   features, 
