@@ -28,10 +28,11 @@ export interface Feature {
    */
   category: string;
   /**
-   * ISO date (YYYY-MM-DD) when the feature was delivered. Only meaningful
-   * for `status === 'done'` items. Surfaced on the Roadmap kanban "done"
-   * column and on the product detail catalog so the team can see the
-   * timeline at a glance.
+   * Delivery timestamp in `YYYY-MM-DD HH:MM` format (24h, project-local
+   * timezone). Only meaningful for `status === 'done'` items. Surfaced on
+   * the Roadmap kanban "done" column and on the product detail catalog so
+   * the team can see the timeline at a glance — including hour-level
+   * resolution, which matters when several features ship the same day.
    */
   completedDate?: string;
 }
@@ -90,7 +91,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Integración de Canales',
-    completedDate: '2026-02-15',
+    completedDate: '2026-02-15 10:00',
   },
   {
     id: 'ch-tg-voice',
@@ -100,7 +101,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Integración de Canales',
-    completedDate: '2026-05-02',
+    completedDate: '2026-05-02 14:40',
   },
   {
     id: 'ch-ig',
@@ -139,7 +140,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Usuarios',
-    completedDate: '2026-02-15',
+    completedDate: '2026-02-15 11:00',
   },
   {
     id: 'usr-ai-role',
@@ -149,7 +150,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Usuarios',
-    completedDate: '2026-04-10',
+    completedDate: '2026-04-10 12:00',
   },
   {
     id: 'usr-cap',
@@ -170,7 +171,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-02-15',
+    completedDate: '2026-02-15 12:00',
   },
   {
     id: 'conv-tags',
@@ -180,7 +181,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-04-15',
+    completedDate: '2026-04-15 18:00',
   },
   {
     id: 'conv-cat',
@@ -190,7 +191,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-04-20',
+    completedDate: '2026-04-20 16:00',
   },
   {
     id: 'conv-sidepanel',
@@ -200,7 +201,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-04-01',
+    completedDate: '2026-04-01 16:30',
   },
   {
     id: 'conv-ux',
@@ -210,7 +211,7 @@ export const features: Feature[] = [
     priority: 'low',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-04-25',
+    completedDate: '2026-04-25 14:00',
   },
   {
     id: 'conv-ts',
@@ -220,7 +221,7 @@ export const features: Feature[] = [
     priority: 'low',
     product: 'flow360',
     category: 'Gestión de Conversaciones',
-    completedDate: '2026-05-01',
+    completedDate: '2026-05-01 10:00',
   },
   {
     id: 'conv-search',
@@ -290,7 +291,7 @@ export const features: Feature[] = [
     priority: 'medium',
     product: 'flow360',
     category: 'Productividad del Agente',
-    completedDate: '2026-02-15',
+    completedDate: '2026-02-15 13:00',
   },
   {
     id: 'prod-templates',
@@ -309,7 +310,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Productividad del Agente',
-    completedDate: '2026-05-01',
+    completedDate: '2026-05-01 13:00',
   },
   {
     id: 'prod-audio-player',
@@ -319,7 +320,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Productividad del Agente',
-    completedDate: '2026-05-01',
+    completedDate: '2026-05-01 15:00',
   },
 
   // ---- 7. Inteligencia Artificial ------------------------------------------
@@ -331,7 +332,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Inteligencia Artificial',
-    completedDate: '2026-03-01',
+    completedDate: '2026-03-01 14:30',
   },
   {
     id: 'ai-ticket-handoff',
@@ -341,7 +342,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Inteligencia Artificial',
-    completedDate: '2026-04-10',
+    completedDate: '2026-04-10 17:00',
   },
   {
     id: 'ai-copilot',
@@ -389,7 +390,7 @@ export const features: Feature[] = [
     priority: 'high',
     product: 'flow360',
     category: 'Marketing y Captación',
-    completedDate: '2026-03-15',
+    completedDate: '2026-03-15 18:00',
   },
 
   // ---- 9. Comunicación Interna ---------------------------------------------
