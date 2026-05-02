@@ -426,6 +426,88 @@ export const features: Feature[] = [
     category: 'Auditoría y Analytics',
   },
 
+  // ---- Centro de Control Operativo (Dashboard Admin) ----------------------
+  //
+  // Pantalla inicial al ingresar a la plataforma para el rol admin. Es el
+  // artefacto que materializa la propuesta de valor del producto comercial:
+  // "comunicaciones masivas con objetivos concretos medidos en tiempo real".
+  // El admin tiene que poder leer en <5s qué tan rápido responde el sistema,
+  // qué tan eficiente es la operación, cuánto está resolviendo la IA y
+  // dónde hay problemas. Es el consumidor de la data que generan las
+  // demás secciones del roadmap (Auditoría, IA, Atención, Marketing).
+  {
+    id: 'cc-layout',
+    title: 'Dashboard layout + filtros globales',
+    description: 'Pantalla inicial del admin con barra de filtros (rango de fechas, IA / humano, equipo / agente, tipo de contacto: nuevos / recurrentes). Foundation que actualiza todas las métricas dinámicamente. Estilo SaaS moderno, jerárquico, animaciones suaves.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-kpis',
+    title: 'KPIs principales (primera fila)',
+    description: 'Cards grandes con First Response Time, Time to Resolution, total de conversaciones, tasa de resolución (% finalizadas). Lo primero que ve el admin al entrar — la lectura de 5 segundos.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-ia-vs-human',
+    title: 'IA vs Humano (bloque clave)',
+    description: '% conversaciones resueltas por IA, % escaladas a humano, tiempos promedio comparados, eficiencia comparada. Donut chart + cards. Refleja el corazón de la propuesta IA+humano del producto.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-estado-carga',
+    title: 'Estado de conversaciones + Carga operativa',
+    description: 'Activas / finalizadas / no finalizadas / abandonadas. Carga: conversaciones por agente, promedio simultáneas, % saturación del equipo. Visualización por barras por agente.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-alertas',
+    title: 'Alertas operativas + SLA',
+    description: 'Indicadores de conversaciones sin respuesta, con respuesta tardía y alertas de SLA. Código de colores verde / amarillo / rojo para identificación inmediata de problemas.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-equipos',
+    title: 'Resultados por equipo (ranking)',
+    description: 'Ranking de equipos por tiempo promedio de respuesta, tiempo de resolución y % eficiencia. Vista comparativa entre equipos para detectar best/worst performers.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-negocio',
+    title: 'Métricas de negocio (leads)',
+    description: 'Leads generados / atendidos / convertidos. Conexión directa con el objetivo comercial: comunicación masiva con objetivos concretos medibles en tiempo real. Cierra el loop del CRM Kanban.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+  {
+    id: 'cc-calidad',
+    title: 'Calidad e inteligencia',
+    description: 'Score de atención, score de intención del cliente, nivel de satisfacción estimado. Output del módulo IA de intencionalidad surfaceado en el dashboard como métrica de calidad operativa.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Centro de Control Operativo',
+  },
+
   // ---- 12. Webchat ---------------------------------------------------------
   {
     id: 'webchat',
@@ -523,6 +605,7 @@ export const changelog: ChangelogEntry[] = [
       { product: 'flow360', text: 'Telegram — voice messages outgoing como burbuja nativa (sendVoice + waveform en el celular del contacto).' },
       { product: 'flow360', text: 'Telegram — incoming media (voice, fotos, docs) mirroreado a S3 propio. Voice messages siguen reproduciendo después de los ~60min de TTL del proveedor.' },
       { product: 'global', text: 'Courier fork inaugurado (rapidpro-custom @ v26.1.1) con PATCHES.md como registry de cambios.' },
+      { product: 'flow360', text: 'Roadmap extendido: nueva sección "Centro de Control Operativo" con 8 features para el dashboard administrativo (KPIs, IA vs Humano, alertas SLA, métricas de negocio). Apunta a la propuesta comercial de comunicaciones masivas con objetivos medibles en tiempo real.' },
     ],
   },
   {
