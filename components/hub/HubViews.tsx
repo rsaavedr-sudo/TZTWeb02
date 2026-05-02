@@ -200,7 +200,14 @@ export const HubHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNa
 export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) => {
   const [filterStatus, setFilterStatus] = React.useState<Status | 'all'>('all');
   const productFeatures = features.filter(f => f.product === productId);
-  const filtered = filterStatus === 'all' ? productFeatures : productFeatures.filter(f => f.status === filterStatus);
+  let filtered = filterStatus === 'all' ? productFeatures : productFeatures.filter(f => f.status === filterStatus);
+  // When the user filters to "Done", surface the most recently shipped
+  // features at the top so the catalog reads as a delivery timeline.
+  if (filterStatus === 'done') {
+    filtered = [...filtered].sort((a, b) =>
+      (b.completedDate ?? '').localeCompare(a.completedDate ?? '')
+    );
+  }
   
   const stats = {
     total: productFeatures.length,
@@ -277,7 +284,15 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
                   <p className="text-sm text-slate-500 max-w-xl">{feature.description}</p>
                 </div>
                 <div className="flex items-center gap-4 shrink-0">
-                  <StatusBadge status={feature.status} />
+                  <div className="flex flex-col items-end gap-1">
+                    <StatusBadge status={feature.status} />
+                    {feature.status === 'done' && feature.completedDate && (
+                      <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+                        <CheckCircle2 size={11} />
+                        {feature.completedDate}
+                      </span>
+                    )}
+                  </div>
                   <button className="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition-all text-slate-400 hover:text-slate-600">
                     <Plus size={16} />
                   </button>
@@ -314,7 +329,14 @@ export const RoadmapView: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
         {columns.map(status => {
-          const inColumn = features.filter(f => f.status === status);
+          let inColumn = features.filter(f => f.status === status);
+          // Sort the Done column by completion date, newest first, so the
+          // column reads as a timeline of what shipped most recently.
+          if (status === 'done') {
+            inColumn = [...inColumn].sort((a, b) =>
+              (b.completedDate ?? '').localeCompare(a.completedDate ?? '')
+            );
+          }
           return (
             <div key={status} className="flex flex-col h-full bg-slate-100 rounded-2xl p-4 min-h-[600px]">
               <div className="flex items-center justify-between mb-4 px-2">
@@ -330,31 +352,59 @@ export const RoadmapView: React.FC = () => {
               </div>
 
               <div className="space-y-5">
-                {orderedCategories.map(cat => {
-                  const cards = inColumn.filter(f => f.category === cat);
-                  if (cards.length === 0) return null;
-                  return (
-                    <div key={cat} className="space-y-2">
-                      <h4 className="text-[10px] uppercase font-bold text-slate-500 tracking-widest px-1">
-                        {cat}
-                      </h4>
-                      <div className="space-y-2">
-                        {cards.map(feature => (
-                          <div key={feature.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 transition-colors cursor-grab active:cursor-grabbing">
-                            <div className="flex justify-between items-start mb-2">
-                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${feature.product === 'flow360' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'}`}>
-                                {feature.product}
-                              </span>
-                              <PriorityBadge priority={feature.priority} />
-                            </div>
-                            <h5 className="text-sm font-bold text-slate-900 leading-snug">{feature.title}</h5>
-                            <p className="text-[10px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">{feature.description}</p>
+                {status === 'done' ? (
+                  // Done: flat chronological timeline (newest first), with the
+                  // category shown on each card instead of as a group header.
+                  <div className="space-y-2">
+                    {inColumn.map(feature => (
+                      <div key={feature.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 transition-colors cursor-grab active:cursor-grabbing">
+                        <div className="flex justify-between items-start mb-2">
+                          <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${feature.product === 'flow360' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'}`}>
+                            {feature.product}
+                          </span>
+                          <PriorityBadge priority={feature.priority} />
+                        </div>
+                        <h5 className="text-sm font-bold text-slate-900 leading-snug">{feature.title}</h5>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-wide font-bold mt-1">{feature.category}</p>
+                        <p className="text-[10px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">{feature.description}</p>
+                        {feature.completedDate && (
+                          <div className="mt-3 pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold">
+                            <CheckCircle2 size={12} />
+                            <span>Entregado {feature.completedDate}</span>
                           </div>
-                        ))}
+                        )}
                       </div>
-                    </div>
-                  );
-                })}
+                    ))}
+                  </div>
+                ) : (
+                  // Planned / In-Progress: grouped by roadmap section so the
+                  // team can see what's left in each part of the platform.
+                  orderedCategories.map(cat => {
+                    const cards = inColumn.filter(f => f.category === cat);
+                    if (cards.length === 0) return null;
+                    return (
+                      <div key={cat} className="space-y-2">
+                        <h4 className="text-[10px] uppercase font-bold text-slate-500 tracking-widest px-1">
+                          {cat}
+                        </h4>
+                        <div className="space-y-2">
+                          {cards.map(feature => (
+                            <div key={feature.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 transition-colors cursor-grab active:cursor-grabbing">
+                              <div className="flex justify-between items-start mb-2">
+                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${feature.product === 'flow360' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'}`}>
+                                  {feature.product}
+                                </span>
+                                <PriorityBadge priority={feature.priority} />
+                              </div>
+                              <h5 className="text-sm font-bold text-slate-900 leading-snug">{feature.title}</h5>
+                              <p className="text-[10px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">{feature.description}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
                 {inColumn.length === 0 && (
                   <p className="text-xs text-slate-400 italic px-2">No items in this state.</p>
                 )}
