@@ -28,6 +28,26 @@ export const HubHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNa
   const currentFocus = features.filter(f => f.status === 'in-progress').slice(0, 3);
   const latestUpdates = changelog[0];
 
+  // Compute progress percentages from the live feature catalog. Re-categorise
+  // every roadmap section into the three high-level buckets the dashboard
+  // surfaces — Plataforma (operational + UX features), Inteligencia Artificial
+  // (the AI category), and Producto Comercial (commercialisation + redesign +
+  // marketplace integrations). Empty buckets fall to 0% rather than NaN.
+  const flow360 = features.filter(f => f.product === 'flow360');
+  const aiBucket = flow360.filter(f => f.category === 'Inteligencia Artificial');
+  const commercialBucket = flow360.filter(f =>
+    ['Producto Comercial', 'Rediseño Visual', 'Integraciones de Mercado'].includes(f.category)
+  );
+  const platformBucket = flow360.filter(f =>
+    !aiBucket.includes(f) && !commercialBucket.includes(f)
+  );
+  const pctDone = (list: Feature[]) =>
+    list.length === 0 ? 0 : Math.round((list.filter(f => f.status === 'done').length / list.length) * 100);
+
+  const platformPct = pctDone(platformBucket);
+  const aiPct = pctDone(aiBucket);
+  const commercialPct = pctDone(commercialBucket);
+
   return (
     <div className="space-y-8 pb-12">
       <header>
@@ -80,29 +100,29 @@ export const HubHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNa
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-xs mb-1">
-                <span>Infrastructure</span>
-                <span className="font-mono">82%</span>
+                <span>Plataforma</span>
+                <span className="font-mono">{platformPct}%</span>
               </div>
               <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                <div className="w-[82%] h-full bg-blue-500" />
+                <div style={{ width: `${platformPct}%` }} className="h-full bg-blue-500 transition-all" />
               </div>
             </div>
             <div>
               <div className="flex justify-between text-xs mb-1">
-                <span>AI Modules</span>
-                <span className="font-mono">45%</span>
+                <span>Inteligencia Artificial</span>
+                <span className="font-mono">{aiPct}%</span>
               </div>
               <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                <div className="w-[45%] h-full bg-purple-500" />
+                <div style={{ width: `${aiPct}%` }} className="h-full bg-purple-500 transition-all" />
               </div>
             </div>
             <div>
               <div className="flex justify-between text-xs mb-1">
-                <span>Mobile Native</span>
-                <span className="font-mono">15%</span>
+                <span>Producto Comercial</span>
+                <span className="font-mono">{commercialPct}%</span>
               </div>
               <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                <div className="w-[15%] h-full bg-amber-500" />
+                <div style={{ width: `${commercialPct}%` }} className="h-full bg-amber-500 transition-all" />
               </div>
             </div>
           </div>
@@ -187,8 +207,9 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
     done: productFeatures.filter(f => f.status === 'done').length,
     inProgress: productFeatures.filter(f => f.status === 'in-progress').length,
   };
+  const completionPct = stats.total === 0 ? 0 : Math.round((stats.done / stats.total) * 100);
 
-  const productMeta = productId === 'flow360' 
+  const productMeta = productId === 'flow360'
     ? { title: 'Flow360', desc: 'Communication, AI orchestration & Operational workflow engine.', icon: MessageSquare, color: 'text-blue-600', bg: 'bg-blue-100' }
     : { title: 'INDIKA', desc: 'Behavioral incentivization, gamification and user engagement logic.', icon: Trophy, color: 'text-amber-600', bg: 'bg-amber-100' };
 
@@ -209,7 +230,7 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
            <div className="bg-white border p-3 rounded-xl shadow-sm flex gap-6">
               <div>
                 <p className="text-[10px] uppercase font-bold text-slate-400">Completion</p>
-                <p className="text-lg font-bold text-slate-900">{Math.round((stats.done / stats.total) * 100)}%</p>
+                <p className="text-lg font-bold text-slate-900">{completionPct}%</p>
               </div>
               <div className="w-px bg-slate-100" />
               <div>
@@ -239,23 +260,31 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
         </div>
 
         <div className="divide-y divide-slate-100">
-          {filtered.map(feature => (
-            <div key={feature.id} className="p-6 hover:bg-slate-50/50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <h4 className="font-bold text-slate-900">{feature.title}</h4>
-                  <PriorityBadge priority={feature.priority} />
-                </div>
-                <p className="text-sm text-slate-500 max-w-xl">{feature.description}</p>
-              </div>
-              <div className="flex items-center gap-4 shrink-0">
-                <StatusBadge status={feature.status} />
-                <button className="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition-all text-slate-400 hover:text-slate-600">
-                  <Plus size={16} />
-                </button>
-              </div>
+          {filtered.length === 0 ? (
+            <div className="p-12 text-center text-slate-500">
+              <p className="text-sm font-medium">No features cargadas todavía.</p>
+              <p className="text-xs mt-2">Este producto va a recibir su propio plan de trabajo en breve. La data se sumará cuando arranque el work stream.</p>
             </div>
-          ))}
+          ) : (
+            filtered.map(feature => (
+              <div key={feature.id} className="p-6 hover:bg-slate-50/50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-bold text-slate-900">{feature.title}</h4>
+                    <PriorityBadge priority={feature.priority} />
+                  </div>
+                  <p className="text-xs text-slate-400 uppercase tracking-wide font-bold mb-1">{feature.category}</p>
+                  <p className="text-sm text-slate-500 max-w-xl">{feature.description}</p>
+                </div>
+                <div className="flex items-center gap-4 shrink-0">
+                  <StatusBadge status={feature.status} />
+                  <button className="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition-all text-slate-400 hover:text-slate-600">
+                    <Plus size={16} />
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
@@ -266,6 +295,16 @@ export const ProductView: React.FC<{ productId: ProductID }> = ({ productId }) =
 export const RoadmapView: React.FC = () => {
   const columns: Status[] = ['planned', 'in-progress', 'done'];
 
+  // Group the catalog by `category` so each kanban column lists its cards
+  // under the matching roadmap section header. Categories surface in the
+  // order they appear in `features` (which matches the order of sections in
+  // the platform roadmap), so the visual grouping mirrors the canonical
+  // numbering the team is used to reading.
+  const orderedCategories: string[] = [];
+  for (const f of features) {
+    if (!orderedCategories.includes(f.category)) orderedCategories.push(f.category);
+  }
+
   return (
     <div className="space-y-6">
       <header>
@@ -274,36 +313,55 @@ export const RoadmapView: React.FC = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
-        {columns.map(status => (
-          <div key={status} className="flex flex-col h-full bg-slate-100 rounded-2xl p-4 min-h-[600px]">
-            <div className="flex items-center justify-between mb-4 px-2">
-              <h3 className="text-xs uppercase font-bold text-slate-500 tracking-widest flex items-center gap-2">
-                {status === 'done' && <CheckCircle2 size={14} className="text-emerald-500" />}
-                {status === 'in-progress' && <Clock size={14} className="text-amber-500" />}
-                {status === 'planned' && <Calendar size={14} className="text-slate-400" />}
-                {status.replace('-', ' ')}
-              </h3>
-              <span className="bg-white px-2 py-0.5 rounded-md text-[10px] font-bold text-slate-600 shadow-sm">
-                {features.filter(f => f.status === status).length}
-              </span>
-            </div>
+        {columns.map(status => {
+          const inColumn = features.filter(f => f.status === status);
+          return (
+            <div key={status} className="flex flex-col h-full bg-slate-100 rounded-2xl p-4 min-h-[600px]">
+              <div className="flex items-center justify-between mb-4 px-2">
+                <h3 className="text-xs uppercase font-bold text-slate-500 tracking-widest flex items-center gap-2">
+                  {status === 'done' && <CheckCircle2 size={14} className="text-emerald-500" />}
+                  {status === 'in-progress' && <Clock size={14} className="text-amber-500" />}
+                  {status === 'planned' && <Calendar size={14} className="text-slate-400" />}
+                  {status.replace('-', ' ')}
+                </h3>
+                <span className="bg-white px-2 py-0.5 rounded-md text-[10px] font-bold text-slate-600 shadow-sm">
+                  {inColumn.length}
+                </span>
+              </div>
 
-            <div className="space-y-3">
-              {features.filter(f => f.status === status).map(feature => (
-                <div key={feature.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 transition-colors cursor-grab active:cursor-grabbing">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${feature.product === 'flow360' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'}`}>
-                      {feature.product}
-                    </span>
-                    <PriorityBadge priority={feature.priority} />
-                  </div>
-                  <h4 className="text-sm font-bold text-slate-900 leading-snug">{feature.title}</h4>
-                  <p className="text-[10px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">{feature.description}</p>
-                </div>
-              ))}
+              <div className="space-y-5">
+                {orderedCategories.map(cat => {
+                  const cards = inColumn.filter(f => f.category === cat);
+                  if (cards.length === 0) return null;
+                  return (
+                    <div key={cat} className="space-y-2">
+                      <h4 className="text-[10px] uppercase font-bold text-slate-500 tracking-widest px-1">
+                        {cat}
+                      </h4>
+                      <div className="space-y-2">
+                        {cards.map(feature => (
+                          <div key={feature.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 transition-colors cursor-grab active:cursor-grabbing">
+                            <div className="flex justify-between items-start mb-2">
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${feature.product === 'flow360' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'}`}>
+                                {feature.product}
+                              </span>
+                              <PriorityBadge priority={feature.priority} />
+                            </div>
+                            <h5 className="text-sm font-bold text-slate-900 leading-snug">{feature.title}</h5>
+                            <p className="text-[10px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">{feature.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+                {inColumn.length === 0 && (
+                  <p className="text-xs text-slate-400 italic px-2">No items in this state.</p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
