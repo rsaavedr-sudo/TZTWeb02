@@ -879,6 +879,56 @@ export const features: Feature[] = [
     category: 'Configuración cliente',
   },
 
+  // ---- INBOX DEL AGENTE (Fase 20) -----------------------------------------
+  {
+    id: 'inbox-read-state',
+    title: 'Estado leído / no-leído per-agente',
+    description: 'Modelo TicketRead(ticket, user, last_read_at) con UniqueConstraint. is_unread compara contra el último mensaje INCOMING del contacto (NO contra last_activity_on — la respuesta del agente o del AI no debe flippear a unread). Bold del nombre cuando hay incoming nuevo, sin badge. Auto mark-as-read al seleccionar la fila vía POST /ticket/mark_read/<uuid>/. Per-user: dos agentes ven badges independientes.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-03 23:55',
+  },
+  {
+    id: 'inbox-one-per-contact',
+    title: 'Una fila por contacto (no por ticket)',
+    description: '?one_per_contact=1 aplica DISTINCT ON (contact_id) ORDER BY contact_id, -last_activity_on en el folder view. Rodrigo con 4 tickets cerrados aparece como 1 sola fila (la más reciente). Cuando hay deep-link uuid, ese ticket reemplaza el "latest" del contacto en el resultado para que el frontend pueda seleccionarlo via valueKey.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-03 23:55',
+  },
+  {
+    id: 'inbox-filters',
+    title: 'Filtros componibles (search, categoría, no-leídas)',
+    description: 'Search input arriba (debounced 300ms) — busca por contact.name y URN.path. Dropdown jerárquico de categorías (Atendimento › Interesado, Origen › Web, etc.) usando el modelo de Fase 9. Pill toggle "Unread" — solo no leídos por el agente actual. Los 3 filtros componen entre sí + con one_per_contact. El link next preserva los filtros al paginar (stock RapidPro los dropeaba).',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-03 23:55',
+  },
+  {
+    id: 'inbox-filter-persistence',
+    title: 'Persistencia del filtro entre sesiones',
+    description: 'Hoy si el agente recarga, search/category/unread vuelven a vacío. Guardar el estado en localStorage o codificarlo en el query string para sobrevivir reload y permitir compartir vista filtrada por URL.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Inbox del agente',
+  },
+  {
+    id: 'inbox-filter-counter',
+    title: 'Indicador visual del filtro activo',
+    description: 'Cuando hay filtros aplicados (search/category/unread), mostrar un counter "(3 of 25)" o badge para que el agente sepa que está en vista filtrada. Hoy es invisible y puede confundir.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'Inbox del agente',
+  },
+
   // ---- INDIKA --------------------------------------------------------------
   // intentionally empty — the product gets its own work stream
 ];
@@ -926,6 +976,15 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-03',
+    items: [
+      { product: 'flow360', text: 'Inbox del agente (Fase 20): rediseño completo del listado de tickets para que sea por CONTACTO en vez de por ticket. Una fila por persona (Rodrigo con 4 tickets cerrados ahora aparece como 1 fila con el más reciente, no 4). Bold del nombre cuando hay un mensaje incoming sin leer; auto mark-as-read al seleccionar la fila vía POST /ticket/mark_read/<uuid>/. is_unread compara contra el último mensaje INCOMING del contacto, no contra last_activity_on — la respuesta del agente o del AI ya no flippea el badge a unread (bug que tenía la primera iteración).' },
+      { product: 'flow360', text: 'Filtros componibles arriba del inbox: search bar (debounced 300ms, busca por nombre/teléfono), dropdown jerárquico de categorías (usa el modelo de Fase 9: Atendimento › Interesado/Finalizada/etc., + categorías custom del cliente), pill toggle "Unread". Los 3 filtros componen entre sí y se preservan al paginar (stock RapidPro los dropeaba en el link next).' },
+      { product: 'flow360', text: 'Modelo TicketRead(ticket, user, last_read_at) con UniqueConstraint per-user. Two agents looking at the same inbox see independent unread badges. Migration 0088_ticketread + 13 tests cubriendo aislamiento, idempotencia, regression del bug "outgoing flippea a unread", deep-link substitution.' },
+      { product: 'flow360', text: 'Bug fix encontrado por debugging UX: el auto-refresh del fork temba-components (cada ~15s) construía URLs malformadas con doble ? cuando el endpoint base ya tenía query string. Síntoma: hard-reload mostraba el inbox bien deduped, después de 15s "volvían los duplicados". Patch del fork detecta ? existente y usa & como separador.' },
+    ],
+  },
   {
     date: '2026-05-03',
     items: [
