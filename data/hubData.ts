@@ -922,11 +922,42 @@ export const features: Feature[] = [
   {
     id: 'inbox-filter-counter',
     title: 'Indicador visual del filtro activo',
-    description: 'Cuando hay filtros aplicados (search/category/unread), mostrar un counter "(3 of 25)" o badge para que el agente sepa que está en vista filtrada. Hoy es invisible y puede confundir.',
+    description: 'Cuando hay filtros aplicados (search/category/unread), mostrar un counter "(3 of 25)" o badge para que el agente sepa que está en vista filtdrada. Hoy es invisible y puede confundir.',
     status: 'planned',
     priority: 'low',
     product: 'flow360',
     category: 'Inbox del agente',
+  },
+
+  // ---- COMPOSER (Fase 22) -------------------------------------------------
+  {
+    id: 'composer-send-button',
+    title: 'Botón de envío circular en el composer',
+    description: 'Botón redondo azul a la derecha del textarea del ticket reply. Llama triggerSend() — coexiste con Enter (las dos formas funcionan). Disabled (faded) cuando el composer está vacío. UI esperada por agentes de WhatsApp/Slack que el composer stock no tenía.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Composer',
+    completedDate: '2026-05-04 00:30',
+  },
+  {
+    id: 'composer-emoji-picker',
+    title: 'Emoji picker pro en el composer',
+    description: 'Botón emoji al lado del send. Click abre picker flotante con search multilingüe, 10 categorías con tabs, section headers, skin-tone variants, y persistencia de Recientes. Built sobre emoji-picker-element (web component nativo, ~14KB). Llegamos acá tras descartar custom grids, emoji-mart bundleado (sintaxis Parcel-only que rollup ignora), y emoji-mart desde CDN (bloqueado por el CSP de RapidPro).',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Composer',
+    completedDate: '2026-05-04 00:30',
+  },
+  {
+    id: 'composer-attach-templates-format',
+    title: 'Attach + templates + formato (negrita/italic)',
+    description: 'La referencia del competidor también tiene 📎 attach (ya existe en stock, falta solo verificar visibilidad), 📋 templates/quick-replies (existe el modelo Shortcut de Fase 19, falta el botón que abra menú), y ✏️ formato bold/italic (WhatsApp soporta *bold* _italic_).',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Composer',
   },
 
   // ---- INDIKA --------------------------------------------------------------
@@ -976,6 +1007,13 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-04',
+    items: [
+      { product: 'flow360', text: 'Composer del ticket reply mejorado (Fase 22): botón circular de send a la derecha del textarea (coexiste con Enter, disabled cuando vacío) y emoji picker pro con search multilingüe, 10 categorías, skin-tones y recientes — built sobre emoji-picker-element (web component native, ~14KB). UI esperada por agentes que vienen de WhatsApp Web o Slack.' },
+      { product: 'flow360', text: 'Decisión de librería de emoji: aterrizamos en emoji-picker-element tras descartar 4 alternativas — custom de 64 emojis (muy pobre), custom de 350 emojis (sin search ni categorías), emoji-mart npm (su sintaxis Parcel-only de import de CSS rota con rollup), emoji-mart desde CDN (bloqueado por el CSP de RapidPro). Lección registrada en PATCHES.md del fork temba-components.' },
+    ],
+  },
   {
     date: '2026-05-03',
     items: [
