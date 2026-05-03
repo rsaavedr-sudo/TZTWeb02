@@ -922,11 +922,21 @@ export const features: Feature[] = [
   {
     id: 'inbox-filter-counter',
     title: 'Indicador visual del filtro activo',
-    description: 'Cuando hay filtros aplicados (search/category/unread), mostrar un counter "(3 of 25)" o badge para que el agente sepa que está en vista filtdrada. Hoy es invisible y puede confundir.',
+    description: 'Cuando hay filtros aplicados (search/category/unread), mostrar un counter "(3 of 25)" o badge para que el agente sepa que está en vista filtrada. Hoy es invisible y puede confundir.',
     status: 'planned',
     priority: 'low',
     product: 'flow360',
     category: 'Inbox del agente',
+  },
+  {
+    id: 'inbox-atendimento-pill',
+    title: 'Pill de Atendimento en cada fila del inbox',
+    description: 'El valor de Atendimento del contacto (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado, o cualquier custom) aparece como un pill de color suave debajo del último mensaje. Usa el color asignado en CategoryOption (Fase 9). Single-value-per-contact, así que exactamente 1 pill por fila o ninguno. Lo agrega el folder JSON via bulk-fetch + un parche al TicketList.ts del fork.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-04 01:30',
   },
 
   // ---- COMPOSER (Fase 22) -------------------------------------------------
@@ -1010,6 +1020,7 @@ export const changelog: ChangelogEntry[] = [
   {
     date: '2026-05-04',
     items: [
+      { product: 'flow360', text: 'Pill de Atendimento en cada fila del inbox (Fase 23): el valor de Atendimento (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado) aparece como un pill de color suave debajo del último mensaje. El agente identifica de un vistazo qué tipo de conversación es. Single-value-per-contact garantiza 1 pill por fila o ninguno. Backend bulk-fetch + parche al TicketList.ts del fork. Tests cubren ambos casos (con valor / sin valor).' },
       { product: 'flow360', text: 'Composer del ticket reply mejorado (Fase 22): botón circular de send a la derecha del textarea (coexiste con Enter, disabled cuando vacío) y emoji picker pro con search multilingüe, 10 categorías, skin-tones y recientes — built sobre emoji-picker-element (web component native, ~14KB). UI esperada por agentes que vienen de WhatsApp Web o Slack.' },
       { product: 'flow360', text: 'Decisión de librería de emoji: aterrizamos en emoji-picker-element tras descartar 4 alternativas — custom de 64 emojis (muy pobre), custom de 350 emojis (sin search ni categorías), emoji-mart npm (su sintaxis Parcel-only de import de CSS rota con rollup), emoji-mart desde CDN (bloqueado por el CSP de RapidPro). Lección registrada en PATCHES.md del fork temba-components.' },
     ],
