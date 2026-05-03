@@ -74,12 +74,85 @@ export interface ChangelogEntry {
 export const features: Feature[] = [
 
   // ---- 1. Integración de Canales -------------------------------------------
+  //
+  // WhatsApp Cloud — el canal #1 del producto. Vamos por la integración
+  // directa con Meta (Tech Provider track) con UX "un click conectar"
+  // como ofrecen los grandes BSPs (Weni, 360dialog) pero construido en
+  // casa. Stock RapidPro v26 ya trae el channel type WAC + Embedded
+  // Signup; nosotros aportamos el FB App, las credenciales, el deploy
+  // estable y el polish de cliente. Sub-fases tracked individualmente.
   {
     id: 'ch-wa-cloud',
-    title: 'WhatsApp Cloud API',
-    description: 'Integración oficial con Meta Cloud API. Habilita ventana 24h, voice flag, document mirror y todo el set nativo de WA.',
+    title: 'WhatsApp Cloud API — onboarding directo',
+    description: 'Integración oficial con Meta Cloud API vía Embedded Signup. Cliente conecta su WhatsApp en 1 click sin crear su propia FB App. Setup de Meta y env vars completos; pendiente migrar a servidor con HTTPS y completar smoke E2E.',
+    status: 'in-progress',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+  {
+    id: 'wac-meta-app',
+    title: 'WAC — FB App "Flow360" creada en Meta',
+    description: 'App registrada en developers.facebook.com con use-case "Conectar com clientes pelo WhatsApp" (Tech Provider track, sin requirements de Meta Verified). App ID 2466346687211651. App Secret generado.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+    completedDate: '2026-05-02 21:00',
+  },
+  {
+    id: 'wac-config-id',
+    title: 'WAC — Embedded Signup Configuration',
+    description: 'Configuration ID 982515667588524 con permissions Tech Provider completos: business_management, whatsapp_business_management, whatsapp_business_messaging + per-asset manage/develop/manage_templates/manage_phone_assets/view_*. Token de expiração 60 días con auto-refresh.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+    completedDate: '2026-05-02 21:30',
+  },
+  {
+    id: 'wac-env-wired',
+    title: 'WAC — env vars wired & beta gating',
+    description: 'FACEBOOK_APPLICATION_ID / FACEBOOK_APPLICATION_SECRET / FACEBOOK_LOGIN_WHATSAPP_CONFIG_ID inyectados al servicio rapidpro vía docker-compose.yml. Usuario admin agregado al auth_group "Beta" (en v26, is_beta es property que checkea group membership). UI /channels/types/whatsapp/connect/ renderiza el botón "Add Facebook Business".',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+    completedDate: '2026-05-02 22:00',
+  },
+  {
+    id: 'wac-dev-server',
+    title: 'WAC — migración a servidor de desarrollo externo (Fase 15.0)',
+    description: 'VPS + dominio dedicado + Caddy/Let\'s Encrypt para soportar el OAuth flow de Meta con HTTPS válido. Localhost + ngrok-free es frágil para Embedded Signup (dominios cambian, rate limits, postMessage cross-origin). Bloqueante para el smoke E2E.',
+    status: 'in-progress',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+  {
+    id: 'wac-smoke-e2e',
+    title: 'WAC — smoke E2E completo',
+    description: 'Conectar un número de prueba vía Embedded Signup, recibir mensaje entrante, enviar mensaje saliente. Validar que el handler stock de RapidPro persiste el WABA + phone_number_id correctamente y que el webhook de Meta llega al endpoint /c/wac/.',
     status: 'planned',
     priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+  {
+    id: 'wac-app-review',
+    title: 'WAC — Meta App Review (Live mode)',
+    description: 'Pasar la FB App de Development a Live mode para que clientes externos puedan conectar sus propios WABAs. Requiere business verification + demo grabado del use-case. Bloquea la oferta comercial fuera del propio admin.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+  {
+    id: 'wac-onboarding-ux',
+    title: 'WAC — UX post-conexión',
+    description: 'Después de Embedded Signup, mostrar al cliente una card con número registrado, plantillas iniciales sembradas y siguiente paso (probar el primer flow), en lugar de devolverlo al catálogo stock de canales.',
+    status: 'planned',
+    priority: 'medium',
     product: 'flow360',
     category: 'Integración de Canales',
   },
@@ -638,6 +711,14 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-02',
+    items: [
+      { product: 'flow360', text: '🎉 WhatsApp Cloud — onboarding directo desbloqueado. FB App "Flow360" creada en Meta (App ID 2466346687211651) con use-case "Conectar com clientes pelo WhatsApp" (Tech Provider track, sin requirements de Meta Verified). Embedded Signup Configuration 982515667588524 con permisos completos (business_management, whatsapp_business_management, whatsapp_business_messaging + per-asset Tech Provider). Saca una barrera de entrada importante al mercado: el cliente conecta su WA en 1 click sin pelearse con un BSP.' },
+      { product: 'flow360', text: 'Stock RapidPro v26 WAC channel type wired up — env vars en docker-compose, beta gating completado (en v26 is_beta es property que checkea auth_group "Beta", no columna). UI /channels/types/whatsapp/connect/ ya muestra el botón "Add Facebook Business".' },
+      { product: 'flow360', text: 'Decisión: Fase 15.0 — migrar a servidor de desarrollo externo (VPS + dominio + Caddy/Let\'s Encrypt) antes del smoke E2E. localhost+ngrok-free es frágil para el OAuth de Meta (dominios cambiantes, postMessage cross-origin, rate limits). Bloqueante para terminar el flujo de Embedded Signup.' },
+    ],
+  },
   {
     date: '2026-05-02',
     items: [
