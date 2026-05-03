@@ -297,6 +297,25 @@ export const features: Feature[] = [
     completedDate: '2026-05-01 10:00',
   },
   {
+    id: 'conv-wallpaper',
+    title: 'Wallpaper en el área de chat ("Doodles cálidos")',
+    description: 'Patrón de fondo tipo WhatsApp Web (doodles hand-traced originales, no copia) detrás de las burbujas. Patch en temba-components-fork con CSS variables --temba-chat-wallpaper-bg / --temba-chat-wallpaper-image expuestas para el picker futuro. Sube significativamente la percepción de calidad del producto sin tocar rapidpro.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Gestión de Conversaciones',
+    completedDate: '2026-05-02 23:30',
+  },
+  {
+    id: 'conv-wallpaper-picker',
+    title: 'Wallpaper picker per-usuario',
+    description: 'Galería de 6-8 wallpapers en /settings/profile/. Persistir elección en User.settings_json e inyectar CSS variables desde el template. Bonus: default per-org configurable por el admin del workspace.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'Gestión de Conversaciones',
+  },
+  {
     id: 'conv-search',
     title: 'Búsqueda avanzada de contactos',
     description: 'Filtros por tag y por categoría ya en producción; falta búsqueda combinada por custom fields y por texto de la conversación.',
@@ -711,6 +730,12 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-02',
+    items: [
+      { product: 'flow360', text: 'Chat wallpaper "Doodles cálidos" — patch en temba-components-fork (Chat.ts) que pinta un patrón de doodles hand-traced detrás de las burbujas del chat de tickets. Original art, no copia de WhatsApp. SVG inline (data URL) en el bundle, sin fetch en runtime. CSS variables --temba-chat-wallpaper-bg / --temba-chat-wallpaper-image expuestas para el picker futuro.' },
+    ],
+  },
   {
     date: '2026-05-02',
     items: [
