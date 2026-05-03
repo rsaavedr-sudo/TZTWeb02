@@ -793,6 +793,92 @@ export const features: Feature[] = [
     category: 'UX cliente',
   },
 
+  // ---- 20. Configuración del cliente comercial -----------------------------
+  //
+  // El Administrator del cliente comercial (no-sudo) abre Flow360 todos los
+  // días y necesita encontrar SU configuración sin la maraña técnica que
+  // RapidPro stock expone (API tokens, resthooks, classifiers, etc.).
+  // Fase 19 construye esa superficie con 3 decisiones: un solo icono
+  // Settings (no agregar otro), cards en la página principal (no items
+  // en sidebar interno), técnico solo para sudo (is_staff gate).
+  {
+    id: 'cfg-settings-cards',
+    title: 'Settings page con cards Flow360',
+    description: 'OrgCRUDL.Workspace formax con 5 cards nuevas (Channels, Teams, Operating hours, Agents, Quick replies) además de las stock (timezone, language, locale, email, DTI). Vista genérica SettingsCard parametrizada por kind, un solo template universal.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Configuración cliente',
+    completedDate: '2026-05-03 22:30',
+  },
+  {
+    id: 'cfg-sidebar-staff-only',
+    title: 'Sidebar técnico is_staff-only',
+    description: 'API Tokens, Resthooks, Incidents, AI, AI Agents, Workspaces, Users, Invitations, Teams, Export, Import, Classifiers, Archives gateados a is_staff. El Administrator del cliente solo ve el workspace name en el sidebar interno. Sudo sigue viendo todo.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Configuración cliente',
+    completedDate: '2026-05-03 23:00',
+  },
+  {
+    id: 'cfg-businesshours',
+    title: 'Operating hours per-org',
+    description: 'App temba.businesshours: model BusinessHours (1-1 con Org, 7 días con open + open_time + close_time, defaults Mon-Fri 8-18 / weekends closed). View custom con toggle por día, inputs bloqueables. is_open_at(when) listo para Mailroom hooks futuros.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Configuración cliente',
+    completedDate: '2026-05-03 21:00',
+  },
+  {
+    id: 'cfg-channels-whitelist',
+    title: 'Whitelist de canales del catálogo',
+    description: 'ChannelCRUDL.Claim filtrado a 5 channel types: WhatsApp, Telegram, Facebook, Instagram, External (API). Twilio, JioChat, 360Dialog, Chip y demás técnicos quedan ocultos. Sudo accede a todos via /channels/channel/claim_all/.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Configuración cliente',
+    completedDate: '2026-05-03 21:30',
+  },
+  {
+    id: 'cfg-multitenant-smoke',
+    title: 'Multi-tenant smoke E2E',
+    description: 'Validación E2E del UX desde la perspectiva del cliente real: sudo crea Cliente Demo workspace + admin@clientedemo.com con role Administrator, login en browser incógnito, confirmado los 10 items del sidebar lateral sin leak de sudo surface.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Configuración cliente',
+    completedDate: '2026-05-03 23:30',
+  },
+  {
+    id: 'cfg-tag-crudl',
+    title: 'Tag CRUDL — UI de gestión',
+    description: 'Construir CRUDL para temba.tags.Tag (hoy solo tiene model + API REST). List view tipo cards, create/update/delete modals. Re-prender la card "Tags" en la Workspace page.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Configuración cliente',
+  },
+  {
+    id: 'cfg-category-crudl',
+    title: 'Categories CRUDL — UI de gestión',
+    description: 'CRUDL para temba.categories. 3 modelos: ContactCategory, CategoryOption, ContactCategoryValue. UI más densa: lista de categorías con sus opciones inline, create category, add/remove option per category.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Configuración cliente',
+  },
+  {
+    id: 'cfg-agents-page',
+    title: 'Agents page con privileges placeholder',
+    description: 'Hoy el card "Agents" linkea a /orgs/user/ stock. Construir página Flow360 con lista de users + role + sección "Privileges (coming soon)". Granularidad fina por usuario se hace después cuando definamos el modelo.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Configuración cliente',
+  },
+
   // ---- INDIKA --------------------------------------------------------------
   // intentionally empty — the product gets its own work stream
 ];
@@ -840,6 +926,16 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-03',
+    items: [
+      { product: 'flow360', text: 'Settings del cliente comercial (Fase 19): la página Workspace pasa a llamarse Settings y muestra 5 cards Flow360 (Channels, Teams, Operating hours, Agents, Quick replies) además de las cards stock. El segundo sidebar de Settings se reduce a solo el nombre del workspace para Administradores; los items técnicos de RapidPro (API Tokens, Resthooks, Incidents, AI, AI Agents, Workspaces, Users, Invitations, Teams, Export, Import, Classifiers, Archives) quedan gated detrás de is_staff. Una sola vista parametrizada SettingsCard renderiza las 5 cards.' },
+      { product: 'flow360', text: 'Channel catalog whitelist: el comercial Administrator ve 5 canales (WhatsApp Cloud, Telegram, Facebook, Instagram, External/API) en /channels/channel/claim/. Sudo conserva el catálogo completo en /channels/channel/claim_all/.' },
+      { product: 'flow360', text: 'App nueva temba.businesshours: modelo one-to-one con Org (7 días × open/open_time/close_time, defaults Lun–Vie 08:00–18:00), método is_open_at(when) timezone-aware listo para hooks futuros de Mailroom (auto-replies fuera de horario), CRUDL Update con UI custom (toggle por día + grey-out cuando está cerrado), 6 tests.' },
+      { product: 'flow360', text: 'Smoke multi-tenant cerrado: workspace Cliente Demo + admin@clientedemo.com creados desde /staff/, login en incognito confirma sidebar de 10 items en orden Cockpit→Tickets→CRM→Contacts→Messages→Flows→Triggers→Campaigns→Notifications→Settings, sin leak de superficie técnica. Baseline UX que arranca cada piloto comercial.' },
+      { product: 'flow360', text: 'Bug fix Cockpit: menu_path "/settings/dashboard" (heredado de cuando Dashboard era sub-item de Settings) hacía que el SPA shell mantuviera el sidebar de Settings abierto sobre el Cockpit. Corregido a "/cockpit" tras la promoción a top-level menu de la Fase 18.' },
+    ],
+  },
   {
     date: '2026-05-03',
     items: [
