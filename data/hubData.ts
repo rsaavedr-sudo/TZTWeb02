@@ -683,6 +683,116 @@ export const features: Feature[] = [
     category: 'Rediseño Visual',
   },
 
+  // ---- 17. Sudo & Multi-tenancy --------------------------------------------
+  //
+  // Capa super-admin de Flow360 — el operador de la plataforma SaaS,
+  // no de un workspace. Vive bajo /staff/ y permite gestionar orgs y
+  // users cross-tenant. El service layer está pensado multi-cell-ready
+  // (ver decisión arquitectónica en la doc 14): hoy es single-deploy
+  // multi-tenant, mañana migrable a celdas tipo Slack/Linear.
+  {
+    id: 'sudo-service-layer',
+    title: 'Service layer org_provisioning',
+    description: 'temba/staff/services.py con provision_org / deactivate_org / provision_user / assign_user_to_org / unassign_user_from_org. Single audit point + cell-routing-ready (signaturas keyword-only para agregar cell= sin breaking change).',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-05-03 01:30',
+  },
+  {
+    id: 'sudo-org-crud',
+    title: 'CRUD de workspaces desde sudo',
+    description: 'OrgCRUDL.Create con form name+owner+timezone, OrgCRUDL.Delete con impact preview (users/channels/contacts/flows). Botones en /staff/org/ list + Read view. Soft-delete vía Org.release() respeta retención de 7 días stock.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-05-03 02:00',
+  },
+  {
+    id: 'sudo-user-mgmt',
+    title: 'Gestión cross-tenant de usuarios',
+    description: 'AssignUser idempotente (cubre add + change role) y UnassignUser. UserCRUDL.Create con assign opcional a workspace + role en la misma submission, así sudo onboarda un nuevo agente en un solo paso.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-05-03 02:30',
+  },
+  {
+    id: 'sudo-audit-log',
+    title: 'Audit log de acciones sudo',
+    description: 'StaffAuditLog (append-only) en /staff/auditlog/. Cada operación del service layer emite una row con actor + action + target + metadata JSON. 5 acciones tracked. Filtros por acción, búsqueda por email del actor. Cierra el loop de compliance/traceability cuando lleguen clientes pagos.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-05-03 03:00',
+  },
+  {
+    id: 'sudo-dashboard',
+    title: 'Sudo dashboard cross-org',
+    description: 'Landing en /staff/ con KPIs cross-tenant: orgs activos, nuevos último 30d, total usuarios, msgs/día agregado, alertas (orgs near limit, suspended, sin actividad). Versión sudo del Cockpit. Diferido hasta tener varios clientes pagos.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+  },
+  {
+    id: 'sudo-multi-cell',
+    title: 'Migración a arquitectura multi-cell',
+    description: 'Cuando llegue ~500-1000 orgs activos: separar en celdas (cada deploy maneja un subset de orgs). El service layer ya está preparado, solo hay que agregar cell routing. Patrón Slack/Linear/Notion.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+  },
+
+  // ---- 18. UX cliente ------------------------------------------------------
+  //
+  // Reorganización del UX para que la plataforma se sienta producto
+  // comercial (no una herramienta de developers). Empieza con cambios
+  // mínimos high-impact y va escalando con feedback de clientes
+  // piloto reales.
+  {
+    id: 'ux-menu-reorg',
+    title: 'Menú lateral reorganizado',
+    description: 'Cockpit al top (admin only), reorden a Tickets→CRM→Contacts→Messages→Flows→Triggers→Campaigns. Patch de ~50 líneas en derive_menu(). Permisos sin tocar — el rol Agent ya queda minimal por construcción.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'UX cliente',
+    completedDate: '2026-05-03 03:45',
+  },
+  {
+    id: 'ux-i18n',
+    title: 'Traducción de items técnicos a lenguaje comercial',
+    description: 'Pase dedicado de i18n: Triggers→Disparadores, Campaigns→Campañas, Flows→Flujos, etc. en pt-BR y es-AR. Mejor hacerlo separado del restructuring para no mezclar trabajo cosmético con funcional.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'UX cliente',
+  },
+  {
+    id: 'ux-default-page',
+    title: 'Página default por org/usuario',
+    description: 'Algunos clientes pueden querer landing en Tickets en vez de Cockpit. Settings de org y/o per-user override. Persistir en User.settings_json o Org.config.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'UX cliente',
+  },
+  {
+    id: 'ux-mobile-collapse',
+    title: 'Menú colapsable en mobile',
+    description: 'Hoy el sidebar siempre se ve. En pantallas chicas debería colapsar a iconos automáticamente y expandir on-hover.',
+    status: 'planned',
+    priority: 'low',
+    product: 'flow360',
+    category: 'UX cliente',
+  },
+
   // ---- INDIKA --------------------------------------------------------------
   // intentionally empty — the product gets its own work stream
 ];
@@ -730,6 +840,14 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-03',
+    items: [
+      { product: 'flow360', text: 'Sudo level (Fase 17): /staff/ ahora es un panel super-admin completo. CRUD de workspaces (create + soft-delete con impact preview), gestión cross-tenant de usuarios (assign/change role/unassign idempotente, create con onboarding a workspace en un paso), y audit log append-only con 5 tipos de acción. Service layer cell-routing-ready para escalar a multi-deploy cuando llegue al volumen de Slack/Linear.' },
+      { product: 'flow360', text: 'Menú lateral reorganizado (Fase 18): Cockpit al top (admin only) y reorden a Tickets→CRM→Contacts→Messages→Flows→Triggers→Campaigns. Patch de 50 líneas en derive_menu() del OrgCRUDL.Menu, sin cambios de permisos — el rol Agent ya queda minimal por construcción (solo ve Tickets+CRM gracias a los perms stock+Fase 1).' },
+      { product: 'flow360', text: 'Test suite del staff app pasa 18/19 (único rojo: test_service preexistente con LocalStack S3 NoSuchBucket, no relacionado con los nuevos commits). Migration staff.0001_initial.py crea la tabla staffauditlog + 3 índices compuestos.' },
+    ],
+  },
   {
     date: '2026-05-02',
     items: [
