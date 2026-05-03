@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import Login from './Login';
 import { HubHome, ProductView, RoadmapView, SharedModules, ChangelogView } from './HubViews';
+import { MicroblogView } from './MicroblogView';
 import { ProductID, User } from '../../data/hubData';
 
 const HubDashboard: React.FC = () => {
@@ -69,6 +70,8 @@ const HubDashboard: React.FC = () => {
         return <SharedModules />;
       case 'changelog':
         return <ChangelogView />;
+      case 'microblog':
+        return <MicroblogView />;
       default:
         return <HubHome onNavigate={setActiveView} />;
     }

@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { 
-  LayoutDashboard, 
-  MessageSquare, 
-  Trophy, 
-  Map, 
-  Layers, 
-  History, 
+import {
+  LayoutDashboard,
+  MessageSquare,
+  Trophy,
+  Map,
+  Layers,
+  History,
   ChevronRight,
   TrendingUp,
   Clock,
@@ -14,7 +14,8 @@ import {
   AlertCircle,
   LogOut,
   User as UserIcon,
-  Shield
+  Shield,
+  Notebook
 } from 'lucide-react';
 import { ProductID, features, changelog, Status, Priority, User } from '../../data/hubData';
 
@@ -33,6 +34,7 @@ const Sidebar: React.FC<HubSidebarProps> = ({ activeView, setActiveView, onLogou
     { id: 'roadmap', label: 'Roadmap', icon: Map },
     { id: 'shared', label: 'Shared Modules', icon: Layers },
     { id: 'changelog', label: 'Changelog', icon: History },
+    { id: 'microblog', label: 'Bitácora', icon: Notebook },
   ];
 
   return (
