@@ -426,50 +426,89 @@ export const features: Feature[] = [
     category: 'Auditoría y Analytics',
   },
 
-  // ---- Centro de Control Operativo (Dashboard Admin) ----------------------
+  // ---- Cockpit (Admin Dashboard) -------------------------------------------
   //
-  // Pantalla inicial al ingresar a la plataforma para el rol admin. Es el
-  // artefacto que materializa la propuesta de valor del producto comercial:
-  // "comunicaciones masivas con objetivos concretos medidos en tiempo real".
-  // El admin tiene que poder leer en <5s qué tan rápido responde el sistema,
-  // qué tan eficiente es la operación, cuánto está resolviendo la IA y
-  // dónde hay problemas. Es el consumidor de la data que generan las
-  // demás secciones del roadmap (Auditoría, IA, Atención, Marketing).
+  // Pantalla inicial al ingresar a la plataforma para el rol admin — el
+  // "Cockpit" del producto comercial. Materializa la propuesta de valor:
+  // "comunicaciones masivas con objetivos concretos medidos en tiempo
+  // real". El admin tiene que poder leer en <5s cómo va su operación.
+  //
+  // Build out-of-tree en `~/projects/rapidpro8/admin-dashboard/` (React
+  // Vite IIFE bundle), montado en la vista Django `dashboard.dashboard_home`
+  // que sustituye la home stock de RapidPro.
+  //
+  // Estado actual: 7 bloques entregados con data fake responsiva a los
+  // filtros. 4 bloques quedan pendientes para cuando arranque la
+  // conexión con data real (Auditoría, IA Intent, Marketing).
   {
-    id: 'cc-layout',
-    title: 'Dashboard layout + filtros globales',
-    description: 'Pantalla inicial del admin con barra de filtros (rango de fechas, IA / humano, equipo / agente, tipo de contacto: nuevos / recurrentes). Foundation que actualiza todas las métricas dinámicamente. Estilo SaaS moderno, jerárquico, animaciones suaves.',
-    status: 'planned',
+    id: 'cc-shell',
+    title: 'Shell + filtros globales',
+    description: 'Bundle React montado en la vista admin de RapidPro. Header con welcome al usuario, barra de filtros (rango de fechas, IA / humano, equipo, tipo de contacto). Toda la data se re-deriva de los filtros vía mockData determinístico.',
+    status: 'done',
     priority: 'high',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 16:00',
+  },
+  {
+    id: 'cc-realtime',
+    title: 'Tira de tiempo real',
+    description: 'Fila al tope con 5 mini-cards: agentes conectados, agentes en pausa, chats activos, chats en cola, chats del día. Pill verde "EN VIVO" pulsando + auto-refresh cada 5s. La cola alerta visualmente cuando supera el umbral.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 18:30',
+  },
+  {
+    id: 'cc-composition',
+    title: 'Composition row (3 gráficos quick-read)',
+    description: 'Pie humano vs IA, pie nuevos vs recurrentes, bar chart de resultado del contacto (sin interacción / interrumpidos / finalizados). Animación de entrada (pies sweep, barras crecen). Y-axis con escala "nice round".',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 19:00',
+  },
+  {
+    id: 'cc-chat-mgmt',
+    title: 'Gerenciamiento de chat',
+    description: 'Track horizontal único con 3 regiones de anchos proporcionales: Total conversaciones · Chatbot atendió · Equipo respondió. Cada región con stripe de color, tinted bg, label + número absoluto + porcentaje.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 17:00',
+  },
+  {
+    id: 'cc-attention',
+    title: 'Gerenciamiento de resultado de atención',
+    description: 'Card grande del total atendimentos a la izquierda + columna stackeada a la derecha con dos cards (Finalizado / No finalizado) cuyas alturas son proporcionales al porcentaje. El tamaño del cuadro = la magnitud, sin que el admin lea números.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 17:30',
+  },
+  {
+    id: 'cc-human-vs-ai',
+    title: 'Desempeño humano vs IA',
+    description: '5 cards comparativas: tiempo de respuesta humano (la IA responde de inmediato — no se mide), tiempo de finalización humano vs IA, tasa de finalización humano vs IA. Color por lado: humano rojo, IA naranja.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 18:00',
   },
   {
     id: 'cc-kpis',
-    title: 'KPIs principales (primera fila)',
-    description: 'Cards grandes con First Response Time, Time to Resolution, total de conversaciones, tasa de resolución (% finalizadas). Lo primero que ve el admin al entrar — la lectura de 5 segundos.',
-    status: 'planned',
+    title: 'KPIs principales (FRT / TTR / Total / Tasa)',
+    description: 'Cards con number + delta colorizado vs período anterior + sparkline de los últimos 14 días. First Response Time, Time to Resolution, Total conversaciones, Tasa de resolución. Lectura de 5 segundos.',
+    status: 'done',
     priority: 'high',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
-  },
-  {
-    id: 'cc-ia-vs-human',
-    title: 'IA vs Humano (bloque clave)',
-    description: '% conversaciones resueltas por IA, % escaladas a humano, tiempos promedio comparados, eficiencia comparada. Donut chart + cards. Refleja el corazón de la propuesta IA+humano del producto.',
-    status: 'planned',
-    priority: 'high',
-    product: 'flow360',
-    category: 'Centro de Control Operativo',
-  },
-  {
-    id: 'cc-estado-carga',
-    title: 'Estado de conversaciones + Carga operativa',
-    description: 'Activas / finalizadas / no finalizadas / abandonadas. Carga: conversaciones por agente, promedio simultáneas, % saturación del equipo. Visualización por barras por agente.',
-    status: 'planned',
-    priority: 'high',
-    product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
+    completedDate: '2026-05-02 16:30',
   },
   {
     id: 'cc-alertas',
@@ -478,7 +517,7 @@ export const features: Feature[] = [
     status: 'planned',
     priority: 'medium',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
   },
   {
     id: 'cc-equipos',
@@ -487,7 +526,7 @@ export const features: Feature[] = [
     status: 'planned',
     priority: 'medium',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
   },
   {
     id: 'cc-negocio',
@@ -496,7 +535,7 @@ export const features: Feature[] = [
     status: 'planned',
     priority: 'high',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
   },
   {
     id: 'cc-calidad',
@@ -505,7 +544,7 @@ export const features: Feature[] = [
     status: 'planned',
     priority: 'medium',
     product: 'flow360',
-    category: 'Centro de Control Operativo',
+    category: 'Cockpit (Admin Dashboard)',
   },
 
   // ---- 12. Webchat ---------------------------------------------------------
@@ -599,6 +638,13 @@ export const sharedModules: SharedModule[] = [
 // =============================================================================
 
 export const changelog: ChangelogEntry[] = [
+  {
+    date: '2026-05-02',
+    items: [
+      { product: 'flow360', text: 'Cockpit (Admin Dashboard) v0 entregado: 7 bloques con data fake responsiva — shell + filtros, tira de tiempo real con auto-refresh, 3 gráficos de composición animados (pie humano/IA, pie nuevos/recurrentes, bar de resultado), gerenciamiento de chat (3 regiones proporcionales), gerenciamiento de resultado de atención (total + finalizado/no finalizado), comparativo humano vs IA, KPIs principales con sparklines.' },
+      { product: 'flow360', text: 'Bundle React Vite IIFE en `~/projects/rapidpro8/admin-dashboard/`, montado en la vista Django `dashboard.dashboard_home` (reemplaza la home stock). Mock data determinístico responsivo a los 4 filtros globales — listo para conectarse a endpoints reales sin tocar UI.' },
+    ],
+  },
   {
     date: '2026-05-02',
     items: [
