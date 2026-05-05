@@ -998,6 +998,26 @@ export const features: Feature[] = [
     category: 'Inbox del agente',
     completedDate: '2026-05-04 22:45',
   },
+  {
+    id: 'inbox-sidebar-comercial',
+    title: 'Sidebar comercial de tickets (Fase 31)',
+    description: 'Reorganización del sidebar para que coincida con el flujo mental del agente comercial: Inbox (todos los abiertos) → Mis tickets → En cola → Finalizados → Sin asignar (admin only). Dos folders nuevos: QueueFolder usa ~Exists() de Msg outgoing humano para encontrar tickets que esperan primer contacto + los que la IA está atendiendo; ClosedFolder da acceso explícito al histórico que stock solo daba mezclado con abiertos. Default folder pasa de Mine a All para que /ticket/ aterrice en Inbox.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-05 14:00',
+  },
+  {
+    id: 'crm-direct-access-agent',
+    title: 'Agentes saltan directo a su pipeline (Fase 31.4)',
+    description: 'Click en "CRM" del sidebar redirige al agente directo al kanban de su pipeline (Fase 29 garantiza uno por team). El listado tabular intermedio era un click muerto. Admin/Editor conservan el listado para gestionar múltiples pipelines. Si el agente no tiene team o el team no tiene pipeline, cae al listado vacío con el mensaje implícito.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Marketing y Captación',
+    completedDate: '2026-05-05 14:00',
+  },
 
   // ---- COMPOSER (Fase 22) -------------------------------------------------
   {
@@ -1080,6 +1100,7 @@ export const changelog: ChangelogEntry[] = [
   {
     date: '2026-05-05',
     items: [
+      { product: 'flow360', text: 'Sidebar comercial de tickets (Fase 31): reorganización completa del orden y nomenclatura para que coincida con el flujo mental del agente. Inbox (todos los abiertos) → Mis tickets → En cola → Finalizados → Sin asignar (admin only). Dos folders nuevos: QueueFolder atrapa los tickets sin respuesta humana todavía (incluye los que la IA está atendiendo + los que esperan primer contacto, vía ~Exists() de Msg outgoing con created_by != NULL y is_ai=False); ClosedFolder da acceso explícito al histórico que stock solo daba mezclado. Default folder /ticket/ pasa de Mine a All. Agentes saltan directo al kanban de su pipeline al clickear CRM (Fase 29 garantiza uno por team), eliminando el listado intermedio.' },
       { product: 'flow360', text: 'CRM Fields — schema extensible por pipeline (Fase 25): cada pipeline define sus propios campos custom (CardField + CardFieldValue) en 6 tipos (Text, Choice, Date, Phone, Email, Stage). Editor desde Settings con validación de opciones por tipo, panel lateral del card con inputs type-aware, y flag show_on_board que pinta chips compactos sobre el preview de la card en el board. Empty-state de /crm/ deja al admin crear el primer pipeline inline.' },
       { product: 'flow360', text: 'Convertir ticket → card de CRM (Fase 26): botón "Convertir → CRM" en el panel lateral del ticket crea una card en el pipeline asignado al team del agente con el contacto ya cargado. El ticket no se modifica — la card vive como entidad independiente con sus fields editables inline. Endpoint POST /api/v2/tickets/{uuid}/convert.json devuelve 409 con mensaje claro cuando el agente no tiene team o el team no tiene pipeline.' },
       { product: 'flow360', text: 'Pill del stage de CRM en el inbox (Fase 27): debajo del último mensaje aparece un pill con stage_color sólido + texto blanco con el stage del card más reciente del contacto en cualquier pipeline. Backend usa PostgreSQL DISTINCT ON para resolver "card más reciente por contacto" en una sola query bulk. Reemplaza visualmente al pill de Atendimento (que pasa a ser editable solo desde el panel lateral). Foco visual del row queda en el momento del lead.' },
