@@ -514,6 +514,26 @@ export const features: Feature[] = [
     category: 'Marketing y Captación',
     completedDate: '2026-05-04 23:30',
   },
+  {
+    id: 'agent-team-profile',
+    title: 'Perfil operativo del team (Fase 32.0)',
+    description: 'Campo Team.profile (general/sales/support, default=general) que define qué variante del dashboard del agente verán los miembros del equipo. Pre-configurado por el admin al crear/editar el team — los agentes lo heredan transparentemente, mismo patrón que Team.crm_pipeline. Migration 0090 con default a nivel DB así los teams existentes quedan en general sin backfill manual. Expuesto en /api/v2/users.json para que el frontend del dashboard lo consuma.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-05 16:00',
+  },
+  {
+    id: 'agent-dashboard-home',
+    title: 'Dashboard del agente "Mi desempeño" (Fase 32.A)',
+    description: 'Pantalla inicial del agente al login que reemplaza el aterrizaje crudo en /ticket/. Muestra header con nombre + team, 3 KPIs en tiempo real (tickets atendidos hoy, tiempo de respuesta promedio formateado como "Xm Ys", tickets activos), 2 mini-charts de los últimos 7 días (bar de tickets/día con Chart.js, line de tiempo respuesta con tooltips formateados), botón prominente "Ir al Inbox" que baja la fricción de un click. Backend en temba.dashboard.agent_helpers usa Ticket.replied_on para "tiempo a primera respuesta" + Avg() en SQL para evitar N+1. URL /me/dashboard/. OrgRole.AGENT.start_view apunta acá automáticamente. UI uniforme entre los 3 profiles en 32.A; el JS lee team.profile del payload y se ramificará cuando lleguen 32.B/C.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-05 16:30',
+  },
 
   // ---- 9. Comunicación Interna ---------------------------------------------
   {
@@ -1100,6 +1120,8 @@ export const changelog: ChangelogEntry[] = [
   {
     date: '2026-05-05',
     items: [
+      { product: 'flow360', text: 'Dashboard del agente "Mi desempeño" (Fase 32.A): pantalla inicial al login que reemplaza el aterrizaje crudo en /ticket/. Header con nombre + team, 3 KPIs en tiempo real (tickets atendidos hoy, tiempo de respuesta promedio formateado, tickets activos), 2 mini-charts de los últimos 7 días con Chart.js (bar de tickets/día + line de tiempo respuesta con tooltips). Botón prominente "Ir al Inbox" para arrancar el día de un click. Backend en temba.dashboard.agent_helpers usa Ticket.replied_on + Avg() en SQL evitando N+1. URL /me/dashboard/. OrgRole.AGENT.start_view apunta acá automáticamente.' },
+      { product: 'flow360', text: 'Perfil operativo por team (Fase 32.0): campo Team.profile (general/sales/support, default=general) que define qué variante del dashboard verán los miembros del equipo. Pre-configurado por el admin al crear/editar el team — los agentes lo heredan, mismo patrón que crm_pipeline (Fase 29). Más profiles se agregan sin breaking change. UI uniforme en Fase 32.A pero el campo viaja en el payload listo para que 32.B/C ramifiquen KPIs por rol comercial.' },
       { product: 'flow360', text: 'Sidebar comercial de tickets (Fase 31): reorganización completa del orden y nomenclatura para que coincida con el flujo mental del agente. Inbox (todos los abiertos) → Mis tickets → En cola → Finalizados → Sin asignar (admin only). Dos folders nuevos: QueueFolder atrapa los tickets sin respuesta humana todavía (incluye los que la IA está atendiendo + los que esperan primer contacto, vía ~Exists() de Msg outgoing con created_by != NULL y is_ai=False); ClosedFolder da acceso explícito al histórico que stock solo daba mezclado. Default folder /ticket/ pasa de Mine a All. Agentes saltan directo al kanban de su pipeline al clickear CRM (Fase 29 garantiza uno por team), eliminando el listado intermedio.' },
       { product: 'flow360', text: 'CRM Fields — schema extensible por pipeline (Fase 25): cada pipeline define sus propios campos custom (CardField + CardFieldValue) en 6 tipos (Text, Choice, Date, Phone, Email, Stage). Editor desde Settings con validación de opciones por tipo, panel lateral del card con inputs type-aware, y flag show_on_board que pinta chips compactos sobre el preview de la card en el board. Empty-state de /crm/ deja al admin crear el primer pipeline inline.' },
       { product: 'flow360', text: 'Convertir ticket → card de CRM (Fase 26): botón "Convertir → CRM" en el panel lateral del ticket crea una card en el pipeline asignado al team del agente con el contacto ya cargado. El ticket no se modifica — la card vive como entidad independiente con sus fields editables inline. Endpoint POST /api/v2/tickets/{uuid}/convert.json devuelve 409 con mensaje claro cuando el agente no tiene team o el team no tiene pipeline.' },
