@@ -484,6 +484,36 @@ export const features: Feature[] = [
     category: 'Marketing y Captación',
     completedDate: '2026-03-15 18:00',
   },
+  {
+    id: 'mkt-crm-fields',
+    title: 'CRM Fields — campos extensibles por pipeline (Fase 25)',
+    description: 'Cada pipeline define su propio schema de campos custom (CardField + CardFieldValue) editables desde Settings. 6 tipos: Text, Choice, Date, Phone, Email, Stage. Flag show_on_board renderiza chips en el preview de la card sobre el board, además del editor completo en el panel lateral. Empty-state en /crm/ deja al admin crear el primer pipeline sin chicken-and-egg.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Marketing y Captación',
+    completedDate: '2026-05-04 22:00',
+  },
+  {
+    id: 'mkt-crm-ticket-conversion',
+    title: 'Convertir ticket → card de CRM (Fase 26)',
+    description: 'Botón "Convertir → CRM" en el panel lateral de tickets crea una card en el pipeline asignado al team del agente con el contacto actual ya cargado. El ticket no se modifica — el card vive como entidad nueva, con sus propios fields editables inline en el panel. 409 con mensaje claro cuando el agente no tiene team o el team no tiene pipeline.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Marketing y Captación',
+    completedDate: '2026-05-04 22:30',
+  },
+  {
+    id: 'mkt-crm-team-pipeline',
+    title: 'Acceso al CRM gated por team (Fase 29)',
+    description: 'Cada Team tiene un FK opcional a Pipeline (Team.crm_pipeline). Los agentes ven SOLO el pipeline de su team — los admins/editors ven todos. Hard restriction: agente sin team o team sin pipeline → no ve el CRM, sin caída a "todos los pipelines". Cada team gestiona sus leads independientemente; el mismo contacto puede tener cards en múltiples pipelines (uno por team).',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Marketing y Captación',
+    completedDate: '2026-05-04 23:30',
+  },
 
   // ---- 9. Comunicación Interna ---------------------------------------------
   {
@@ -497,6 +527,26 @@ export const features: Feature[] = [
   },
 
   // ---- 10. Identidad Visual del Usuario ------------------------------------
+  {
+    id: 'visual-flow360-brand',
+    title: 'Flow360 brand + sidebar blanco (Fase 30.1)',
+    description: 'Primer pase de identidad visual de la plataforma: label "Flow360" con tipografía Space Grotesk pinned al top del sidebar izquierdo, sidebar repintado de azul → blanco con iconos oscuros (level-0 +30% más grandes, gris-900). Submenu items seleccionados con pill azul + texto blanco para contraste sobre el fondo claro. Variables CSS expuestas en el fork temba-components (--menu-icon-color, --menu-submenu-selected-bg) para que la repintura no dependa de inversiones globales del primary.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Identidad Visual',
+    completedDate: '2026-05-05 01:00',
+  },
+  {
+    id: 'visual-contact-silhouette',
+    title: 'Avatar silhouette en lista de contactos (Fase 28)',
+    description: 'Reemplazo de las iniciales con color hash del avatar de contacto en la lista de tickets por una silueta vector estilo Material Design (28px, circular, gris suave). Augmenter de DOM corre sobre temba-user + temba-date + scan directo de filas. UX más sobrio, alineado a la nueva identidad visual.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Identidad Visual',
+    completedDate: '2026-05-04 23:00',
+  },
   {
     id: 'avatar-upload',
     title: 'Foto de perfil + avatar IA',
@@ -931,12 +981,22 @@ export const features: Feature[] = [
   {
     id: 'inbox-atendimento-pill',
     title: 'Pill de Atendimento en cada fila del inbox',
-    description: 'El valor de Atendimento del contacto (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado, o cualquier custom) aparece como un pill de color suave debajo del último mensaje. Usa el color asignado en CategoryOption (Fase 9). Single-value-per-contact, así que exactamente 1 pill por fila o ninguno. Lo agrega el folder JSON via bulk-fetch + un parche al TicketList.ts del fork.',
+    description: 'El valor de Atendimento del contacto (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado, o cualquier custom) aparece como un pill de color suave debajo del último mensaje. Usa el color asignado en CategoryOption (Fase 9). Single-value-per-contact, así que exactamente 1 pill por fila o ninguno. Lo agrega el folder JSON via bulk-fetch + un parche al TicketList.ts del fork. SUPERSEDED por Fase 27.3 — quitamos el chip del row para que el foco visual quede en el stage del CRM; la categoría sigue editable desde el panel lateral.',
     status: 'done',
     priority: 'high',
     product: 'flow360',
     category: 'Inbox del agente',
     completedDate: '2026-05-04 01:30',
+  },
+  {
+    id: 'inbox-crm-stage-pill',
+    title: 'Pill del stage de CRM en cada fila del inbox (Fase 27)',
+    description: 'El stage del card más reciente del contacto en cualquier pipeline aparece como pill con fondo sólido (stage_color) + texto blanco debajo del último mensaje. El agente identifica de un vistazo el momento del lead sin abrir el panel. Backend usa PostgreSQL DISTINCT ON para devolver el card más reciente por contacto en una sola query bulk. Reemplaza visualmente al pill de Atendimento (que pasa a ser editable solo desde el panel lateral).',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-04 22:45',
   },
 
   // ---- COMPOSER (Fase 22) -------------------------------------------------
@@ -1018,9 +1078,21 @@ export const sharedModules: SharedModule[] = [
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: '2026-05-05',
+    items: [
+      { product: 'flow360', text: 'CRM Fields — schema extensible por pipeline (Fase 25): cada pipeline define sus propios campos custom (CardField + CardFieldValue) en 6 tipos (Text, Choice, Date, Phone, Email, Stage). Editor desde Settings con validación de opciones por tipo, panel lateral del card con inputs type-aware, y flag show_on_board que pinta chips compactos sobre el preview de la card en el board. Empty-state de /crm/ deja al admin crear el primer pipeline inline.' },
+      { product: 'flow360', text: 'Convertir ticket → card de CRM (Fase 26): botón "Convertir → CRM" en el panel lateral del ticket crea una card en el pipeline asignado al team del agente con el contacto ya cargado. El ticket no se modifica — la card vive como entidad independiente con sus fields editables inline. Endpoint POST /api/v2/tickets/{uuid}/convert.json devuelve 409 con mensaje claro cuando el agente no tiene team o el team no tiene pipeline.' },
+      { product: 'flow360', text: 'Pill del stage de CRM en el inbox (Fase 27): debajo del último mensaje aparece un pill con stage_color sólido + texto blanco con el stage del card más reciente del contacto en cualquier pipeline. Backend usa PostgreSQL DISTINCT ON para resolver "card más reciente por contacto" en una sola query bulk. Reemplaza visualmente al pill de Atendimento (que pasa a ser editable solo desde el panel lateral). Foco visual del row queda en el momento del lead.' },
+      { product: 'flow360', text: 'Avatar silhouette en lista de tickets (Fase 28): las iniciales con color hash se reemplazan por una silueta vector estilo Material Design (28px, gris suave, circular). Augmenter del DOM corre tanto sobre temba-user + temba-date como sobre el scan directo de filas, así no se ve afectado por cambios futuros de markup del fork.' },
+      { product: 'flow360', text: 'Acceso al CRM gated por team (Fase 29): cada Team tiene un FK opcional a Pipeline (Team.crm_pipeline). Los agentes ven SOLO el pipeline de su team — los admins/editors ven todos. Hard restriction (sin caída a "todos los pipelines"): agente sin team o team sin pipeline → no ve el CRM. Convención: cada team gestiona sus leads en su propio pipeline; el mismo contacto puede tener cards en múltiples pipelines (uno por team).' },
+      { product: 'flow360', text: 'Identidad visual mínima — Flow360 brand + sidebar blanco (Fase 30.1): label "Flow360" con tipografía Space Grotesk pinned al top del sidebar, sidebar repintado de azul → blanco con iconos oscuros (level-0 +30% más grandes), submenu items seleccionados con pill azul + texto blanco para contraste sobre fondo claro. Variables CSS expuestas en el fork temba-components (--menu-icon-color, --menu-submenu-selected-bg) para que la repintura no dependa de inversiones globales del primary.' },
+      { product: 'flow360', text: 'Bug fixes admin: link "Agentes" del menú Settings funcionando (regex de URL [a-z]+ no aceptaba underscore — widened a [a-z_]+); CRM aparece para nuevos workspaces creados desde sudo (provision_org ahora setea FEATURE_USERS + FEATURE_TEAMS por default); Telegram bot pericoltda_bot recuperó incoming messages tras corregir callback_domain (apuntaba al production app.rapidpro.io en lugar del ngrok dev).' },
+    ],
+  },
+  {
     date: '2026-05-04',
     items: [
-      { product: 'flow360', text: 'Pill de Atendimento en cada fila del inbox (Fase 23): el valor de Atendimento (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado) aparece como un pill de color suave debajo del último mensaje. El agente identifica de un vistazo qué tipo de conversación es. Single-value-per-contact garantiza 1 pill por fila o ninguno. Backend bulk-fetch + parche al TicketList.ts del fork. Tests cubren ambos casos (con valor / sin valor).' },
+      { product: 'flow360', text: 'Pill de Atendimento en cada fila del inbox (Fase 23): el valor de Atendimento (Interesado/En seguimiento/Compra cerrada/Sin respuesta/No interesado) aparece como un pill de color suave debajo del último mensaje. El agente identifica de un vistazo qué tipo de conversación es. Single-value-per-contact garantiza 1 pill por fila o ninguno. Backend bulk-fetch + parche al TicketList.ts del fork. Tests cubren ambos casos (con valor / sin valor). [SUPERSEDED por Fase 27.3 — el pill se removió del row para dejar el foco en el stage del CRM; la categoría sigue editable desde el panel lateral.]' },
       { product: 'flow360', text: 'Composer del ticket reply mejorado (Fase 22): botón circular de send a la derecha del textarea (coexiste con Enter, disabled cuando vacío) y emoji picker pro con search multilingüe, 10 categorías, skin-tones y recientes — built sobre emoji-picker-element (web component native, ~14KB). UI esperada por agentes que vienen de WhatsApp Web o Slack.' },
       { product: 'flow360', text: 'Decisión de librería de emoji: aterrizamos en emoji-picker-element tras descartar 4 alternativas — custom de 64 emojis (muy pobre), custom de 350 emojis (sin search ni categorías), emoji-mart npm (su sintaxis Parcel-only de import de CSS rota con rollup), emoji-mart desde CDN (bloqueado por el CSP de RapidPro). Lección registrada en PATCHES.md del fork temba-components.' },
     ],
