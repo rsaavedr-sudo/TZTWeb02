@@ -534,6 +534,26 @@ export const features: Feature[] = [
     category: 'Inbox del agente',
     completedDate: '2026-05-05 16:30',
   },
+  {
+    id: 'agent-dashboard-cockpit-style',
+    title: 'Dashboard del agente — refresh visual al estilo Cockpit (Fase 32.A.e/f/g/h)',
+    description: 'Rediseño visual completo para que el Dashboard del agente comparta lenguaje con el admin Cockpit: 5 KPI cards con tints de color (verde/azul/amber/violet/rojo) dentro de un frame blanco con título "EN VIVO Tu día de hoy" + timestamp, charts con accent dot en el heading, ranking del equipo como lista custom con "Yo" resaltado en azul, donut de resolución por categoría. Banner motivacional violeta entre header y KPIs con random pick por page-load de 12 quotes alternadas (6 Osho + 6 Steve Jobs). Sidebar item "Dashboard" gateado por rol — solo agentes lo ven; admin/editor solo ven Cockpit (que ya cubre la analítica workspace-wide).',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Inbox del agente',
+    completedDate: '2026-05-05 22:00',
+  },
+  {
+    id: 'aiagent-brain-screen',
+    title: 'AIAgent Brain — pantalla full-page con accordion + auto-prompt (Fase 33.A)',
+    description: 'Reemplazo del form modal de configuración de AI Agent por una pantalla full-page tipo "Brain" con layout 70/30. Sidebar (30%, sticky): dropdowns de Lenguaje/Rol/Tono con opción "Otro→input" + Sub-rol dinámico que aparece según el rol (Ventas: consultiva/agresiva/pasiva; Soporte: rápido/detallado/educativo). Editor principal (70%): nombre del agente, caja grande de comportamiento general, 7 accordion blocks (Objetivo · Personalidad · Reglas · Estilo de respuesta · Qué NO hacer · Contexto del negocio · Ejemplos) con pill "Lleno/Vacío" reactiva, preview oscuro al final con prompt final por concatenación estructurada (## headers) + botón "Copiar". 4 fields nuevos en el modelo (sub_role, personality, response_style, examples) + AIAgent.build_prompt() que matchea exacto el formato del JS. Quedan placeholders de "Cargar template" (33.B) y "Probar IA" (33.C) en el sidebar.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-05-05 21:00',
+  },
 
   // ---- 9. Comunicación Interna ---------------------------------------------
   {
@@ -1120,6 +1140,9 @@ export const changelog: ChangelogEntry[] = [
   {
     date: '2026-05-05',
     items: [
+      { product: 'flow360', text: 'AIAgent Brain — pantalla full-page con accordion + auto-prompt (Fase 33.A): reemplazo completo del form modal de configuración de IA por una pantalla 70/30. Sidebar fijo (Lenguaje/Rol/Tono/Sub-rol dinámico con "Otro→input"), editor principal con 7 accordion blocks (Objetivo · Personalidad · Reglas · Estilo · NO hacer · Contexto · Ejemplos), preview oscuro live del prompt final por concatenación estructurada (## headers) + botón Copiar. AIAgent.build_prompt() server-side matchea exacto el formato del JS, garantizando que lo que el usuario ve es lo que llega al LLM.' },
+      { product: 'flow360', text: 'Dashboard del agente — refresh visual al estilo Cockpit (Fase 32.A.e/f/g/h): 5 KPI cards con tints de color dentro de frame blanco con título "EN VIVO" + timestamp, charts con accent dot, ranking del equipo como lista custom con "Yo" resaltado, donut de resolución por categoría. Banner motivacional violeta entre header y KPIs con random pick de 12 quotes Osho/Jobs alternadas. Sidebar item "Dashboard" gateado por rol — solo agentes lo ven, admin/editor ven solo Cockpit (la analítica workspace-wide ya cubre la necesidad).' },
+      { product: 'global', text: 'Stack ops — volume mounts persistentes para los forks (floweditor + temba-components) en docker-compose. Sin esto los rebuilds del container revertían los bundles al stock y se perdían features como el dropdown de AI Agents en el nodo Call LLM (Fase 7) o el light sidebar de Fase 30.1 (iconos invisibles sobre fondo blanco). La fuente de verdad del build vive en cada fork; el container los lee read-only.' },
       { product: 'flow360', text: 'Dashboard del agente "Mi desempeño" (Fase 32.A): pantalla inicial al login que reemplaza el aterrizaje crudo en /ticket/. Header con nombre + team, 3 KPIs en tiempo real (tickets atendidos hoy, tiempo de respuesta promedio formateado, tickets activos), 2 mini-charts de los últimos 7 días con Chart.js (bar de tickets/día + line de tiempo respuesta con tooltips). Botón prominente "Ir al Inbox" para arrancar el día de un click. Backend en temba.dashboard.agent_helpers usa Ticket.replied_on + Avg() en SQL evitando N+1. URL /me/dashboard/. OrgRole.AGENT.start_view apunta acá automáticamente.' },
       { product: 'flow360', text: 'Perfil operativo por team (Fase 32.0): campo Team.profile (general/sales/support, default=general) que define qué variante del dashboard verán los miembros del equipo. Pre-configurado por el admin al crear/editar el team — los agentes lo heredan, mismo patrón que crm_pipeline (Fase 29). Más profiles se agregan sin breaking change. UI uniforme en Fase 32.A pero el campo viaja en el payload listo para que 32.B/C ramifiquen KPIs por rol comercial.' },
       { product: 'flow360', text: 'Sidebar comercial de tickets (Fase 31): reorganización completa del orden y nomenclatura para que coincida con el flujo mental del agente. Inbox (todos los abiertos) → Mis tickets → En cola → Finalizados → Sin asignar (admin only). Dos folders nuevos: QueueFolder atrapa los tickets sin respuesta humana todavía (incluye los que la IA está atendiendo + los que esperan primer contacto, vía ~Exists() de Msg outgoing con created_by != NULL y is_ai=False); ClosedFolder da acceso explícito al histórico que stock solo daba mezclado. Default folder /ticket/ pasa de Mine a All. Agentes saltan directo al kanban de su pipeline al clickear CRM (Fase 29 garantiza uno por team), eliminando el listado intermedio.' },
