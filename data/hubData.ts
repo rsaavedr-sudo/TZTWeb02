@@ -53,6 +53,32 @@ export interface ChangelogEntry {
   }[];
 }
 
+/**
+ * A Playbook is a stable technical reference document living in the repo's
+ * `docs/` folder. The Product Hub only holds the index (title, description,
+ * category, link to GitHub) — the content stays in the .md file so the repo
+ * remains the single source of truth. Categorised to help find the right one
+ * fast:
+ *   - onboarding  → guides to start a new channel, client, feature (e.g., WAC
+ *                    onboarding checklist)
+ *   - ops         → runbooks (deploys, backups, restarts, incident response)
+ *   - architecture→ design decisions + diagrams for a subsystem
+ *   - post-mortem → incident write-ups with lessons learned
+ *   - reference   → cheatsheets and glossaries consulted frequently
+ */
+export interface PlaybookEntry {
+  id: string;
+  title: string;
+  category: 'onboarding' | 'ops' | 'architecture' | 'post-mortem' | 'reference';
+  product: ProductID | 'global';
+  description: string;
+  lastUpdated: string;                 // YYYY-MM-DD
+  status: 'draft' | 'stable' | 'deprecated';
+  filename: string;                    // ej "43-CANAL-WAC-CHECKLIST-COMPLETO.md"
+  githubUrl: string;                   // link directo al blob
+  keyTakeaways?: string[];             // 3-5 bullets clave para preview sin abrir
+}
+
 // =============================================================================
 //  Features
 // =============================================================================
@@ -1369,6 +1395,43 @@ export const changelog: ChangelogEntry[] = [
       { product: 'flow360', text: 'TicketSidePanel: tercera columna en /tickets/ con editor de contacto + tags + categorías sincronizado al ticket activo.' },
       { product: 'flow360', text: 'CRM Kanban: app temba.crm + API v2 + bundle React (drag&drop, panel de card, create/edit contacto desde el panel).' },
       { product: 'global', text: 'AI Agent dropdown en el Call AI flow node — fork de floweditor v1.45.1 con tweak en LLMForm.tsx.' },
+    ],
+  },
+];
+
+// =============================================================================
+//  Playbooks
+// =============================================================================
+//
+// Technical reference docs living in the rapidpro8 repo under `docs/`. The Hub
+// holds only the index — clicking through opens the .md on GitHub (which
+// renders it natively). Each entry describes what the doc covers so people
+// know if it's worth opening, without duplicating content into this file.
+//
+// When adding a new doc:
+//   1. Create the .md in rapidpro8/docs/ following the NN-CATEGORIA-TITULO
+//      naming convention (see 43-CANAL-WAC-CHECKLIST-COMPLETO.md for template).
+//   2. Add a PlaybookEntry here with matching filename + githubUrl.
+//   3. Pick the right category — filters in PlaybooksView group by it.
+// =============================================================================
+
+export const playbooks: PlaybookEntry[] = [
+  {
+    id: 'wac-onboarding-checklist',
+    title: 'WhatsApp Cloud API — Checklist Completo de Onboarding',
+    category: 'onboarding',
+    product: 'flow360',
+    description: 'Referencia end-to-end para vincular un canal WhatsApp Cloud API de un cliente nuevo: setup Meta (WABA, phone, display name, App Review, partnership), setup técnico Flow360 (env vars, courier), features de mensajería (13 tipos), compliance (CSW, opt-in, quality rating, tiers) y smoke test E2E de validación. Post-mortem incluido de la Fase 15.2.c que sacó a la luz la deuda técnica en courier.',
+    lastUpdated: '2026-07-01',
+    status: 'stable',
+    filename: '43-CANAL-WAC-CHECKLIST-COMPLETO.md',
+    githubUrl: 'https://dev.azure.com/tztbr/flow360/_git/flow360?path=/docs/43-CANAL-WAC-CHECKLIST-COMPLETO.md',
+    keyTakeaways: [
+      'Onboarding real: ~1h de trabajo activo + 24-48h wait para Meta business verification + display name approval',
+      'El cliente trae su propia WABA en su propio Business Manager, Flow360 la consume como partner técnico',
+      '13 tipos de mensajes soportados: texto, media (image/video/audio/voice/doc/sticker), location, interactive (buttons/list/CTA), templates, reactions, catalog, WhatsApp Flows',
+      'CSW 24h: fuera de esa ventana solo templates aprobados de Meta pueden enviarse',
+      'Tabla de 15 error codes de Meta + fixes conocidos + smoke test E2E de 8 pasos para validar cada canal nuevo antes de handoff',
     ],
   },
 ];

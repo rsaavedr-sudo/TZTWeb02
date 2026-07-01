@@ -15,7 +15,8 @@ import {
   LogOut,
   User as UserIcon,
   Shield,
-  Notebook
+  Notebook,
+  BookOpen
 } from 'lucide-react';
 import { ProductID, features, changelog, Status, Priority, User } from '../../data/hubData';
 
@@ -35,6 +36,7 @@ const Sidebar: React.FC<HubSidebarProps> = ({ activeView, setActiveView, onLogou
     { id: 'shared', label: 'Shared Modules', icon: Layers },
     { id: 'changelog', label: 'Changelog', icon: History },
     { id: 'microblog', label: 'Bitácora', icon: Notebook },
+    { id: 'playbooks', label: 'Playbooks', icon: BookOpen },
   ];
 
   return (

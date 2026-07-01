@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import Login from './Login';
 import { HubHome, ProductView, RoadmapView, SharedModules, ChangelogView } from './HubViews';
 import { MicroblogView } from './MicroblogView';
+import { PlaybooksView } from './PlaybooksView';
 import { ProductID, User } from '../../data/hubData';
 
 const HubDashboard: React.FC = () => {
@@ -72,6 +73,8 @@ const HubDashboard: React.FC = () => {
         return <ChangelogView />;
       case 'microblog':
         return <MicroblogView />;
+      case 'playbooks':
+        return <PlaybooksView />;
       default:
         return <HubHome onNavigate={setActiveView} />;
     }
