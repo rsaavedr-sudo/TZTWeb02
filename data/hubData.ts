@@ -1122,6 +1122,63 @@ export const features: Feature[] = [
     category: 'Composer',
   },
 
+  // ---- Módulos & Extensiones -----------------------------------------------
+  // Arquitectura de módulos activables per-workspace + los módulos concretos que
+  // extienden la plataforma más allá del core (Marketing, Voz IP, etc.). Cada
+  // módulo puede habilitarse/deshabilitarse por sudo desde /settings/modules/,
+  // el sidebar del workspace se adapta dinámicamente, y las permissions se
+  // gatean per módulo. Modelo base: OrgModule (Fase 40.1).
+  {
+    id: 'system-modules',
+    title: 'Sistema de Módulos activables per-workspace',
+    description: 'Arquitectura modular que permite habilitar/deshabilitar funcionalidades por cliente sin tocar código (Fase 40.1). Modelo OrgModule + toggle sudo desde /settings/modules/ + sidebar dinámico que renderiza solo las secciones activas + permissions gateadas por módulo (Fase 40.2). Base para monetización por tier de plan — clientes básicos ven core WhatsApp/CRM, clientes premium suman Marketing, Voz IP, Rambo, etc. Cada módulo tiene su propia app Django (temba.marketing, temba.voice, etc.) con sub-sidebar propio cuando aplica.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Módulos & Extensiones',
+    completedDate: '2026-06-20 18:00',
+  },
+  {
+    id: 'module-marketing',
+    title: 'Módulo Marketing — pipeline de leads + integraciones + funnel',
+    description: 'Módulo completo de captación y gestión comercial (Fase 40.x). Consolida: dashboard con stat cards + chart 30d, tabla diaria con split por canal (Facebook/Instagram/Outro/Email), funnel Leads → Cadastros → Vendas con conversion rates, página Jornada de Leads, página Vendas con ranking de vendedores, página Perdidos con auto-dispatch de recovery, integración con Facilitta Master (import de ventas nightly), matcher BC vs Meta, importer manual de CSV, upload de sales. Módulo activable per-workspace desde sudo. Categoría base para futura evolución hacia RD Station-like.',
+    status: 'in-progress',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Módulos & Extensiones',
+  },
+  {
+    id: 'module-voice-pbx',
+    title: 'Módulo Comunicación de Voz — PBX IP integrado',
+    description: 'PBX IP nativo integrado al modelo unificado de comunicación de Flow360. Permite manejar llamadas entrantes/salientes (SIP trunks + softphone WebRTC en el navegador del agente), grabación de llamadas, IVR configurable per-org, transferencias entre agentes, hold/mute/conference, integración con CRM (click-to-call desde el contact + histórico de llamadas en el timeline), routing por skills/teams. Coexiste con canales de mensajería — un mismo contacto puede tener conversación WhatsApp + llamada telefónica en la misma vista. Activable per-workspace, con billing separado por minutos.',
+    status: 'in-progress',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Módulos & Extensiones',
+  },
+  {
+    id: 'module-rambo',
+    title: 'Módulo Rambo — Discador automatizado de voz',
+    description: 'Motor de discado automático masivo para campañas outbound de voz. Modos: preview (agente ve el lead antes del call), progressive (call automático al confirmar agente listo), predictive (algoritmo anticipa disponibilidad y disca antes), power dialer (agente al 100% ocupado). Integrado con el módulo Voz PBX para el transport y con el CRM para audiencia (segmentos por tags, pipelines, stages). AMD (answering machine detection) para skip auto de casillas de voz. Report post-campaña con métricas: conversion rate, avg talk time, abandonment rate. Nombre code: Rambo. Puede correr con voz humana o handoff a agente IA (Copiloto extended) para campañas de baja complejidad.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Módulos & Extensiones',
+  },
+
+  // ---- Comunicación de Voz --------------------------------------------------
+  // Todas las capacidades de voz — nativas Meta (WABA Calling) + integraciones
+  // con el PBX propio + capacidades multimodales que combinan voz + IA.
+  {
+    id: 'waba-calling',
+    title: 'WABA Calling — llamadas de voz vía WhatsApp Business API',
+    description: 'Llamadas inbound + outbound de voz nativas dentro del chat WhatsApp, sin que el usuario abandone la app. Ofrecidas por Meta desde Cloud API con webhook de eventos (calls field). Permite: recibir llamadas del cliente en el inbox de Flow360, iniciar llamadas outbound con consent explícito, recording opcional, transferencia entre agentes, click-to-call desde contact page. Puede operar de forma standalone (solo WhatsApp) o INTEGRADA con el Módulo PBX IP — en modo integrado, una llamada WABA entrante rutea al IVR del PBX y puede desviarse a un agente softphone o a un número externo. Fase 41 (análisis técnico) completa; falta approval de Meta para el pilot (Fase 41.b — email a Facilitta pidiendo trigger del flow).',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Comunicación de Voz',
+  },
+
   // ---- INDIKA --------------------------------------------------------------
   // intentionally empty — the product gets its own work stream
 ];
