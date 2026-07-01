@@ -468,9 +468,9 @@ export const features: Feature[] = [
   },
   {
     id: 'ai-copilot',
-    title: 'Copiloto IA (sugerencias en tiempo real)',
-    description: 'Lectura del contexto de conversación + sugerencia de respuesta. Activación configurable por usuario.',
-    status: 'planned',
+    title: 'Copiloto — IA Aliada del Vendedor',
+    description: 'Asistente IA personal por vendedor que aprende su estilo (tono, vocabulario, emojis, argumentos) y construye memoria persistente por cliente (historial completo, preferencias, objeciones, momento del funnel). Cuando el vendedor no está disponible (fuera de horario, otro chat, licencia), el Copiloto continúa la conversación con la voz del vendedor y el contexto exacto del cliente — 24/7. Diferencial estratégico vs Organization Agent (chatbot genérico por operación): el Copiloto es la sombra digital del vendedor mismo. Arquitectura base ✅ (modelo PersonalAIAgent + dashboard config + integración flow engine + audit log). En construcción 🚧: aprendizaje automático de estilo, memoria persistente por cliente, detección de emoción/intención. Ver playbook 44-COPILOTO-IA-ALIADA-DEL-VENDEDOR.md.',
+    status: 'in-progress',
     priority: 'high',
     product: 'flow360',
     category: 'Inteligencia Artificial',
@@ -1416,6 +1416,25 @@ export const changelog: ChangelogEntry[] = [
 // =============================================================================
 
 export const playbooks: PlaybookEntry[] = [
+  {
+    id: 'copiloto-ia-vendedor',
+    title: 'Copiloto — IA Aliada del Vendedor',
+    category: 'architecture',
+    product: 'flow360',
+    description: 'Descripción completa del diferencial estratégico de Flow360: además del Organization Agent (chatbot por operación con criterio empresa), cada vendedor tiene su Copiloto — asistente IA personal que aprende su estilo y construye memoria persistente por cliente. Continúa la venta 24/7 cuando el vendedor no puede. Incluye executive summary, comparativa vs competencia (BotConversa, Twilio, RD Station), checklist funcional completo, casos de uso concretos, roadmap por Fases A-D, guardrails de privacy, y FAQ para vendedores + admins.',
+    lastUpdated: '2026-07-01',
+    status: 'stable',
+    filename: '44-COPILOTO-IA-ALIADA-DEL-VENDEDOR.md',
+    githubUrl: 'https://dev.azure.com/tztbr/flow360/_git/flow360?path=/docs/44-COPILOTO-IA-ALIADA-DEL-VENDEDOR.md',
+    keyTakeaways: [
+      'Organization Agent (uno por operación, criterio empresa) + Copiloto (uno por vendedor, estilo personal) conviven — no compiten',
+      'Copiloto aprende del vendedor: tono, vocabulario, emojis, argumentos, frases marca registrada, horario típico',
+      'Copiloto tiene memoria persistente por cliente: historial completo, preferencias, objeciones, momento del funnel, contexto personal',
+      'Interviene fuera de horario / con lag / en licencia. Cede al humano ante emoción fuerte, pedido explícito, o intención de compra alta',
+      'Moat competitivo real: ni BotConversa ni Twilio ni RD Station tienen personalización por vendedor + persistencia por cliente',
+      'Roadmap Fase A-D: consolidación → aprendizaje adaptativo → coordinación inteligente → multimodalidad (voz clonada)',
+    ],
+  },
   {
     id: 'wac-onboarding-checklist',
     title: 'WhatsApp Cloud API — Checklist Completo de Onboarding',
