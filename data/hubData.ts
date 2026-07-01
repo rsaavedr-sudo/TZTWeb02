@@ -1179,6 +1179,55 @@ export const features: Feature[] = [
     category: 'Comunicación de Voz',
   },
 
+  // ---- Multi-canal: SMS + RCS ---------------------------------------------
+  // Canales de mensajería complementarios a WhatsApp. SMS todavía es lingua
+  // franca global (100% de smartphones lo soportan, sin app). RCS es el
+  // sucesor moderno (rich media, botones, read receipts, sin costo) — adoption
+  // creciente sobre todo en US y algunos LATAM. Ambos siguen el mismo patrón:
+  // canal en el inbox del agente si el admin lo autoriza + broadcasts masivos
+  // desde Marketing + nodo Send en el flow editor para automations.
+  {
+    id: 'channel-sms',
+    title: 'SMS — canal para agente + broadcasts + automation',
+    description: 'Envío/recepción de SMS integrado al workspace. Tres modos de uso: (1) el AGENTE puede mandar SMS al cliente desde el inbox si el admin lo habilitó en su permission matrix (útil cuando WhatsApp no responde o el contacto no tiene WA); (2) el ADMIN puede lanzar broadcasts masivos a audiencias segmentadas por tags/pipelines/estado (integrado al módulo Marketing); (3) disponible como nodo "Send SMS" en el flow editor para incluir SMS dentro de automatizaciones (ej: recordatorio de cita 24h antes). Provider-agnostic: soporta Twilio, Vonage, Bandwidth, Zenvia y gateway locales por país. Delivery status webhook + cost tracking per workspace + hard cap configurable.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+  {
+    id: 'channel-rcs',
+    title: 'RCS — canal moderno con fallback SMS',
+    description: 'Rich Communication Services (protocolo Google que evoluciona SMS) con mismo patrón que SMS: agente puede mandar RCS desde inbox (si permission autorizado), admin lanza campañas masivas, nodo disponible en flow editor para automations. Ventajas vs SMS: soporta cards, botones interactivos, imágenes, ubicación, read receipts, typing indicators, sin costo del cliente, verificación de brand con logo/color en el header. Fallback automático a SMS cuando el destinatario no tiene RCS activo (~40-70% en LATAM al 2026). Requiere phone number habilitado para RCS via Google Jibe u operador local + verified brand con Google. Costo por mensaje ligeramente menor que WhatsApp Business.',
+    status: 'planned',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Integración de Canales',
+  },
+
+  // ---- Template Manager + gate de permissions -----------------------------
+  // Dos features que se complementan: el Template Manager permite crear/mantener
+  // los templates que se necesitan para mandar mensajes fuera de la CSW 24h, y
+  // la matriz de permissions decide qué agentes efectivamente pueden usarlos.
+  {
+    id: 'template-manager',
+    title: 'Template Manager — editor visual con sync bidireccional a Meta',
+    description: 'Editor visual de WhatsApp Message Templates dentro de Flow360, con sync bidireccional al WhatsApp Manager de Meta. Permite crear/editar/duplicar templates de las 3 categorías (UTILITY, MARKETING, AUTHENTICATION) con validación en tiempo real de las guidelines Meta (header limits, body max 1024 chars, buttons max, placeholders {{1}} required, preview_url rules). Submit a Meta review desde la UI + escucha de webhook message_template_status_update para reflejar cambios de estado en tiempo real (APPROVED / PENDING / REJECTED / PAUSED / DISABLED). Preview del template renderizado como burbuja WhatsApp antes de mandar. Quality rating + performance metrics por template. Central para operadores del módulo Marketing y para agentes autorizados a mandar templates fuera de la CSW 24h.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Reglas WhatsApp 24h',
+  },
+  {
+    id: 'admin-agent-permissions',
+    title: 'Matriz de permissions granular por agente',
+    description: 'Sección en /settings/agents/permissions/ donde el admin habilita capabilities individuales per-agente (o per-team con override individual). Capabilities gateables: enviar templates fuera de la ventana CSW 24h, mandar SMS, mandar RCS, lanzar broadcasts masivos, disparar flows manualmente sobre un contacto, exportar audiencias/contacts, ver métricas de otros agentes, editar tags globales del workspace, aprobar templates. Todo default OFF para agentes nuevos — el admin habilita explícitamente según responsabilidad. Cada decisión queda auditada en Integration Events (Fase 44). Reemplaza el modelo binario histórico "agente vs admin" por un control fino, alineado con equipos comerciales grandes donde no todos pueden mandar SMS a todos.',
+    status: 'planned',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Gestión de Usuarios',
+  },
+
   // ---- INDIKA --------------------------------------------------------------
   // intentionally empty — the product gets its own work stream
 ];
