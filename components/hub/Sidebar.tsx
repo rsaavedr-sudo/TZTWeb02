@@ -16,7 +16,8 @@ import {
   User as UserIcon,
   Shield,
   Notebook,
-  BookOpen
+  BookOpen,
+  Rocket
 } from 'lucide-react';
 import { ProductID, features, changelog, Status, Priority, User } from '../../data/hubData';
 
@@ -34,6 +35,9 @@ const Sidebar: React.FC<HubSidebarProps> = ({ activeView, setActiveView, onLogou
     { id: 'INDIKA', label: 'INDIKA', icon: Trophy },
     { id: 'roadmap', label: 'Roadmap', icon: Map },
     { id: 'shared', label: 'Shared Modules', icon: Layers },
+    // Releases va antes que Changelog a propósito: "qué está en producción"
+    // se consulta más seguido que "qué se trabajó".
+    { id: 'releases', label: 'Releases', icon: Rocket },
     { id: 'changelog', label: 'Changelog', icon: History },
     { id: 'microblog', label: 'Bitácora', icon: Notebook },
     { id: 'playbooks', label: 'Playbooks', icon: BookOpen },

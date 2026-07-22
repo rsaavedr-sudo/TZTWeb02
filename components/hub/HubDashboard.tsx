@@ -5,6 +5,7 @@ import Login from './Login';
 import { HubHome, ProductView, RoadmapView, SharedModules, ChangelogView } from './HubViews';
 import { MicroblogView } from './MicroblogView';
 import { PlaybooksView } from './PlaybooksView';
+import { ReleasesView } from './ReleasesView';
 import { ProductID, User } from '../../data/hubData';
 
 const HubDashboard: React.FC = () => {
@@ -69,6 +70,8 @@ const HubDashboard: React.FC = () => {
         return <RoadmapView />;
       case 'shared':
         return <SharedModules />;
+      case 'releases':
+        return <ReleasesView />;
       case 'changelog':
         return <ChangelogView />;
       case 'microblog':

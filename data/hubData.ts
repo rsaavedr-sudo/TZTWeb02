@@ -54,6 +54,44 @@ export interface ChangelogEntry {
 }
 
 /**
+ * Tipo de release según versionado semántico (MAYOR.MENOR.PARCHE):
+ *   - major → cambio grande o incompatible
+ *   - minor → funcionalidad nueva, compatible hacia atrás
+ *   - patch → corrección de bug, sin features nuevas
+ */
+export type ReleaseKind = 'major' | 'minor' | 'patch';
+
+/**
+ * Un Release es una versión que efectivamente LLEGÓ A PRODUCCIÓN.
+ *
+ * Se distingue del Changelog a propósito, porque responden preguntas
+ * distintas:
+ *   - Changelog  → "¿qué se trabajó?" (registro de actividad, muy detallado)
+ *   - Releases   → "¿qué está corriendo en producción y desde qué versión?"
+ *
+ * Mezclarlos hace que ninguna de las dos se pueda responder bien: el equipo
+ * no sabe si algo que ve en el changelog ya está disponible para el cliente
+ * o sigue en QA. Acá sólo entran versiones desplegadas, con su tag de git.
+ *
+ * Fuente de verdad del contenido: `rapidpro8/docs/RELEASE-NOTES.md`.
+ */
+export interface Release {
+  /** Tag de git, ej. 'v1.0.1' */
+  version: string;
+  /** Fecha del despliegue a producción, YYYY-MM-DD */
+  date: string;
+  kind: ReleaseKind;
+  product: ProductID;
+  /** Título corto, sólo para releases con hito (ej. la primera versión) */
+  headline?: string;
+  /** Agrupaciones de cambios: features nuevas, correcciones, operación… */
+  sections: {
+    label: string;
+    items: string[];
+  }[];
+}
+
+/**
  * A Playbook is a stable technical reference document living in the repo's
  * `docs/` folder. The Product Hub only holds the index (title, description,
  * category, link to GitHub) — the content stays in the .md file so the repo
@@ -98,6 +136,158 @@ export interface PlaybookEntry {
 // =============================================================================
 
 export const features: Feature[] = [
+
+  // ---- 0. Julio 2026 — Bloque IA + salida a producción ---------------------
+  //
+  // Tanda que dejó los agentes de IA listos para operación real y puso la
+  // primera versión en producción (flow360ai.com.br, v1.0.0 el 22-jul).
+  //
+  // El hilo conductor del bloque de IA: que el agente responda sólo con
+  // hechos verificados, que sepamos cuánto cuesta, y que la recuperación no
+  // falle en silencio. Varias de estas features nacieron de un hallazgo
+  // incómodo — una prueba que se daba por buena era el modelo adivinando,
+  // no recuperando — que sólo se destapó al agregar instrumentación.
+
+  {
+    id: 'ia-grounding',
+    title: 'Anclaje (grounding) de agentes de IA',
+    description: 'Los agentes responden únicamente con información verificada de la base de conocimiento. Si el dato no está, lo admiten y transfieren a una persona en vez de inventar. Regla activada por defecto y editable desde la UI, en pt/es/en. Ataca la causa nº1 de incidentes en atención con IA: precios, plazos y coberturas inventados que son un pasivo legal y de marca.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-20 18:00',
+  },
+  {
+    id: 'ia-handoff-config',
+    title: 'Escalado a humano configurable',
+    description: 'Los criterios de transferencia a un agente humano estaban hardcodeados en views.py y no aparecían en el preview del prompt — o sea, drift entre lo que el usuario veía y lo que realmente llegaba al modelo. Ahora viven en la configuración del agente, son editables desde la UI, e incluyen palabras clave que disparan el handoff automáticamente.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-20 19:30',
+  },
+  {
+    id: 'ia-guardrails',
+    title: 'Guardrails de seguridad (anti prompt-injection)',
+    description: 'El texto que envía el cliente se trata como dato, no como orden: el agente no ejecuta instrucciones embebidas en los mensajes, no revela su prompt de sistema, no repite datos personales innecesarios y no promete nada sin respaldo. Activado por defecto, editable, en los tres idiomas.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-20 21:00',
+  },
+  {
+    id: 'ia-rag-kb',
+    title: 'Base de conocimiento con RAG (pgvector)',
+    description: 'Módulo de conocimiento propio: se cargan fuentes (políticas, catálogo, FAQ), se parten en fragmentos con solape, se indexan con embeddings y un índice HNSW, y en cada conversación el agente recupera sólo lo relevante y responde citando la fuente. Antes el "conocimiento" era un TextField concatenado al prompt: no escalaba, no era auditable y se pagaba entero en cada turno. Embeddings multi-proveedor (OpenAI, Azure, Google — Anthropic y DeepSeek no ofrecen). Actualizable al instante sin reentrenar.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-21 14:00',
+  },
+  {
+    id: 'ia-rag-hibrido',
+    title: 'Búsqueda híbrida en la recuperación (RRF)',
+    description: 'La búsqueda sólo vectorial fallaba en un caso muy común: consulta corta con término exacto contra un fragmento largo y mixto — la similitud se diluye y el fragmento correcto queda fuera del umbral. Caso real que lo motivó: "Tem carência?" no recuperaba el texto que dice literalmente "Não há carência". Se sumó búsqueda léxica full-text de Postgres y se fusionan ambos rankings con RRF (combina por posición, no por puntaje: una distancia coseno y un ts_rank no son magnitudes comparables). Encuentra por significado y por término literal.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-21 22:30',
+  },
+  {
+    id: 'ia-costos',
+    title: 'Medición de consumo y costo de IA',
+    description: 'Cada turno de LLM registra tokens de entrada/salida, tokens servidos desde caché, costo en USD y latencia, separado por origen (conversación real, chat de prueba, copiloto, auto-respuesta). Sin esto no hay costo por conversación ni comparación entre modelos — y los datos que no se capturan en el momento no se recuperan después. Decisión de diseño: un modelo sin precio conocido registra costo nulo, no un estimado; un número inventado se propaga a los reportes y nadie vuelve a cuestionarlo.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-21 18:00',
+  },
+  {
+    id: 'ia-cache-prompt',
+    title: 'Caché de prompt',
+    description: 'El contexto recuperado se concatenaba dentro del system prompt, que cambiaba en cada turno — y como la caché de los proveedores funciona por prefijo idéntico, nunca acertaba. Se movió el contexto al mensaje del usuario para dejar el prompt estable, más cache_control explícito en Anthropic. Verificado en QA: el costo por turno bajó de US$0.0003 a US$0.0001 y la latencia de 3.7s a 1.7s cuando la caché acierta.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Inteligencia Artificial',
+    completedDate: '2026-07-21 20:00',
+  },
+  {
+    id: 'conv-dialogos',
+    title: 'Diálogos guardados y recuperables',
+    description: 'Las conversaciones se congelan como objeto de primera clase con su transcripción, métricas (tiempo de primera respuesta, conteo de mensajes por dirección) y análisis. Fue necesario porque el vínculo mensaje↔ticket queda siempre nulo en esta instalación, así que el historial no se podía reconstruir por FK: se arma por contacto y ventana temporal. Verificado sobre datos reales: un ticket que mostraba 0 mensajes por FK tenía 15 por ventana temporal.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Gestión de Conversaciones',
+    completedDate: '2026-07-18 16:00',
+  },
+  {
+    id: 'conv-import-wa',
+    title: 'Importación de histórico de WhatsApp',
+    description: 'Extracción del histórico desde el respaldo cifrado del dispositivo Android y carga en la plataforma, con resolución de identificadores opacos (LID) contra la tabla de mapeo y exclusión de mensajes de sistema. Validado sobre datos reales de un equipo comercial: 298 chats con teléfono resuelto, 247 contactos coincidentes con la base (83%), 305 diálogos importados y etiquetados para análisis.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Gestión de Conversaciones',
+    completedDate: '2026-07-19 20:00',
+  },
+  {
+    id: 'ch-templates-wa',
+    title: 'Templates de WhatsApp en Configurações',
+    description: 'Sección para ver el estado de las plantillas de mensaje (aprobadas, pendientes, rechazadas) y solicitarlas a Meta desde la plataforma, sin entrar al Business Manager.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'Integración de Canales',
+    completedDate: '2026-07-17 15:00',
+  },
+  {
+    id: 'ch-archivados-ocultos',
+    title: 'Canales archivados ocultos por defecto',
+    description: 'Un canal "borrado" en RapidPro no se elimina —queda inactivo, porque los mensajes históricos lo referencian— y todos quedaban visibles mezclados con los activos. Con 8 archivados y 1 activo, el que importaba se perdía. Ahora se ocultan tras un chip "N archivado(s) — ver" que los trae cuando hace falta auditar. Incluye el caso de tener todos archivados, donde antes desaparecía el chip junto con la lista.',
+    status: 'done',
+    priority: 'low',
+    product: 'flow360',
+    category: 'Integración de Canales',
+    completedDate: '2026-07-22 11:00',
+  },
+  {
+    id: 'ops-produccion',
+    title: 'Entorno de producción en flow360ai.com.br',
+    description: 'Primera instancia de producción operativa: dominio propio con HTTPS, proxy reverso configurado, y base de datos independiente de QA (verificado — cada VM habla con su propio contenedor Postgres, no se pisan). Accesible desde internet, no sólo desde la red interna. Marca el paso de Flow360 de proyecto en desarrollo a producto en operación.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-07-22 00:45',
+  },
+  {
+    id: 'ops-backups',
+    title: 'Backups automáticos de base de datos',
+    description: 'Respaldo diario programado por cron con retención de 7 días, más respaldo manual previo a cada despliegue. Incluye validación de integridad: aborta y avisa si el volcado sale sospechosamente chico, porque un backup vacío es peor que ninguno — da falsa sensación de estar cubierto. Activo en QA y producción. Pendiente aparte: DynamoDB (histórico crudo de mensajes) necesita su propia estrategia.',
+    status: 'done',
+    priority: 'high',
+    product: 'flow360',
+    category: 'Sudo & Multi-tenancy',
+    completedDate: '2026-07-22 00:35',
+  },
+  {
+    id: 'ops-releases',
+    title: 'Proceso de versiones y releases',
+    description: 'Documentación del flujo desarrollo → QA → producción con versionado semántico, runbook de despliegue paso a paso, estrategia de rollback (código por tags + backup previo para la base) y disciplina de migraciones. Cambio clave: producción se mueve por tags (git checkout v1.0.1), no por rama — así se despliega exactamente lo validado y no "lo último que haya". Doc en rapidpro8/docs/RELEASES.md.',
+    status: 'done',
+    priority: 'medium',
+    product: 'flow360',
+    category: 'architecture',
+    completedDate: '2026-07-22 10:00',
+  },
 
   // ---- 1. Integración de Canales -------------------------------------------
   //
@@ -1276,6 +1466,18 @@ export const sharedModules: SharedModule[] = [
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: '2026-07-22',
+    items: [
+      { product: 'flow360', text: '🚀 Flow360 EN PRODUCCIÓN — v1.0.0 desplegada en flow360ai.com.br, accesible desde internet con HTTPS. El camino no fue directo: la VM clonada tenía la red de Docker rota (DNS interno sin resolver entre contenedores, síntoma típico de clonar una máquina), el postgres seguía en la imagen vieja sin pgvector, elasticsearch se comía 3 de los 8 GB de RAM empujando el sistema a swap (arranques de Django de 2 a 5 minutos), y el .env todavía se identificaba como QA. Se resolvió todo: recreación de la red, imagen pgvector, heap de ES acotado a 1 GB, y config de producción propia. Bases de datos verificadas como independientes — cada VM habla con su propio contenedor Postgres.' },
+      { product: 'flow360', text: '🧠 Bloque IA completo (Fases 79-84) — los agentes quedaron listos para operación real. (1) ANCLAJE: responden sólo con información verificada de la base de conocimiento; si no la tienen, lo admiten y transfieren. (2) RAG sobre pgvector: fuentes indexadas en fragmentos, recuperación por turno, respuesta citando la fuente. (3) BÚSQUEDA HÍBRIDA: se sumó full-text léxico fusionado con el vectorial vía RRF, porque la búsqueda semántica sola no encontraba términos exactos — "Tem carência?" no recuperaba el texto que dice literalmente "Não há carência". (4) SEGURIDAD: el texto del cliente es dato, no orden. (5) INSTRUMENTACIÓN: tokens, costo y latencia por turno. (6) CACHÉ de prompt: costo por turno de US$0.0003 a US$0.0001, latencia de 3.7s a 1.7s.' },
+      { product: 'flow360', text: '⚠️ Hallazgo incómodo que motivó la instrumentación: una prueba del agente que se había dado por buena ("¿tiene carencia?" → "no hay carencia", respuesta correcta) resultó ser el MODELO ADIVINANDO, no recuperando de la base. Sólo se destapó cuando se agregó la línea de diagnóstico que muestra cuántos fragmentos se usaron: decía "sin contexto de la base". El modelo acertó por casualidad. Es el modo de fallo que hace peligrosos a estos sistemas — una respuesta correcta por azar es indistinguible de una fundamentada. Derivó en dos correcciones: contexto vacío explícito (cuando no se recupera nada, se inyecta igual un bloque que dice "NADA tiene relación, no deduzcas") y la búsqueda híbrida.' },
+      { product: 'flow360', text: '💾 Backups automáticos en QA y producción — script con volcado comprimido, rotación a 7 días y validación de integridad (aborta si el dump sale sospechosamente chico, porque un backup vacío da falsa sensación de cobertura). Cron diario a las 3 AM en ambos entornos, más respaldo manual previo a cada despliegue. Era el punto más crítico pendiente: sin esto, cualquier error en producción era irreversible.' },
+      { product: 'flow360', text: '📋 Proceso de releases documentado (docs/RELEASES.md) — flujo desarrollo → QA → producción con versionado semántico, runbook de despliegue, estrategia de rollback y disciplina de migraciones. Cambio de método importante: producción se mueve por TAGS (git checkout v1.0.1), no por rama, para desplegar exactamente lo validado y no "lo último que haya en la rama". Primera aplicación real el mismo día: v1.0.1 con la corrección de canales archivados, siguiendo el runbook completo (backup → tag → checkout → verificación).' },
+      { product: 'flow360', text: '🔧 Deuda de migraciones destapada y parcialmente saldada: temba.knowledge reportaba cambios pendientes en cada arranque por dos causas — nombres de índice escritos a mano que no coincidían con el hash que calcula Django, y falta de AppConfig (heredaba AutoField cuando las tablas son BigAutoField). Ambas corregidas. Queda anotado el mismo tipo de desajuste en marketing, integration_events y conversations, que va como release propio porque altera columnas de tablas con datos.' },
+      { product: 'global', text: '🗂️ Nueva sección Releases en el Product Hub — registro de qué versión llegó a producción, cuándo y qué trae, con filtros por tipo (mayor/funcionalidad/corrección) y producto. Deliberadamente separada del Changelog: éste registra actividad ("¿qué se trabajó?"), aquélla responde "¿qué está corriendo en producción y desde qué versión?". Cuando ambas cosas viven en el mismo lugar, el equipo no puede distinguir lo disponible para el cliente de lo que sigue en QA. La fuente de verdad del contenido vive en el repo (docs/RELEASE-NOTES.md) y el Hub la refleja.' },
+    ],
+  },
+  {
     date: '2026-07-01',
     items: [
       { product: 'global', text: '📚 Nueva sección Playbooks en el Product Hub — arquitectura de conocimiento cross-team para docs técnicos que viven en el repo rapidpro8/docs/ y se indexan en el Hub. Nuevo item Playbooks en el sidebar (icon BookOpen) con vista de grid + filtros por categoría (Onboarding / Ops / Arquitectura / Post-mortem / Referencia) + filtros por producto. Cada card tiene expand de puntos clave, badge de status (draft/stable/deprecated), fecha de última actualización y botón directo al .md renderizado en GitHub. El Hub queda como índice, el content vive en el repo — single source of truth garantizada. Footer con convención para agregar nuevos docs: NN-CATEGORIA-TITULO.md + header estándar + entry en hubData.ts → playbooks[]. Regla de oro documentada: "si te encontraste haciendo o explicando algo por segunda vez, tocaba doc".' },
@@ -1566,6 +1768,68 @@ export const playbooks: PlaybookEntry[] = [
       '13 tipos de mensajes soportados: texto, media (image/video/audio/voice/doc/sticker), location, interactive (buttons/list/CTA), templates, reactions, catalog, WhatsApp Flows',
       'CSW 24h: fuera de esa ventana solo templates aprobados de Meta pueden enviarse',
       'Tabla de 15 error codes de Meta + fixes conocidos + smoke test E2E de 8 pasos para validar cada canal nuevo antes de handoff',
+    ],
+  },
+];
+
+/**
+ * Releases desplegados a producción, del más reciente al más antiguo.
+ *
+ * Al agregar una entrada nueva: va ARRIBA del array, y el contenido tiene que
+ * coincidir con `rapidpro8/docs/RELEASE-NOTES.md`, que es la fuente de verdad
+ * (vive junto al código y se versiona con él).
+ */
+export const releases: Release[] = [
+  {
+    version: 'v1.0.1',
+    date: '2026-07-22',
+    kind: 'patch',
+    product: 'flow360',
+    sections: [
+      {
+        label: 'Correcciones',
+        items: [
+          'Los canales archivados ya no aparecen mezclados con los activos en la pantalla de Canais. Al "borrar" un canal, RapidPro no lo elimina —lo deja inactivo, porque los mensajes históricos lo referencian— y todos quedaban visibles. Con 8 archivados y 1 activo, el que importaba se perdía. Ahora se ocultan por defecto tras un chip "N archivado(s) — ver" para consultarlos cuando haga falta auditar.',
+          'Cubierto el caso de tener todos los canales archivados: antes desaparecía el chip junto con la lista y no quedaba forma de volver a verlos.',
+        ],
+      },
+    ],
+  },
+  {
+    version: 'v1.0.0',
+    date: '2026-07-22',
+    kind: 'major',
+    product: 'flow360',
+    headline: 'Primera versión en producción — MVP en flow360ai.com.br',
+    sections: [
+      {
+        label: 'Atención con IA',
+        items: [
+          'Agentes con anclaje (grounding): responden únicamente con información verificada de la base de conocimiento. Si el dato no está, lo admiten y transfieren a una persona en vez de inventar. Elimina la causa nº1 de incidentes en atención con IA: precios, plazos y coberturas inventados.',
+          'Base de conocimiento con RAG sobre pgvector: se cargan fuentes (políticas, catálogo, FAQ), se indexan, y en cada conversación el agente recupera sólo los fragmentos relevantes y responde citando la fuente. Actualizable al instante, sin reentrenar.',
+          'Búsqueda híbrida (semántica + léxica) fusionada con RRF: encuentra tanto por significado ("¿es caro?") como por término exacto ("Familiar Master", "carência").',
+          'Escalado a humano configurable, con criterios y palabras clave editables desde la UI.',
+          'Guardrails de seguridad: el texto del cliente se trata como dato, no como orden (anti prompt-injection); el agente no revela su prompt ni repite datos personales.',
+          'Medición de consumo: cada respuesta registra tokens, costo en USD y latencia, separado por origen. Habilita responder cuánto cuesta atender y comparar modelos con datos reales.',
+          'Caché de prompt activada: en QA el costo por turno bajó de US$0.0003 a US$0.0001 y la latencia de 3.7s a 1.7s.',
+        ],
+      },
+      {
+        label: 'Plataforma',
+        items: [
+          'CRM, inbox de atención, ruteo de conversaciones, pipeline, etiquetas.',
+          'Canales: WhatsApp Cloud, Telegram, Instagram, Facebook, e-mail y webchat.',
+          'Diálogos guardados y recuperables por contacto, con transcripción congelada y métricas.',
+        ],
+      },
+      {
+        label: 'Operación',
+        items: [
+          'Dominio propio con HTTPS en flow360ai.com.br.',
+          'Base de datos independiente de QA — los entornos no se pisan.',
+          'Backups automáticos diarios con retención de 7 días, más respaldo manual previo a cada despliegue.',
+        ],
+      },
     ],
   },
 ];
