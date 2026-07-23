@@ -1781,6 +1781,37 @@ export const playbooks: PlaybookEntry[] = [
  */
 export const releases: Release[] = [
   {
+    version: 'v1.1.0',
+    date: '2026-07-22',
+    kind: 'minor',
+    product: 'flow360',
+    headline: 'WhatsApp entrante en producción + envío de plantillas',
+    sections: [
+      {
+        label: 'Novedades',
+        items: [
+          'Enviar plantilla aprobada desde la ficha del contacto: el único camino para reactivar a un lead fuera de la ventana de 24 horas de WhatsApp —el caso más común, alguien que llenó un formulario y nunca escribió. Sólo ofrece plantillas ya aprobadas por Meta y valida las variables antes de enviar.',
+          'Registro de envíos: la lista de cada mensaje que salió de la plataforma con su desenlace, y si falló, el motivo traducido a lenguaje claro. Un mensaje que Meta acepta pero no entrega también cuenta como fallido —esa diferencia no se veía desde la conversación. La tasa de entrega delata problemas de un vistazo.',
+          'El motivo de un envío fallido ahora se muestra dentro de la propia conversación, no escondido en un tooltip.',
+          'Nuevo canal de WhatsApp conectado para la operación de FacilittaRB (+55 16 2626-0284).',
+        ],
+      },
+      {
+        label: 'Correcciones',
+        items: [
+          'Crítico: los WhatsApp entrantes nunca llegaban a producción. La configuración de Meta apuntaba al ambiente de pruebas; todo mensaje que un cliente escribía se perdía. Estaba enmascarado porque los leads entran por otra vía y los envíos salientes funcionaban. Corregido: ahora producción recibe los mensajes.',
+          'Integración con Facilitta Master conectada al sistema real: estaba leyendo la base de pruebas de Facilitta (8 registros ficticios) por un arrastre de la copia inicial. Ahora sincroniza las ventas reales —803 registros, 801 vinculados a su contacto— y se mantiene al día solo cada noche.',
+        ],
+      },
+      {
+        label: 'Operación',
+        items: [
+          'Incidente resuelto: el servidor de producción se quedó sin espacio en disco y el sitio se cayó. Recuperado, con limpieza automática y rotación de logs para que no se repita.',
+        ],
+      },
+    ],
+  },
+  {
     version: 'v1.0.1',
     date: '2026-07-22',
     kind: 'patch',
